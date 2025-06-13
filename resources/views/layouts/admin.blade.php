@@ -11,7 +11,7 @@
 </head>
 
 <body class="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans">
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden sidebar-overlay"></div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden sidebar-overlay"></div>
 
     <!-- Sidebar -->
     @include('layouts.components.sidebar')

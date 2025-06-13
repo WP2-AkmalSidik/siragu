@@ -160,3 +160,19 @@
 .star-rating:hover i {
     transform: scale(1.1);
 }
+/* Tambahkan style ini */
+.sidebar-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#sidebar {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
