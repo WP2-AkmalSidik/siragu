@@ -14,3 +14,9 @@ Route::get('/beranda', function () {
 Route::get('/formulir', function () {
     return view('pages.guru.formulir.index');
 });
+Route::get('/penilaian', function () {
+    return view('pages.admin.penilaian.index');
+});
+Route::get('/rapor', function () {
+    return view('pages.admin.rapor.index');
+});

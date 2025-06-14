@@ -176,3 +176,18 @@
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
+
+/* Untuk menghilangkan indikator tambah/kurang (spinner) pada number input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"].appearance-none {
+    appearance: textfield;
+}
