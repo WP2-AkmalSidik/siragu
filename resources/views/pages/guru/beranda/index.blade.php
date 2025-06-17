@@ -1,244 +1,374 @@
 <!doctype html>
 <html>
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  @vite('resources/css/app.css')
-  <script src="https://kit.fontawesome.com/af96158b7b.js" crossorigin="anonymous"></script>
-  <!-- Google Fonts - Instrument Sans -->
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <title>SIRAGU - Dashboard Guru</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @vite('resources/css/app.css')
+    <script src="https://kit.fontawesome.com/af96158b7b.js" crossorigin="anonymous"></script>
+    <title>SIRAGU - Dashboard Guru</title>
 </head>
-<body class="bg-slate-50 dark:bg-gray-900 text-slate-900 dark:text-white font-sans min-h-screen pb-16">
 
-  <!-- App Header -->
-  <div class="bg-bangala text-white py-4 px-4 shadow-md">
-    <div class="flex justify-between items-center">
-      <div class="flex items-center space-x-3">
-        <div class="flex items-center space-x-2">
-          <div>
-            <h1 class="text-lg font-bold">SIRAGU</h1>
-            <p class="text-xs text-goldspel">SDIT Abu Bakar</p>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-center space-x-3">
-        <button class="text-goldspel hover:text-white transition-colors">
-          <i class="fas fa-bell"></i>
-        </button>
-        <div class="w-8 h-8 rounded-full bg-goldspel flex items-center justify-center text-bangala font-bold text-sm">
-          AG
-        </div>
-      </div>
-    </div>
-  </div>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen pb-16 font-sans">
 
-  <!-- Main Content -->
-  <div class="container px-4 pt-4 pb-16 mx-auto">
-    <!-- Welcome Section -->
-    <div class="mb-6">
-      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 border-l-4 border-bangala">
-        <h2 class="text-lg font-semibold text-bangala dark:text-goldspel mb-1">Selamat Datang!</h2>
-        <p class="text-slate-600 dark:text-gray-300 text-sm">Ahmad Gunawan - Guru Kelas 4A</p>
-        <p class="text-xs text-slate-500 dark:text-gray-400 mt-1">Semester Genap 2024/2025</p>
-      </div>
-    </div>
+    <!-- App Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm py-3 px-4 border-b border-gray-100 dark:border-gray-700">
+        <div class="flex justify-between items-center max-w-6xl mx-auto">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-bangala rounded-md flex items-center justify-center text-white font-bold">S</div>
+                <h1 class="font-semibold text-lg">SIRAGU</h1>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button class="text-gray-500 hover:text-bangala">
+                    <i class="far fa-bell"></i>
+                </button>
+                <div
+                    class="w-8 h-8 rounded-full bg-bangala/10 flex items-center justify-center text-bangala font-medium text-sm">
+                    AG
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <!-- Progress Overview -->
-    <div class="mb-6">
-      <h2 class="text-lg font-semibold mb-3 text-bangala dark:text-goldspel">Progress Penilaian</h2>
-      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 mb-4">
-        <div class="grid grid-cols-2 gap-3">
-          <div class="p-3 bg-gradient-to-br from-bangala to-red-800 rounded-lg text-white">
-            <div class="flex items-center justify-between mb-2">
-              <i class="fas fa-tasks text-goldspel"></i>
-              <span class="text-2xl font-bold">80%</span>
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-4">
+        <!-- Teacher Profile Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-xl font-semibold">Halo, Ahmad Gunawan</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Guru Kelas 4A | Semester Genap 2024/2025</p>
             </div>
-            <p class="text-xs opacity-90">Penilaian Selesai</p>
-          </div>
-          <div class="p-3 bg-gradient-to-br from-goldspel to-yellow-600 rounded-lg text-white">
-            <div class="flex items-center justify-between mb-2">
-              <i class="fas fa-clock text-white"></i>
-              <span class="text-2xl font-bold">5</span>
+            <div class="text-right">
+                <div class="text-2xl font-bold text-bangala">80%</div>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Progress Penilaian</p>
             </div>
-            <p class="text-xs opacity-90">Siswa Tertunda</p>
-          </div>
         </div>
-        
-        <!-- Progress Bar -->
-        <div class="mt-4">
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-sm font-medium">Progress Keseluruhan</span>
-            <span class="text-sm text-bangala font-semibold">24/30 Siswa</span>
-          </div>
-          <div class="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-2">
-            <div class="bg-gradient-to-r from-bangala to-goldspel h-2 rounded-full transition-all duration-300" style="width: 80%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Quick Actions -->
-    <div class="mb-6">
-      <h2 class="text-lg font-semibold mb-3 text-bangala dark:text-goldspel">Menu Utama</h2>
-      <div class="grid grid-cols-2 gap-4">
-        <button class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 hover:shadow-md transition-all duration-200 border border-transparent hover:border-bangala">
-          <div class="flex flex-col items-center space-y-2">
-            <div class="w-12 h-12 rounded-full bg-bangala flex items-center justify-center text-white">
-              <i class="fas fa-edit text-lg"></i>
-            </div>
-            <span class="font-medium text-sm text-center">Isi Penilaian</span>
-          </div>
-        </button>
-        
-        <button class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 hover:shadow-md transition-all duration-200 border border-transparent hover:border-goldspel">
-          <div class="flex flex-col items-center space-y-2">
-            <div class="w-12 h-12 rounded-full bg-goldspel flex items-center justify-center text-white">
-              <i class="fas fa-chart-bar text-lg"></i>
-            </div>
-            <span class="font-medium text-sm text-center">Lihat Rapor</span>
-          </div>
-        </button>
-        
-        <button class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 hover:shadow-md transition-all duration-200 border border-transparent hover:border-bangala">
-          <div class="flex flex-col items-center space-y-2">
-            <div class="w-12 h-12 rounded-full bg-bangala flex items-center justify-center text-white">
-              <i class="fas fa-users text-lg"></i>
-            </div>
-            <span class="font-medium text-sm text-center">Data Siswa</span>
-          </div>
-        </button>
-        
-        <button class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 hover:shadow-md transition-all duration-200 border border-transparent hover:border-goldspel">
-          <div class="flex flex-col items-center space-y-2">
-            <div class="w-12 h-12 rounded-full bg-goldspel flex items-center justify-center text-white">
-              <i class="fas fa-calendar-alt text-lg"></i>
-            </div>
-            <span class="font-medium text-sm text-center">Jadwal</span>
-          </div>
-        </button>
-      </div>
-    </div>
+        <!-- Quick Actions Grid -->
+        <div class="grid grid-cols-4 gap-3 mb-6">
+            <!-- Supervisi Kelas -->
+            <a href="/super-visi"
+                class="dashboard-card bg-white dark:bg-gray-800 rounded-lg p-3 text-center shadow-xs border border-gray-100 dark:border-gray-700 hover:border-bangala transition-colors">
+                <div
+                    class="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 mx-auto mb-2">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <span class="text-xs font-medium">Supervisi</span>
+            </a>
 
-    <!-- Reminder Section -->
-    <div class="mb-6">
-      <h2 class="text-lg font-semibold mb-3 text-bangala dark:text-goldspel">Pengingat</h2>
-      <div class="space-y-3">
-        <!-- Urgent Reminder -->
-        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-          <div class="flex items-start space-x-3">
-            <div class="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white flex-shrink-0">
-              <i class="fas fa-exclamation text-sm"></i>
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium text-red-800 dark:text-red-200 text-sm">Deadline Penilaian</h3>
-              <p class="text-red-600 dark:text-red-300 text-xs mt-1">5 siswa belum dinilai - Batas waktu: 15 Juni 2025</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Info Reminder -->
-        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-          <div class="flex items-start space-x-3">
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white flex-shrink-0">
-              <i class="fas fa-info text-sm"></i>
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium text-blue-800 dark:text-blue-200 text-sm">Rapat Koordinasi</h3>
-              <p class="text-blue-600 dark:text-blue-300 text-xs mt-1">Besok, 10 Juni 2025 - Pukul 08:00 WIB</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Recent Activity -->
-    <div class="mb-4">
-      <div class="flex justify-between items-center mb-3">
-        <h2 class="text-lg font-semibold text-bangala dark:text-goldspel">Aktivitas Terbaru</h2>
-        <button class="text-goldspel text-sm font-medium hover:text-bangala transition-colors">
-          Lihat Semua
-        </button>
-      </div>
-      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
-        <!-- Activity 1 -->
-        <div class="p-4 border-b border-slate-100 dark:border-gray-700">
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
-              <i class="fas fa-check"></i>
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium text-sm">Penilaian Ahmad Rizki selesai</h3>
-              <p class="text-xs text-slate-500 dark:text-gray-400">Hari ini, 14:30</p>
-            </div>
-            <div class="text-xs text-green-600 dark:text-green-400 font-medium">
-              Selesai
-            </div>
-          </div>
-        </div>
-        
-        <!-- Activity 2 -->
-        <div class="p-4 border-b border-slate-100 dark:border-gray-700">
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-              <i class="fas fa-edit"></i>
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium text-sm">Penilaian Siti Nurhaliza diperbarui</h3>
-              <p class="text-xs text-slate-500 dark:text-gray-400">Hari ini, 11:15</p>
-            </div>
-            <div class="text-xs text-blue-600 dark:text-blue-400 font-medium">
-              Update
-            </div>
-          </div>
-        </div>
-        
-        <!-- Activity 3 -->
-        <div class="p-4">
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-goldspel flex items-center justify-center text-white">
-              <i class="fas fa-download"></i>
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium text-sm">Rapor semester diunduh</h3>
-              <p class="text-xs text-slate-500 dark:text-gray-400">Kemarin, 16:45</p>
-            </div>
-            <div class="text-xs text-goldspel font-medium">
-              Download
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Floating Action Button -->
-  <div class="fixed bottom-20 right-4">
-    <button class="w-14 h-14 rounded-full bg-gradient-to-r from-bangala to-red-800 text-white shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-105">
-      <i class="fas fa-plus text-xl"></i>
-    </button>
-  </div>
+            <!-- Kesolehan Guru -->
+            <a href="/kesolehan"
+                class="dashboard-card bg-white dark:bg-gray-800 rounded-lg p-3 text-center shadow-xs border border-gray-100 dark:border-gray-700 hover:border-green-500 transition-colors">
+                <div
+                    class="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center text-green-600 dark:text-green-400 mx-auto mb-2">
+                    <i class="fas fa-pray"></i>
+                </div>
+                <span class="text-xs font-medium">Kesolehan</span>
+            </a>
 
-  <!-- Bottom Navigation -->
-  <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-slate-200 dark:border-gray-700 py-2 px-6">
-    <div class="flex justify-around items-center">
-      <a href="#" class="flex flex-col items-center text-bangala">
-        <i class="fas fa-home text-xl"></i>
-        <span class="text-xs mt-1 font-medium">Beranda</span>
-      </a>
-      <a href="/formulir" class="flex flex-col items-center text-slate-400 dark:text-gray-400 hover:text-goldspel transition-colors">
-        <i class="fas fa-edit text-xl"></i>
-        <span class="text-xs mt-1">Penilaian</span>
-      </a>
-      <a href="#" class="flex flex-col items-center text-slate-400 dark:text-gray-400 hover:text-goldspel transition-colors">
-        <i class="fas fa-chart-line text-xl"></i>
-        <span class="text-xs mt-1">Laporan</span>
-      </a>
-      <a href="#" class="flex flex-col items-center text-slate-400 dark:text-gray-400 hover:text-goldspel transition-colors">
-        <i class="fas fa-user text-xl"></i>
-        <span class="text-xs mt-1">Profil</span>
-      </a>
-    </div>
-  </div>
+            <!-- Raport -->
+            <a href="#"
+                class="dashboard-card bg-white dark:bg-gray-800 rounded-lg p-3 text-center shadow-xs border border-gray-100 dark:border-gray-700 hover:border-purple-500 transition-colors">
+                <div
+                    class="w-10 h-10 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-400 mx-auto mb-2">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <span class="text-xs font-medium">Raport</span>
+            </a>
+
+            <!-- Jadwal Mengajar -->
+            <a href="#"
+                class="dashboard-card bg-white dark:bg-gray-800 rounded-lg p-3 text-center shadow-xs border border-gray-100 dark:border-gray-700 hover:border-yellow-500 transition-colors">
+                <div
+                    class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/20 rounded-full flex items-center justify-center text-yellow-600 dark:text-yellow-400 mx-auto mb-2">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <span class="text-xs font-medium">Jadwal</span>
+            </a>
+        </div>
+        <!-- Report Card Preview -->
+        <div
+            class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6 overflow-hidden">
+            <div class="border-b border-gray-100 dark:border-gray-700 px-4 py-3 flex justify-between items-center">
+                <h2 class="font-semibold flex items-center">
+                    <i class="fas fa-file-contract text-bangala mr-2"></i>
+                    Rapot Kinerja Guru
+                </h2>
+                <button
+                    class="text-sm bg-bangala text-white px-3 py-1 rounded-lg hover:bg-bangala/90 transition flex items-center">
+                    <i class="fas fa-file-export mr-2"></i> Unduh
+                </button>
+            </div>
+
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="font-medium">Semester Genap 2023/2024</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Nama Guru: Ahmad Gunawan | Kelas: 4A</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-gray-500 dark:text-gray-400">Tanggal Penilaian:</span>
+                        <p class="text-sm font-medium">28 Mei 2024</p>
+                    </div>
+                </div>
+
+                <!-- Assessment Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-left border-b border-gray-200 dark:border-gray-700">
+                                <th class="pb-2 font-medium">No</th>
+                                <th class="pb-2 font-medium">Aspek Penilaian</th>
+                                <th class="pb-2 font-medium text-center">Nilai</th>
+                                <th class="pb-2 font-medium text-center">Kategori</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                            <!-- 1. Kedisiplinan -->
+                            <tr>
+                                <td class="py-3 font-medium">1</td>
+                                <td class="py-3">Kedisiplinan</td>
+                                <td class="py-3 text-center font-bold">37</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-full text-xs">KURANG</span>
+                                </td>
+                            </tr>
+
+                            <!-- 2. Loyalitas -->
+                            <tr>
+                                <td class="py-3 font-medium">2</td>
+                                <td class="py-3">Loyalitas</td>
+                                <td class="py-3 text-center font-bold">83</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 rounded-full text-xs">BAIK</span>
+                                </td>
+                            </tr>
+
+                            <!-- 3. Supervisi Adm -->
+                            <tr>
+                                <td class="py-3 font-medium">3</td>
+                                <td class="py-3">Supervisi Adm Pendidik/Tenaga Pendidik</td>
+                                <td class="py-3 text-center font-bold">78</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 rounded-full text-xs">CUKUP</span>
+                                </td>
+                            </tr>
+
+                            <!-- 4. Supervisi Kelas -->
+                            <tr>
+                                <td class="py-3 font-medium">4</td>
+                                <td class="py-3">Supervisi Kelas</td>
+                                <td class="py-3 text-center font-bold">10</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-full text-xs">KURANG</span>
+                                </td>
+                            </tr>
+
+                            <!-- 5. Prestasi Kerja -->
+                            <tr>
+                                <td class="py-3 font-medium">5</td>
+                                <td class="py-3">Prestasi Kerja Tugas Tambahan</td>
+                                <td class="py-3 text-center font-bold">-</td>
+                                <td class="py-3 text-center">-</td>
+                            </tr>
+
+                            <!-- 5a. Wali Kelas -->
+                            <tr>
+                                <td class="pl-8 py-2 text-gray-500">a.</td>
+                                <td class="py-2">Wali Kelas/Pendamping</td>
+                                <td class="py-2 text-center">-</td>
+                                <td class="py-2 text-center">-</td>
+                            </tr>
+
+                            <!-- 5b. Pembina Ekstra -->
+                            <tr>
+                                <td class="pl-8 py-2 text-gray-500">b.</td>
+                                <td class="py-2">Pembina Ekstrakurikuler</td>
+                                <td class="py-2 text-center font-bold">78</td>
+                                <td class="py-2 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 rounded-full text-xs">CUKUP</span>
+                                </td>
+                            </tr>
+
+                            <!-- 5c. Wakasek -->
+                            <tr>
+                                <td class="pl-8 py-2 text-gray-500">c.</td>
+                                <td class="py-2">Wakasek/Koordinator</td>
+                                <td class="py-2 text-center">-</td>
+                                <td class="py-2 text-center">-</td>
+                            </tr>
+
+                            <!-- 5d. Guru THQ -->
+                            <tr>
+                                <td class="pl-8 py-2 text-gray-500">d.</td>
+                                <td class="py-2">Guru THQ</td>
+                                <td class="py-2 text-center">-</td>
+                                <td class="py-2 text-center">-</td>
+                            </tr>
+
+                            <!-- 6. Tanggungjawab -->
+                            <tr>
+                                <td class="py-3 font-medium">6</td>
+                                <td class="py-3">Tanggungjawab</td>
+                                <td class="py-3 text-center font-bold">80</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 rounded-full text-xs">CUKUP</span>
+                                </td>
+                            </tr>
+
+                            <!-- 7. Ketaatan -->
+                            <tr>
+                                <td class="py-3 font-medium">7</td>
+                                <td class="py-3">Ketaatan</td>
+                                <td class="py-3 text-center font-bold">70</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 rounded-full text-xs">BAIK</span>
+                                </td>
+                            </tr>
+
+                            <!-- 8. Kerjasama -->
+                            <tr>
+                                <td class="py-3 font-medium">8</td>
+                                <td class="py-3">Kerjasama</td>
+                                <td class="py-3 text-center font-bold">80</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 rounded-full text-xs">CUKUP</span>
+                                </td>
+                            </tr>
+
+                            <!-- 9. Prakarsa -->
+                            <tr>
+                                <td class="py-3 font-medium">9</td>
+                                <td class="py-3">Prakarsa</td>
+                                <td class="py-3 text-center font-bold">80</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 rounded-full text-xs">BAIK</span>
+                                </td>
+                            </tr>
+
+                            <!-- 10. Kesalehan -->
+                            <tr>
+                                <td class="py-3 font-medium">10</td>
+                                <td class="py-3">Kesalehan</td>
+                                <td class="py-3 text-center font-bold">70</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 rounded-full text-xs">BAIK</span>
+                                </td>
+                            </tr>
+
+                            <!-- 11. Tahsin -->
+                            <tr>
+                                <td class="py-3 font-medium">11</td>
+                                <td class="py-3">Tahsin Dan Tahfidz</td>
+                                <td class="py-3 text-center font-bold">77</td>
+                                <td class="py-3 text-center">
+                                    <span
+                                        class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 rounded-full text-xs">CUKUP</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-xl shadow-xs border border-gray-100 dark:border-gray-700 p-4">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <!-- Left Section - Title -->
+                        <div>
+                            <h3 class="font-medium text-gray-800 dark:text-white">Ringkasan Penilaian</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Total nilai seluruh aspek</p>
+                        </div>
+
+                        <!-- Right Section - Metrics -->
+                        <div class="flex divide-x divide-gray-200 dark:divide-gray-700">
+                            <!-- Total Score -->
+                            <div class="px-4 text-center">
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Total</p>
+                                <p class="text-xl font-bold text-bangala dark:text-goldspel">732</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">/1100</p>
+                            </div>
+
+                            <!-- Average -->
+                            <div class="px-4 text-center">
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Rata-rata</p>
+                                <p class="text-xl font-bold text-gray-800 dark:text-white">66.5</p>
+                            </div>
+
+                            <!-- Rating -->
+                            <div class="px-4 text-center">
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Predikat</p>
+                                <p
+                                    class="text-sm font-medium px-2 py-1 bg-bangala/10 dark:bg-goldspel/20 text-bangala dark:text-goldspel rounded-full">
+                                    CUKUP</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Recent Activity -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="border-b border-gray-100 dark:border-gray-700 px-4 py-3">
+                <h2 class="font-semibold flex items-center">
+                    <i class="fas fa-history text-bangala mr-2"></i>
+                    Aktivitas Terkini
+                </h2>
+            </div>
+            <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                <div class="px-4 py-3 flex items-center">
+                    <div
+                        class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center text-green-600 dark:text-green-400 mr-3">
+                        <i class="fas fa-check text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm">Mengisi formulir penilaian kesolehan</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Hari ini, 14:30</p>
+                    </div>
+                </div>
+                <div class="px-4 py-3 flex items-center">
+                    <div
+                        class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-3">
+                        <i class="fas fa-edit text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm">Rapor semester Genap Sudah diisi</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Kemarin, 16:45</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-2">
+        <div class="flex justify-around max-w-2xl mx-auto">
+            <a href="/" class="flex flex-col items-center text-bangala">
+                <i class="fas fa-home"></i>
+                <span class="text-xs mt-1">Beranda</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-bangala">
+                <i class="fas fa-clipboard-list"></i>
+                <span class="text-xs mt-1">Nilai</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-bangala">
+                <i class="fas fa-chart-pie"></i>
+                <span class="text-xs mt-1">Analisis</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-bangala">
+                <i class="fas fa-cog"></i>
+                <span class="text-xs mt-1">Pengaturan</span>
+            </a>
+        </div>
+    </nav>
 </body>
 </html>
