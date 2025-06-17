@@ -191,3 +191,12 @@ input[type="number"] {
 input[type="number"].appearance-none {
     appearance: textfield;
 }
+/*Animasi Card*/
+.dashboard-card {
+    transition: all 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+}
+}
