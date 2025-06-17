@@ -211,4 +211,12 @@ transition: all 0.3s ease;
 .form-item:hover {
     transform: translateY(-1px);
 }
+.radio-option {
+    transition: all 0.2s ease;
+}
+.radio-option:hover {
+    background-color: rgba(79, 70, 229, 0.05);
+}
+.radio-option.dark:hover {
+    background-color: rgba(99, 102, 241, 0.1);
 }
