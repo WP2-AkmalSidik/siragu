@@ -50,6 +50,16 @@
                 class="fas fa-file-alt w-5 {{ request()->is('rapor*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Rapor</span>
         </a>
+        <!-- Menu Template Formulir -->
+        <a href="/form"
+            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('form*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-goldspel/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
+            </div>
+            <i
+                class="fas fa-clipboard-list w-5 {{ request()->is('form*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
+            <span>Template Formulir</span>
+        </a>
 
         <a href="#"
             class="group relative flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel rounded-xl transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm">

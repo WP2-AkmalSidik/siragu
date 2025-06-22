@@ -12,6 +12,12 @@ Route::get('/guru', function () {
 Route::get('/rapor', function () {
     return view('pages.admin.rapor.index');
 });
+Route::get('/penilaian', function () {
+    return view('pages.admin.penilaian.index');
+});
+Route::get('/form', function () {
+    return view('pages.admin.formulir.index');
+});
 
 /* Guru */
 Route::get('/beranda', function () {
@@ -23,6 +29,4 @@ Route::get('/kesolehan', function () {
 Route::get('/super-visi', function () {
     return view('pages.guru.formulir.super-visi');
 });
-Route::get('/penilaian', function () {
-    return view('pages.admin.penilaian.index');
 });
