@@ -356,19 +356,16 @@
                 <i class="fas fa-home"></i>
                 <span class="text-xs mt-1">Beranda</span>
             </a>
-            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-bangala">
-                <i class="fas fa-clipboard-list"></i>
-                <span class="text-xs mt-1">Nilai</span>
+            <a href="/statistik" class="flex flex-col items-center text-gray-400 hover:text-bangala">
+                <i class="fas fa-chart-line text-sm sm:text-base"></i>
+                <span class="text-xs mt-1">Statistik</span>
             </a>
-            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-bangala">
-                <i class="fas fa-chart-pie"></i>
-                <span class="text-xs mt-1">Analisis</span>
-            </a>
-            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-bangala">
-                <i class="fas fa-cog"></i>
-                <span class="text-xs mt-1">Pengaturan</span>
+            <a href="/profile" class="flex flex-col items-center text-gray-400 hover:text-bangala">
+                <i class="fas fa-user"></i>
+                <span class="text-xs mt-1">Profil</span>
             </a>
         </div>
     </nav>
 </body>
+
 </html>
