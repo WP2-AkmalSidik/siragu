@@ -29,4 +29,8 @@ Route::get('/kesolehan', function () {
 Route::get('/super-visi', function () {
     return view('pages.guru.formulir.super-visi');
 });
+/* THQ */
+Route::get('/thq', function () {
+    return view('pages.thq.index');
+});
 });
