@@ -89,10 +89,10 @@
 
             <div class="h-10 w-px bg-gray-300 dark:bg-gray-600 mx-4"></div>
 
-            <a href="/logout"
+            <button onclick="confirmLogout('{{ route('logout') }}','{{ route('login') }}')"
                 class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 transition">
                 <i class="fas fa-sign-out-alt text-base"></i>
-            </a>
+            </button>
 
         </div>
     </div>

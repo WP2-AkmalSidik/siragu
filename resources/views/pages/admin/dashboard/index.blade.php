@@ -170,3 +170,47 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        // Chart.js Configuration
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Rata-rata Nilai',
+                    data: [82, 85, 83, 87, 89, 87.5],
+                    borderColor: '#913013',
+                    backgroundColor: 'rgba(145, 48, 19, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: 'Target',
+                    data: [85, 85, 85, 85, 85, 85],
+                    borderColor: '#c19e5e',
+                    backgroundColor: 'rgba(193, 158, 94, 0.1)',
+                    borderDash: [5, 5],
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 75,
+                        max: 95
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
