@@ -34,3 +34,7 @@ Route::get('/thq', function () {
     return view('pages.thq.index');
 });
 });
+/* Login */
+Route::get('/login', function () {
+    return view('pages.auth.login');
+});
