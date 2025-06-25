@@ -47,3 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/guru', App\Http\Controllers\GuruController::class)->names('guru');
     Route::resource('/pengguna', App\Http\Controllers\PenggunaController::class)->names('pengguna');
 });
+/* Login */
+Route::get('/login', function () {
+    return view('pages.auth.login');
+});
