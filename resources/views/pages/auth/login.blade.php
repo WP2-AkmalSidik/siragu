@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @vite('resources/css/app.css')
     <script src="https://kit.fontawesome.com/af96158b7b.js" crossorigin="anonymous"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SIRAGU - Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4">
@@ -30,7 +33,7 @@
             </div>
 
             <!-- Login Form -->
-            <form class="space-y-6">
+            <form id="form-login" class="space-y-6">
                 <!-- Email Input -->
                 <div class="animate-slide-in">
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -113,6 +116,41 @@
             </p>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+
+            console.log('ready')
+
+            $(document).on('submit', '#form-login', function(e) {
+                e.preventDefault();
+
+                console.log('submit')
+
+                const url = '{{ route('login.store') }}';
+
+                const method = 'POST';
+
+                const data = new FormData(this);
+
+                const successCallback = function(response) {
+                    successToast(response, '{{ route('dashboard.index') }}')
+                    console.log(response)
+                }
+
+                const errorCallback = function(error) {
+                    errorToast(error)
+                    console.log(error)
+                }
+
+                console.log(url, method, data, successCallback, errorCallback)
+
+                ajaxCall(url, method, data, successCallback, errorCallback);
+
+            })
+        })
+    </script>
 </body>
 
 </html>

@@ -18,7 +18,6 @@ Route::get('/penilaian', function () {
 Route::get('/form', function () {
     return view('pages.admin.formulir.index');
 });
-
 /* Guru */
 Route::get('/beranda', function () {
     return view('pages.guru.beranda.index');
@@ -33,8 +32,18 @@ Route::get('/super-visi', function () {
 Route::get('/thq', function () {
     return view('pages.thq.index');
 });
+
+//untuk yang belum login
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
+    Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.store');
 });
-/* Login */
-Route::get('/login', function () {
-    return view('pages.auth.login');
+
+//untuk yang sudah login
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+    Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+
+    Route::resource('/guru', App\Http\Controllers\GuruController::class)->names('guru');
+    Route::resource('/pengguna', App\Http\Controllers\PenggunaController::class)->names('pengguna');
 });
