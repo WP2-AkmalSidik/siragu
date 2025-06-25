@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @vite('resources/css/app.css')
     <script src="https://kit.fontawesome.com/af96158b7b.js" crossorigin="anonymous"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SIRAGU - Login</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.min.css" rel="stylesheet">
@@ -32,7 +33,7 @@
             </div>
 
             <!-- Login Form -->
-            <form class="space-y-6">
+            <form id="form-login" class="space-y-6">
                 <!-- Email Input -->
                 <div class="animate-slide-in">
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -116,6 +117,7 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
 
