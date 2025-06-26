@@ -32,6 +32,9 @@ Route::get('/super-visi', function () {
 Route::get('/profile', function () {
     return view('pages.guru.profil.index');
 });
+Route::get('/wakasek-p1', function () {
+    return view('pages.wakasek.formulir.prestasi1');
+});
 /* THQ */
 Route::get('/thq', function () {
     return view('pages.thq.index');
