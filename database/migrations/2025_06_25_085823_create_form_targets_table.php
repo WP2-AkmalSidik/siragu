@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('form_targets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('jabatan_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

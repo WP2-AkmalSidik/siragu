@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('form_penilaians', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('nilai');
-            $table->enum('semester', ['ganjil', 'genap']);
-            $table->string('tahun_ajaran');
+            $table->foreignId('form_kategori_id')->constrained()->onDelete('cascade')->nullable();
+            $table->foreignId('form_sub_kategori_id')->constrained()->onDelete('cascade')->nullable();
+            $table->string('nama');
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });
