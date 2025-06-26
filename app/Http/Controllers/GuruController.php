@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Traits\JsonResponder;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class GuruController extends Controller
 {
@@ -100,11 +101,11 @@ class GuruController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'nip'    => 'nullable|unique:users,nip,' . $id,
             'nama'   => 'required',
-            'email'  => 'required|email|unique:users,email,' . $id,
-            'no_hp'  => 'nullable|unique:users,no_hp,' . $id,
             'status' => 'required|in:1,0',
+            'nip'    => ['nullable', Rule::unique('users', 'nip')->ignore($id)],
+            'email'  => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
+            'no_hp'  => ['nullable', Rule::unique('users', 'no_hp')->ignore($id)],
         ]);
 
         try {
@@ -127,6 +128,11 @@ class GuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            User::find($id)->delete();
+            return $this->successResponse(null, 'Guru berhasil dihapus.');
+        } catch (\Exception $e) {
+            return $this->errorResponse(null, $e->getMessage());
+        }
     }
 }

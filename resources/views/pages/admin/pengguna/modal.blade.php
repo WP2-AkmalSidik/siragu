@@ -12,15 +12,9 @@
                 <form id="modal-form">
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">NIP</label>
-                            <input type="text" name="nip" placeholder="1234567890" id="nip"
-                                class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
-                            <small class="text-xs text-red-500 dark:text-red-400" id="errornip"></small>
-                        </div>
-                        <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama
-                                Guru</label>
-                            <input type="text" name="nama" placeholder="Nama Guru" id="nama"
+                                Pengguna</label>
+                            <input type="text" name="nama" placeholder="Nama Admin" id="nama"
                                 class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                             <small class="text-xs text-red-500 dark:text-red-400" id="errornama"></small>
                         </div>
@@ -72,9 +66,9 @@
             <div class="px-6 py-4">
 
                 <form id="form-delete"></form>
-                <h3 class="text-xl font-bold mb-2">Hapus Guru</h3>
+                <h3 class="text-xl font-bold mb-2">Hapus Pengguna</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-6">
-                    Apakah Anda yakin ingin menghapus Guru ini?
+                    Apakah Anda yakin ingin menghapus Pengguna ini?
                     Tindakan ini tidak dapat dibatalkan.
                 </p>
             </div>
