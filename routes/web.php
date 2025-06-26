@@ -54,6 +54,12 @@ Route::get('/kepsek-pengisian', function () {
 Route::get('/list-guru', function () {
     return view('pages.kepsek.list-guru.index');
 });
+
+/* Statistik untuk selain admin*/
+Route::get('/statistik', function () {
+    return view('pages.statistik.index');
+});
+
 /* Login */
 Route::get('/login', function () {
     return view('pages.auth.login');
