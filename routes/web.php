@@ -41,6 +41,9 @@ Route::get('/thq', function () {
 Route::get('/kepsek', function () {
     return view('pages.kepsek.beranda.index');
 });
+Route::get('/kepsek-pengisian', function () {
+    return view('pages.kepsek.formulir.index');
+});
 /* Login */
 Route::get('/login', function () {
     return view('pages.auth.login');
