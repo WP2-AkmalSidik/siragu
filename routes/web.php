@@ -35,6 +35,10 @@ Route::get('/profile', function () {
 Route::get('/wakasek-p1', function () {
     return view('pages.wakasek.formulir.prestasi1');
 });
+Route::get('/wakasek-p2', function () {
+    return view('pages.wakasek.formulir.prestasi2');
+});
+
 /* THQ */
 Route::get('/thq', function () {
     return view('pages.thq.index');
