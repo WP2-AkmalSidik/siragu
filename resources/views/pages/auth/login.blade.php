@@ -13,7 +13,7 @@
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-md">
+    <div class="w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-xl">
         <!-- Login Card -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 animate-fade-in-up">
             <!-- Logo & Title -->
