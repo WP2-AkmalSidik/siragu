@@ -28,6 +28,21 @@ Route::get('/kesolehan', function () {
 Route::get('/super-visi', function () {
     return view('pages.guru.formulir.super-visi');
 });
+Route::get('/profile', function () {
+    return view('pages.guru.profil.index');
+});
+
+/* wakasek */
+Route::get('/wakasek', function () {
+    return view('pages.wakasek.beranda.index');
+});
+Route::get('/wakasek-p1', function () {
+    return view('pages.wakasek.formulir.prestasi1');
+});
+Route::get('/wakasek-p2', function () {
+    return view('pages.wakasek.formulir.prestasi2');
+});
+
 /* THQ */
 Route::get('/thq', function () {
     return view('pages.thq.index');
@@ -46,4 +61,20 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/guru', App\Http\Controllers\GuruController::class)->names('guru');
     Route::resource('/pengguna', App\Http\Controllers\PenggunaController::class)->names('pengguna');
+});
+
+/* Kepsek */
+Route::get('/kepsek', function () {
+    return view('pages.kepsek.beranda.index');
+});
+Route::get('/kepsek-pengisian', function () {
+    return view('pages.kepsek.formulir.index');
+});
+Route::get('/list-guru', function () {
+    return view('pages.kepsek.list-guru.index');
+});
+
+/* Statistik untuk selain admin*/
+Route::get('/statistik', function () {
+    return view('pages.statistik.index');
 });
