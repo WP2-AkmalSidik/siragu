@@ -32,6 +32,11 @@ Route::get('/super-visi', function () {
 Route::get('/profile', function () {
     return view('pages.guru.profil.index');
 });
+
+/* wakasek */
+Route::get('/wakasek', function () {
+    return view('pages.wakasek.beranda.index');
+});
 Route::get('/wakasek-p1', function () {
     return view('pages.wakasek.formulir.prestasi1');
 });
