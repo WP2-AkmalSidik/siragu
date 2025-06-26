@@ -51,6 +51,9 @@ Route::get('/kepsek', function () {
 Route::get('/kepsek-pengisian', function () {
     return view('pages.kepsek.formulir.index');
 });
+Route::get('/list-guru', function () {
+    return view('pages.kepsek.list-guru.index');
+});
 /* Login */
 Route::get('/login', function () {
     return view('pages.auth.login');
