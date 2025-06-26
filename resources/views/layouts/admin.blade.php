@@ -8,6 +8,10 @@
     @vite('resources/css/app.css')
     <script src="https://kit.fontawesome.com/af96158b7b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.min.css" rel="stylesheet">
+
 </head>
 
 <body class="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans">
@@ -40,47 +44,6 @@
         sidebarToggle.addEventListener('click', toggleSidebar);
         sidebarOverlay.addEventListener('click', toggleSidebar);
 
-        // Chart.js Configuration
-        const ctx = document.getElementById('performanceChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Rata-rata Nilai',
-                    data: [82, 85, 83, 87, 89, 87.5],
-                    borderColor: '#913013',
-                    backgroundColor: 'rgba(145, 48, 19, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                }, {
-                    label: 'Target',
-                    data: [85, 85, 85, 85, 85, 85],
-                    borderColor: '#c19e5e',
-                    backgroundColor: 'rgba(193, 158, 94, 0.1)',
-                    borderDash: [5, 5],
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        min: 75,
-                        max: 95
-                    }
-                }
-            }
-        });
-
         // Responsive handling
         function handleResize() {
             if (window.innerWidth >= 1024) {
@@ -95,6 +58,14 @@
         window.addEventListener('resize', handleResize);
         handleResize(); // Call on load
     </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+
+        })
+    </script>
+    @stack('scripts')
 </body>
 
 </html>

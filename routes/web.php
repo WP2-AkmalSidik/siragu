@@ -18,7 +18,6 @@ Route::get('/penilaian', function () {
 Route::get('/form', function () {
     return view('pages.admin.formulir.index');
 });
-
 /* Guru */
 Route::get('/beranda', function () {
     return view('pages.guru.beranda.index');
@@ -49,6 +48,21 @@ Route::get('/thq', function () {
     return view('pages.thq.index');
 });
 
+//untuk yang belum login
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
+    Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.store');
+});
+
+//untuk yang sudah login
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+    Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+
+    Route::resource('/guru', App\Http\Controllers\GuruController::class)->names('guru');
+    Route::resource('/pengguna', App\Http\Controllers\PenggunaController::class)->names('pengguna');
+});
+
 /* Kepsek */
 Route::get('/kepsek', function () {
     return view('pages.kepsek.beranda.index');
@@ -63,9 +77,4 @@ Route::get('/list-guru', function () {
 /* Statistik untuk selain admin*/
 Route::get('/statistik', function () {
     return view('pages.statistik.index');
-});
-
-/* Login */
-Route::get('/login', function () {
-    return view('pages.auth.login');
 });

@@ -1,11 +1,11 @@
 @extends('layouts.admin')
-@section('title', 'Guru')
-@section('description', 'List Guru Mengajar')
+@section('title', 'Pengguna')
+@section('description', 'List Pengguna')
 @section('content')
     <!-- Search & Filter -->
     <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md">
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 space-y-4 md:space-y-0">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Guru</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Admin</h3>
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                 <div class="relative">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
@@ -19,11 +19,11 @@
             </div>
         </div>
 
-        <div id="table-guru">
+        <div id="table-pengguna">
 
         </div>
 
-        @include('pages.admin.guru.modal')
+        @include('pages.admin.pengguna.modal')
 
     </div>
 @endsection
@@ -31,21 +31,20 @@
     <script>
         // Fungsi untuk menampilkan modal edit
         function openEditModal(id) {
-            const url = '/guru/' + id + '/edit';
+            const url = '/pengguna/' + id + '/edit';
 
             const successCallback = function(response) {
                 const modal = document.getElementById('modal-data');
                 const data = response.data
                 $('#modal-form').attr('data-id', id);
 
-                $('#nip').val(data.nip);
                 $('#nama').val(data.nama);
                 $('#no_hp').val(data.no_hp);
                 $('#email').val(data.email);
                 $('#status').val(data.status);
 
                 modal.classList.remove('hidden');
-                $('#modal-title').text('Edit Guru');
+                $('#modal-title').text('Edit Pengguna');
                 document.body.style.overflow = 'hidden';
             };
 
@@ -66,12 +65,11 @@
         // Fungsi untuk menampilkan modal edit
         function openModal() {
             // Kosongkan semua input
-            $('#nip').val('');
             $('#nama').val('');
             $('#no_hp').val('');
             $('#email').val('');
 
-            $('#modal-title').text('Tambah Guru');
+            $('#modal-title').text('Tambah Pengguna');
             const modal = document.getElementById('modal-data');
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
@@ -120,10 +118,10 @@
             // Fungsi Load Data
             function loadData(page = 1, query = '') {
                 $.ajax({
-                    url: `/guru?page=${page}&search=${encodeURIComponent(query)}`,
+                    url: `/pengguna?page=${page}&search=${encodeURIComponent(query)}`,
                     type: 'GET',
                     success: function(res) {
-                        $('#table-guru').html(res.data.view);
+                        $('#table-pengguna').html(res.data.view);
                         $('#paginationLinks').html(res.data.pagination);
                         // update state
                         currentPage = page;
@@ -167,12 +165,12 @@
                 e.preventDefault();
 
                 const id = $(this).data('id');
-                let url = '{{ route('guru.store') }}';
+                let url = '{{ route('pengguna.store') }}';
                 const method = 'POST';
                 const formData = new FormData(this);
 
                 if (id) {
-                    url = `/guru/${id}`; // Ganti URL untuk update
+                    url = `/pengguna/${id}`; // Ganti URL untuk update
                     formData.append('_method', 'PUT'); // Spoofing method PUT
                 }
 
@@ -186,7 +184,7 @@
                 const errorCallback = function(error) {
                     console.log(error);
                     $('#modal-form').removeAttr('data-id');
-                    handleValidationErrors(error, "modal-form", ["nip", "nama", "email", "no_hp"]);
+                    handleValidationErrors(error, "modal-form", ["nama", "email", "no_hp"]);
                 };
 
                 ajaxCall(url, method, formData, successCallback, errorCallback);
@@ -197,7 +195,7 @@
 
                 const id = $(this).attr('data-id');
 
-                const url = `/guru/${id}`;
+                const url = `/pengguna/${id}`;
                 const method = 'DELETE'
 
                 const successCallback = function(response) {
