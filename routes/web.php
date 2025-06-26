@@ -36,6 +36,10 @@ Route::get('/profile', function () {
 Route::get('/thq', function () {
     return view('pages.thq.index');
 });
+
+/* Kepsek */
+Route::get('/kepsek', function () {
+    return view('pages.kepsek.beranda.index');
 });
 /* Login */
 Route::get('/login', function () {
