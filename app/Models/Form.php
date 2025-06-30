@@ -3,6 +3,7 @@ namespace App\Models;
 
 use App\Models\FormTarget;
 use App\Models\FormKategori;
+use App\Models\FormPenilaian;
 use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
@@ -20,5 +21,9 @@ class Form extends Model
     public function target()
     {
         return $this->hasOne(FormTarget::class);
+    }
+    public function penilaian()
+    {
+        return $this->hasMany(FormPenilaian::class);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('title', 'Guru')
-@section('description', 'List Guru Mengajar')
+@section('title', 'Tipe Penilaian')
+@section('description', 'Tipe Penilaian')
 @push('styles')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
@@ -8,25 +8,22 @@
     <!-- Search & Filter -->
     <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md">
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 space-y-4 md:space-y-0">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Jabatan</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Tipe Penilaian</h3>
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                 <div class="relative">
-                    {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" placeholder="Cari nama guru..." id="search"
-                        class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-bangala"> --}}
                 </div>
-                <button id="button-tambah-jabatan"
+                <button id="button-tambah-tipe-penilaian" onclick="openModal('modal-data')"
                     class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                     Tambah
                 </button>
             </div>
         </div>
 
-        <div id="table-jabatan">
+        <div id="table-tipe-penilaian">
 
         </div>
 
-        @include('pages.admin.guru.jabatan.modal')
+        @include('pages.admin.tipe-penilaian.modal')
 
     </div>
 
@@ -62,7 +59,7 @@
 
         // Fungsi untuk menampilkan modal edit
         function openEditModal(id) {
-            const url = '/guru/' + id + '/edit';
+            const url = '/tipe-penilaian/' + id;
 
             const successCallback = function(response) {
                 const modal = document.getElementById('modal-data');
@@ -103,17 +100,14 @@
         // Fungsi untuk menampilkan modal edit
         function openModal(modalId) {
             // Kosongkan semua input
-            $('#nip').val('');
             $('#nama').val('');
-            $('#no_hp').val('');
-            $('#email').val('');
+            $('#tipe_input').val('');
 
-            $('#modal-title').text('Tambah Guru');
+            $('#modal-title').text('Tambah Tipe Penilaian');
             const modal = document.getElementById(modalId);
             modalOpened = modalId;
             modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            loadSelectOptions('#jabatan_id', '{{ route('jabatan.index') }}', null, true);
+            // document.body.style.overflow = 'hidden';
 
         }
 
@@ -179,12 +173,12 @@
                 });
             }
 
-            function loadDataJabatan() {
+            function loadDataTipePenilaian() {
                 $.ajax({
-                    url: `/jabatan`,
+                    url: `/tipe-penilaian`,
                     type: 'GET',
                     success: function(res) {
-                        $('#table-jabatan').html(res.data.view);
+                        $('#table-tipe-penilaian').html(res.data.view);
                     },
                     error: function() {
                         errorToast('Gagal memuat data.');
@@ -230,12 +224,12 @@
                 e.preventDefault();
 
                 const id = $(this).data('id');
-                let url = '{{ route('guru.store') }}';
+                let url = '{{ route('tipe-penilaian.store') }}';
                 const method = 'POST';
                 const formData = new FormData(this);
 
                 if (id) {
-                    url = `/guru/${id}`; // Ganti URL untuk update
+                    url = `/tipe-penilaian/${id}`; // Ganti URL untuk update
                     formData.append('_method', 'PUT'); // Spoofing method PUT
                 }
 
@@ -244,12 +238,13 @@
                     closeModal('modal-data');
                     $('#modal-form').removeAttr('data-id');
                     loadData(currentPage, currentQuery);
+                    loadDataTipePenilaian();
                 };
 
                 const errorCallback = function(error) {
                     console.log(error);
                     $('#modal-form').removeAttr('data-id');
-                    handleValidationErrors(error, "modal-form", ["nip", "nama", "email", "no_hp"]);
+                    handleValidationErrors(error, "modal-form", ["nama", "tipe_input"]);
                 };
 
                 ajaxCall(url, method, formData, successCallback, errorCallback);
@@ -268,6 +263,7 @@
                     closeModalDelete();
                     $('#form-delete').removeAttr('data-id');
                     loadData(currentPage, currentQuery);
+                    loadDataTipePenilaian();
                 };
 
                 const errorCallback = function(error) {
@@ -279,7 +275,7 @@
                 ajaxCall(url, method, null, successCallback, errorCallback);
             })
 
-            loadDataJabatan();
+            loadDataTipePenilaian();
             loadData(currentPage, currentQuery);
         });
     </script>

@@ -61,6 +61,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/guru', App\Http\Controllers\GuruController::class)->names('guru');
     Route::resource('/pengguna', App\Http\Controllers\PenggunaController::class)->names('pengguna');
+    Route::resource('/formulir', App\Http\Controllers\FormController::class)->names('formulir');
+    Route::resource('/jabatan', App\Http\Controllers\JabatanController::class)->names('jabatan');
+
+    Route::resource('/tipe-penilaian', App\Http\Controllers\PenilaianTipeController::class)->names('tipe-penilaian');
 });
 
 /* Kepsek */

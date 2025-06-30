@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\JabatanUser;
 use App\Models\User;
 use App\Traits\JsonResponder;
 use Illuminate\Http\Request;
@@ -15,14 +16,14 @@ class GuruController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax() && $request->mode == 'select') {
-            $data = User::where('role', 'guru')->get();
+            $data = User::with('jabatans.jabatan')->where('role', 'guru')->get();
             return $this->successResponse(
                 $data,
                 'Data berhasil ditemukan',
             );
         } else if ($request->ajax()) {
             $perPages = 5;
-            $query    = User::where('role', 'guru');
+            $query    = User::with('jabatans.jabatan')->where('role', 'guru');
 
             if ($request->has('search') && $request->search != '') {
                 $query->where('nama', 'like', '%' . $request->search . '%');
@@ -50,15 +51,17 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nip'    => 'nullable|unique:users,nip',
-            'nama'   => 'required',
-            'email'  => 'required|email|unique:users,email',
-            'no_hp'  => 'nullable|unique:users,no_hp',
-            'status' => 'required|in:1,0',
+            'nip'          => 'nullable|unique:users,nip',
+            'nama'         => 'required',
+            'email'        => 'required|email|unique:users,email',
+            'no_hp'        => 'nullable|unique:users,no_hp',
+            'status'       => 'required|in:1,0',
+            'jabatan_id'   => 'nullable|array|min:1',
+            'jabatan_id.*' => 'nullable',
         ]);
 
         try {
-            User::create([
+            $user = User::create([
                 'nip'      => $validated['nip'],
                 'nama'     => $validated['nama'],
                 'email'    => $validated['email'],
@@ -67,6 +70,16 @@ class GuruController extends Controller
                 'password' => bcrypt('password'),
                 'status'   => $validated['status'],
             ]);
+
+            foreach ($validated['jabatan_id'] as $jabatan_id) {
+                $jabatanExist = JabatanUser::where('jabatan_id', $jabatan_id)->where('user_id', $user->id)->exists();
+                if (! $jabatanExist) {
+                    JabatanUser::create([
+                        'jabatan_id' => $jabatan_id,
+                        'user_id'    => $user->id,
+                    ]);
+                }
+            }
 
             return $this->successResponse(null, 'Guru berhasil ditambahkan.');
         } catch (\Exception $e) {

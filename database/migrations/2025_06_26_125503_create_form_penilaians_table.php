@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('form_id')->constrained()->onDelete('cascade');
             $table->foreignId('form_kategori_id')->constrained()->onDelete('cascade')->nullable();
             $table->foreignId('form_sub_kategori_id')->constrained()->onDelete('cascade')->nullable();
+            $table->foreignId('penilaian_tipe_id')->constrained()->onDelete('cascade');
             $table->string('nama');
             $table->string('keterangan')->nullable();
             $table->timestamps();

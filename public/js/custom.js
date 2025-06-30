@@ -171,45 +171,103 @@ function confirmLogout (url, redirect = null) {
     })
 }
 
-const loadSelectOptions = (selector, url, selectedValue = null) => {
+/**
+ * Loads options into a select element from a remote URL
+ * @param {string} selector - jQuery selector for the select element
+ * @param {string} url - API endpoint URL
+ * @param {string|array|null} selectedValue - Value(s) to be selected (supports single or multiple select)
+ * @param {string} placeholder - Placeholder text for empty option
+ */
+const loadSelectOptions = (
+    selector,
+    url,
+    selectedValue = null,
+    multiple = false,
+    placeholder = '-- Pilih Data --'
+) => {
     const selectElem = $(selector)
 
-    // Kosongkan dulu opsi yang ada
-    selectElem.empty()
+    if (!selectElem.length) {
+        console.error(`Element not found with selector: ${selector}`)
+        return
+    }
 
-    // Tambah opsi kosong dulu
-    const emptyOption = $('<option></option>')
-        .attr('value', '')
-        .text('-- Pilih Data --')
-    selectElem.append(emptyOption)
+    // Clear existing options and disable select while loading
+    selectElem.empty().prop('disabled', true)
+
+    // Add empty option first
+    selectElem.append($('<option></option>').val('').text(placeholder))
 
     const successCallback = function (response) {
-        console.log(response)
-        const responseList = response.data
-        responseList.forEach(row => {
-            const option = $('<option></option>')
-                .attr('value', row.id)
-                .text(
-                    row.cost
-                        ? `${row.cost} - ${row.service} - ${row.etd}`
-                        : row.label ?? row.nama ?? row.judul ?? row.name
-                )
-            selectElem.append(option)
-        })
+        try {
+            if (!response || !response.data) {
+                throw new Error('Invalid response format')
+            }
 
-        // Set pilihan default kalau ada
-        if (selectedValue !== null) {
-            selectElem.val(selectedValue)
+            const responseList = response.data
+
+            if (!Array.isArray(responseList)) {
+                throw new Error('Expected array in response.data')
+            }
+
+            responseList.forEach(row => {
+                if (!row.id) {
+                    console.warn('Missing id in row:', row)
+                    return
+                }
+
+                const displayText =
+                    row.nama || row.jabatan || row.text || row.name || ''
+                selectElem.append(
+                    $('<option></option>').val(row.id).text(displayText)
+                )
+            })
+
+            // Set selected value(s) if provided
+            if (selectedValue !== null) {
+                if (selectElem.attr('multiple')) {
+                    // Handle multiple select
+                    selectElem.val(
+                        Array.isArray(selectedValue)
+                            ? selectedValue
+                            : [selectedValue]
+                    )
+                } else {
+                    // Handle single select
+                    selectElem.val(selectedValue)
+                }
+            }
+
+            if (multiple == true) {
+                console.log('multiple true')
+                selectElem.prop('multiple', true)
+            }
+
+            selectElem.select2({
+                placeholder: 'Pilih Data',
+                allowClear: true, // Memungkinkan menghapus semua pilihan
+                width: '100%' // Sesuaikan lebar
+            })
+        } catch (error) {
+            console.error('Error processing response:', error)
+            // Optionally show error to user
+            selectElem.append(
+                $('<option></option>').val('').text('Error loading options')
+            )
+        } finally {
+            selectElem.prop('disabled', false)
         }
     }
 
     const errorCallback = function (error) {
-        console.error(error)
+        console.error('API request failed:', error)
+        selectElem
+            .append(
+                $('<option></option>').val('').text('Failed to load options')
+            )
+            .prop('disabled', false)
     }
 
-    const data = {
-        mode: 'select'
-    }
-
-    ajaxCall(url, 'GET', data, successCallback, errorCallback)
+    // Make AJAX request
+    ajaxCall(url, 'GET', { mode: 'select' }, successCallback, errorCallback)
 }

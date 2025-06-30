@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use App\Models\FormPenilaian;
 use Illuminate\Database\Eloquent\Model;
 
 class FormKategori extends Model
@@ -14,5 +15,10 @@ class FormKategori extends Model
     public function subKategori()
     {
         return $this->hasMany(FormSubKategori::class);
+    }
+
+    public function penilaian()
+    {
+        return $this->hasMany(FormPenilaian::class);
     }
 }
