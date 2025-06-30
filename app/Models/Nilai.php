@@ -3,16 +3,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Jabatan extends Model
+class Nilai extends Model
 {
     protected $guarded = ['id'];
 
     public function pengisi()
     {
-        return $this->hasMany(FormPengisi::class);
+        return $this->belongsTo(User::class, 'pengisi');
     }
+
     public function target()
     {
-        return $this->hasMany(FormTarget::class);
+        return $this->belongsTo(User::class, 'target');
     }
 }

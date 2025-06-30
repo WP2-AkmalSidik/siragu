@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('nilais', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('form_penilaian_id')->constrained()->onDelete('cascade');
+            $table->foreignId('pengisi')->constrained('users')->onDelete('cascade');
+            $table->foreignId('target')->constrained('users')->onDelete('cascade');
+            $table->string('nilai');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('nilais');
     }
 };

@@ -31,7 +31,12 @@
                             </td>
                             <td class="py-4 px-4 text-gray-500 dark:text-gray-300">{{ $guru->email }}</td>
                             <td class="py-4 px-4 text-gray-500 dark:text-gray-300">{{ $guru->no_hp }}</td>
-                            <td class="py-4 px-4">Jabatan</td>
+                            <td class="py-4 px-4">
+                                @foreach ($guru->jabatans as $jabatan)
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded-full text-sm">{{ toTitleCase($jabatan->jabatan->jabatan) }}</span>
+                                @endforeach
+                            </td>
                             <td class="py-4 px-4">
                                 <span
                                     class="px-3 py-1 bg-{{ $guru->status == '1' ? 'green' : 'red' }}-100 text-{{ $guru->status == '1' ? 'green' : 'red' }}-800 dark:bg-{{ $guru->status == '1' ? 'green' : 'red' }}-900 dark:text-{{ $guru->status == '1' ? 'green' : 'red' }}-200 rounded-full text-sm">{{ $guru->status == '1' ? 'Aktif' : 'Tidak Aktif' }}</span>

@@ -2,8 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
-use Illuminate\Http\Request;
 use App\Traits\JsonResponder;
+use Illuminate\Http\Request;
 
 class JabatanController extends Controller
 {
@@ -20,27 +20,17 @@ class JabatanController extends Controller
                 'Data berhasil ditemukan',
             );
         } else if ($request->ajax()) {
-            $perPages = 5;
-            $query    = Jabatan::where('role', 'guru');
 
-            if ($request->has('search') && $request->search != '') {
-                $query->where('nama', 'like', '%' . $request->search . '%');
-            }
-
-            if ($request->filled('perPage') && $request->perPage != '') {
-                $perPages = $request->perPage;
-            }
-
-            $gurus = $query->orderBy('created_at')->paginate($perPages);
+            $jabatans = Jabatan::all();
 
             $data = [
-                'view'       => view('pages.admin.guru.table', compact('gurus'))->render(),
-                'pagination' => (string) $gurus->links('vendor.pagination.tailwind'),
+                'view' => view('pages.admin.guru.jabatan.table', compact('jabatans'))->render(),
             ];
 
             return $this->successResponse($data, 'Data berhasil ditemukan.');
         }
-        return view('pages.admin.guru.index');
+
+        return redirect()->back();
     }
 
     /**

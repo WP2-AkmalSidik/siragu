@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form_targets', function (Blueprint $table) {
+        Schema::create('penilaian_opsis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_id')->constrained()->onDelete('cascade');
-            $table->foreignId('jabatan_id')->constrained()->onDelete('cascade');
+            $table->foreignId('penilaian_tipe_id')->constrained()->cascadeOnDelete();
+            $table->string('label'); // e.g. "Sangat Sering"
+            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_targets');
+        Schema::dropIfExists('penilaian_opsis');
     }
 };

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form_targets', function (Blueprint $table) {
+        Schema::create('penilaian_tipes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_id')->constrained()->onDelete('cascade');
-            $table->foreignId('jabatan_id')->constrained()->onDelete('cascade');
+            $table->string('nama'); // e.g. "Skala Sering", "Ya/Tidak", "Angka Bebas", "Teks Bebas"
+            $table->string('tipe_input');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_targets');
+        Schema::dropIfExists('penilaian_tipes');
     }
 };

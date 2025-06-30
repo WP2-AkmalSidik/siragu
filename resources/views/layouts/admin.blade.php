@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.min.css" rel="stylesheet">
 
+    @stack('styles')
 </head>
 
 <body class="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans">

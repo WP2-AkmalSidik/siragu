@@ -6,13 +6,13 @@
     <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md mb-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 space-y-4 md:space-y-0">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Formulir Penilaian Guru</h3>
-            <button onclick="openCreateFormModal()" 
+            <button onclick="openCreateFormModal()"
                 class="bg-bangala hover:bg-bangala/90 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition">
                 <i class="fas fa-plus"></i>
                 <span>Tambah Formulir</span>
             </button>
         </div>
-        
+
         <!-- Search & Filter -->
         <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
             <div class="relative">
@@ -20,7 +20,8 @@
                 <input type="text" placeholder="Cari formulir..."
                     class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-bangala">
             </div>
-            <select class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
+            <select
+                class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                 <option>Semua Status</option>
                 <option>Aktif</option>
                 <option>Draft</option>
@@ -39,19 +40,22 @@
                     <p class="text-sm text-gray-500 dark:text-gray-400">Dibuat: 15 Januari 2025 • Status: Aktif</p>
                 </div>
                 <div class="flex space-x-2">
-                    <button onclick="viewForm(1)" class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg">
+                    <button onclick="viewForm(1)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg">
                         <i class="fas fa-eye"></i>
                     </button>
-                    <button onclick="editForm(1)" class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900 rounded-lg">
+                    <button onclick="editForm(1)"
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900 rounded-lg">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button onclick="deleteForm(1)" class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg">
+                    <button onclick="deleteForm(1)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
             </div>
-            
-            <!-- Categories Preview -->
+
+            <!-- kategori Preview -->
             <div class="space-y-3">
                 <div class="border-l-4 border-bangala pl-4">
                     <h5 class="font-medium text-gray-800 dark:text-gray-200">Kategori Perencanaan Pembelajaran</h5>
@@ -72,19 +76,22 @@
                     <p class="text-sm text-gray-500 dark:text-gray-400">Dibuat: 10 Januari 2025 • Status: Draft</p>
                 </div>
                 <div class="flex space-x-2">
-                    <button onclick="viewForm(2)" class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg">
+                    <button onclick="viewForm(2)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg">
                         <i class="fas fa-eye"></i>
                     </button>
-                    <button onclick="editForm(2)" class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900 rounded-lg">
+                    <button onclick="editForm(2)"
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900 rounded-lg">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button onclick="deleteForm(2)" class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg">
+                    <button onclick="deleteForm(2)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
             </div>
-            
-            <!-- Categories Preview -->
+
+            <!-- kategori Preview -->
             <div class="space-y-3">
                 <div class="border-l-4 border-bangala pl-4">
                     <h5 class="font-medium text-gray-800 dark:text-gray-200">Kategori Komunikasi</h5>
@@ -94,126 +101,14 @@
         </div>
     </div>
 
-    <!-- Modal Create/Edit Form -->
-    <div id="formModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeFormModal()"></div>
-        <div class="relative z-10 bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform transition-all">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">Buat Formulir Penilaian</h3>
-                    <button onclick="closeFormModal()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="px-6 py-4">
-                <form id="formData">
-                    <!-- Form Basic Info -->
-                    <div class="form-section bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-6">
-                        <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-4">Informasi Dasar</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Formulir</label>
-                                <input type="text" id="formName" 
-                                    class="w-full px-4 py-2 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
-                                <select id="formStatus" class="w-full px-4 py-2 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600">
-                                    <option value="draft">Draft</option>
-                                    <option value="active">Aktif</option>
-                                    <option value="archived">Arsip</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Deskripsi</label>
-                            <textarea id="formDescription" rows="3"
-                                class="w-full px-4 py-2 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600"></textarea>
-                        </div>
-                    </div>
+    @include('pages.admin.formulir.modal')
 
-                    <!-- Form Categories -->
-                    <div class="form-section bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h4 class="font-semibold text-gray-800 dark:text-gray-200">Kategori Penilaian</h4>
-                            <button type="button" onclick="addCategory()" 
-                                class="bg-bangala hover:bg-bangala/90 text-white px-3 py-1 rounded-lg text-sm flex items-center space-x-1">
-                                <i class="fas fa-plus text-xs"></i>
-                                <span>Tambah Kategori</span>
-                            </button>
-                        </div>
-                        
-                        <div id="categoriesContainer" class="space-y-4">
-                            <!-- Categories will be added here dynamically -->
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-3 sticky bottom-0 bg-white dark:bg-gray-800">
-                <button type="button" onclick="closeFormModal()"
-                    class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-                    Batal
-                </button>
-                <button type="button" onclick="saveForm()"
-                    class="px-4 py-2 bg-bangala text-white rounded-lg hover:bg-bangala/90 transition">
-                    Simpan Formulir
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal View Form -->
-    <div id="viewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeViewModal()"></div>
-        <div class="relative z-10 bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform transition-all">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">Detail Formulir Penilaian</h3>
-                    <button onclick="closeViewModal()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div id="viewContent" class="px-6 py-4">
-                <!-- Content will be loaded here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeDeleteModal()"></div>
-        <div class="relative z-10 bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md transform transition-all">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Konfirmasi Hapus</h3>
-            </div>
-            
-            <div class="px-6 py-4">
-                <p class="text-gray-700 dark:text-gray-300">Apakah Anda yakin ingin menghapus formulir ini?</p>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Data yang dihapus tidak dapat dikembalikan.</p>
-            </div>
-            
-            <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-3">
-                <button type="button" onclick="closeDeleteModal()"
-                    class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-                    Batal
-                </button>
-                <button type="button" onclick="confirmDelete()"
-                    class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
-                    Hapus
-                </button>
-            </div>
-        </div>
-    </div>
-
+@endsection
+@push('scripts')
     <script>
-        let categoryCounter = 0;
-        let indicatorCounter = 0;
-        let subIndicatorCounter = 0;
+        let kategoriCounter = 0;
+        let subKategoriCounter = 0;
+        let penilaianCounter = 0;
         let currentFormId = null;
         let isEditMode = false;
 
@@ -234,60 +129,66 @@
             isEditMode = true;
             currentFormId = formId;
             document.querySelector('#formModal h3').textContent = 'Edit Formulir Penilaian';
-            
+
             // Load form data (example - replace with actual data fetching)
             const sampleData = {
                 1: {
-                    name: 'Penilaian Kinerja Guru Semester 1',
+                    nama: 'Penilaian Kinerja Guru Semester 1',
                     status: 'active',
-                    description: 'Formulir penilaian kinerja guru untuk semester 1 tahun ajaran 2024/2025',
-                    categories: [
-                        {
-                            name: 'Perencanaan Pembelajaran',
-                            description: 'Penilaian terhadap kemampuan guru dalam merencanakan pembelajaran',
-                            indicators: [
+                    deskripsi: 'Formulir penilaian kinerja guru untuk semester 1 tahun ajaran 2024/2025',
+                    kategori: [{
+                        nama: 'Perencanaan Pembelajaran',
+                        deskripsi: 'Penilaian terhadap kemampuan guru dalam merencanakan pembelajaran',
+                        sub_kategori: [{
+                            nama: 'Kelengkapan RPP',
+                            deskripsi: 'Kelengkapan Rencana Pelaksanaan Pembelajaran',
+                            penilaian: [{
+                                    nama: 'RPP sesuai dengan kurikulum',
+                                    type: 'boolean'
+                                },
                                 {
-                                    name: 'Kelengkapan RPP',
-                                    description: 'Kelengkapan Rencana Pelaksanaan Pembelajaran',
-                                    sub_indicators: [
-                                        { name: 'RPP sesuai dengan kurikulum', type: 'boolean' },
-                                        { name: 'Kelengkapan komponen RPP', type: 'score' }
-                                    ]
+                                    nama: 'Kelengkapan komponen RPP',
+                                    type: 'score'
                                 }
                             ]
-                        }
-                    ]
+                        }]
+                    }]
                 }
             };
-            
+
             const formData = sampleData[formId];
             if (formData) {
                 document.getElementById('formName').value = formData.name;
                 document.getElementById('formStatus').value = formData.status;
-                document.getElementById('formDescription').value = formData.description;
-                
-                formData.categories.forEach(category => {
+                document.getElementById('formDescription').value = formData.deskripsi;
+
+                formData.kategori.forEach(kategori => {
                     addCategory();
-                    const lastCategory = document.querySelector(`[data-category-id="${categoryCounter}"]`);
-                    
-                    lastCategory.querySelector('input[name^="categories"]').value = category.name;
-                    lastCategory.querySelector('textarea[name^="categories"]').value = category.description;
-                    
-                    category.indicators.forEach(indicator => {
-                        addIndicator(categoryCounter);
-                        const lastIndicator = document.querySelector(`[data-indicator-id="${indicatorCounter}"]`);
-                        
-                        lastIndicator.querySelector('input[name^="categories"]').value = indicator.name;
-                        lastIndicator.querySelector('textarea[name^="categories"]').value = indicator.description || '';
-                        
-                        indicator.sub_indicators.forEach(subIndicator => {
-                            addSubIndicator(categoryCounter, indicatorCounter);
-                            const lastSubIndicator = document.querySelector(`[data-sub-indicator-id="${subIndicatorCounter}"]`);
-                            
-                            lastSubIndicator.querySelector('input[name^="categories"]').value = subIndicator.name;
-                            const typeSelect = lastSubIndicator.querySelector('select[name^="categories"]');
-                            typeSelect.value = subIndicator.type;
-                            updateInputType(typeSelect, subIndicatorCounter);
+                    const lastCategory = document.querySelector(`[data-kategori-id="${kategoriCounter}"]`);
+
+                    lastCategory.querySelector('input[name^="kategori"]').value = kategori.name;
+                    lastCategory.querySelector('textarea[name^="kategori"]').value = kategori.deskripsi;
+
+                    kategori.sub_kategori.forEach(sub_kategori => {
+                        addSubKategori(kategoriCounter);
+                        const lastIndicator = document.querySelector(
+                            `[data-sub-kategori-id="${subKategoriCounter}"]`);
+
+                        lastIndicator.querySelector('input[name^="kategori"]').value = sub_kategori.name;
+                        lastIndicator.querySelector('textarea[name^="kategori"]').value = sub_kategori
+                            .deskripsi || '';
+
+                        sub_kategori.penilaian.forEach(penilaian => {
+                            addPenilaian(kategoriCounter, subKategoriCounter);
+                            const lastSubIndicator = document.querySelector(
+                                `[data-penilaian-id="${penilaianCounter}"]`);
+
+                            lastSubIndicator.querySelector('input[name^="kategori"]').value =
+                                penilaian.name;
+                            const typeSelect = lastSubIndicator.querySelector(
+                                'select[name^="kategori"]');
+                            typeSelect.value = penilaian.type;
+                            updateInputType(typeSelect, penilaianCounter);
                         });
                     });
                 });
@@ -312,138 +213,138 @@
         // Form Functions
         function resetForm() {
             document.getElementById('formData').reset();
-            document.getElementById('categoriesContainer').innerHTML = '';
-            categoryCounter = 0;
-            indicatorCounter = 0;
-            subIndicatorCounter = 0;
+            document.getElementById('kategoriContainer').innerHTML = '';
+            kategoriCounter = 0;
+            subKategoriCounter = 0;
+            penilaianCounter = 0;
         }
 
         function addCategory() {
-            const container = document.getElementById('categoriesContainer');
-            const categoryId = ++categoryCounter;
-            
+            const container = document.getElementById('kategoriContainer');
+            const kategoriId = ++kategoriCounter;
+
             const categoryHtml = `
-                <div class="category-item border border-gray-200 dark:border-gray-600 rounded-xl p-4" data-category-id="${categoryId}">
+                <div class="kategori-item border border-gray-200 dark:border-gray-600 rounded-xl p-4" data-kategori-id="${kategoriId}">
                     <div class="flex justify-between items-start mb-3">
                         <div class="flex-1">
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Kategori</label>
-                            <input type="text" name="categories[${categoryId}][name]" 
+                            <input type="text" name="kategori[${kategoriId}][nama]"
                                 class="w-full px-3 py-2 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600">
                         </div>
-                        <button type="button" onclick="removeCategory(${categoryId})" 
+                        <button type="button" onclick="removeCategory(${kategoriId})"
                             class="ml-3 p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg">
                             <i class="fas fa-trash text-sm"></i>
                         </button>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Deskripsi Kategori</label>
-                        <textarea name="categories[${categoryId}][description]" rows="2"
+                        <textarea name="kategori[${kategoriId}][deskripsi]" rows="2"
                             class="w-full px-3 py-2 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600"></textarea>
                     </div>
-                    
+
                     <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-100 dark:border-gray-700">
                         <div class="flex justify-between items-center mb-3">
-                            <h5 class="font-medium text-gray-800 dark:text-gray-200">Indikator</h5>
-                            <button type="button" onclick="addIndicator(${categoryId})" 
+                            <h5 class="font-medium text-gray-800 dark:text-gray-200">Sub Kategori</h5>
+                            <button type="button" onclick="addSubKategori(${kategoriId})"
                                 class="bg-goldspel hover:bg-goldspel/90 text-white px-2 py-1 rounded text-sm flex items-center space-x-1">
                                 <i class="fas fa-plus text-xs"></i>
-                                <span>Tambah Indikator</span>
+                                <span>Tambah Sub Kategori</span>
                             </button>
                         </div>
-                        <div class="indicators-container-${categoryId} space-y-3">
-                            <!-- Indicators will be added here -->
+                        <div class="sub_kategori-container-${kategoriId} space-y-3">
+                            <!-- sub_kategori will be added here -->
                         </div>
                     </div>
                 </div>
             `;
-            
+
             container.insertAdjacentHTML('beforeend', categoryHtml);
         }
 
-        function removeCategory(categoryId) {
-            const categoryElement = document.querySelector(`[data-category-id="${categoryId}"]`);
-            if (categoryElement) {
-                if (confirm('Hapus kategori ini? Semua indikator dan sub-indikator di dalamnya juga akan dihapus.')) {
-                    categoryElement.remove();
+        function removeCategory(kategoriId) {
+            const elementKategori = document.querySelector(`[data-kategori-id="${kategoriId}"]`);
+            if (elementKategori) {
+                if (confirm('Hapus kategori ini? Semua Sub-Kategori dan Penilaian di dalamnya juga akan dihapus.')) {
+                    elementKategori.remove();
                 }
             }
         }
 
-        function addIndicator(categoryId) {
-            const container = document.querySelector(`.indicators-container-${categoryId}`);
-            const indicatorId = ++indicatorCounter;
-            
+        function addSubKategori(kategoriId) {
+            const container = document.querySelector(`.sub_kategori-container-${kategoriId}`);
+            const subKategoriId = ++subKategoriCounter;
+
             const indicatorHtml = `
-                <div class="indicator-item bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3" data-indicator-id="${indicatorId}">
+                <div class="sub_kategori-item bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3" data-sub-kategori-id="${subKategoriId}">
                     <div class="flex justify-between items-start mb-2">
                         <div class="flex-1">
-                            <input type="text" name="categories[${categoryId}][indicators][${indicatorId}][name]" 
-                                placeholder="Nama Indikator"
+                            <input type="text" name="kategori[${kategoriId}][sub_kategori][${subKategoriId}][nama]"
+                                placeholder="Nama Sub Kategori"
                                 class="w-full px-3 py-2 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600 text-sm">
                         </div>
-                        <button type="button" onclick="removeIndicator(${indicatorId})" 
+                        <button type="button" onclick="removeIndicator(${subKategoriId})"
                             class="ml-2 p-1 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded">
                             <i class="fas fa-trash text-xs"></i>
                         </button>
                     </div>
-                    
+
                     <div class="mb-3">
-                        <textarea name="categories[${categoryId}][indicators][${indicatorId}][description]" 
-                            placeholder="Deskripsi Indikator" rows="2"
+                        <textarea name="kategori[${kategoriId}][sub_kategori][${subKategoriId}][deskripsi]"
+                            placeholder="Deskripsi Sub Kategori" rows="2"
                             class="w-full px-3 py-2 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600 text-sm"></textarea>
                     </div>
-                    
+
                     <div class="bg-white dark:bg-gray-800 rounded-lg p-2 border border-gray-100 dark:border-gray-700">
                         <div class="flex justify-between items-center mb-2">
-                            <h6 class="text-sm font-medium text-gray-700 dark:text-gray-300">Sub-Indikator</h6>
-                            <button type="button" onclick="addSubIndicator(${categoryId}, ${indicatorId})" 
+                            <h6 class="text-sm font-medium text-gray-700 dark:text-gray-300">Penilaian</h6>
+                            <button type="button" onclick="addSubIndicator(${kategoriId}, ${subKategoriId})"
                                 class="bg-bangala hover:bg-bangala/90 text-white px-2 py-1 rounded text-xs flex items-center space-x-1">
                                 <i class="fas fa-plus text-xs"></i>
-                                <span>Tambah Sub</span>
+                                <span>Tambah Penilaian</span>
                             </button>
                         </div>
-                        <div class="sub-indicators-container-${indicatorId} space-y-2">
-                            <!-- Sub-indicators will be added here -->
+                        <div class="penilaian-container-${subKategoriId} space-y-2">
+                            <!-- penilaian will be added here -->
                         </div>
                     </div>
                 </div>
             `;
-            
+
             container.insertAdjacentHTML('beforeend', indicatorHtml);
         }
 
-        function removeIndicator(indicatorId) {
-            const indicatorElement = document.querySelector(`[data-indicator-id="${indicatorId}"]`);
-            if (indicatorElement) {
+        function removeIndicator(subKategoriId) {
+            const elementSubKategori = document.querySelector(`[data-sub-kategori-id="${subKategoriId}"]`);
+            if (elementSubKategori) {
                 if (confirm('Hapus indikator ini? Semua sub-indikator di dalamnya juga akan dihapus.')) {
-                    indicatorElement.remove();
+                    elementSubKategori.remove();
                 }
             }
         }
 
-        function addSubIndicator(categoryId, indicatorId) {
-            const container = document.querySelector(`.sub-indicators-container-${indicatorId}`);
-            const subIndicatorId = ++subIndicatorCounter;
-            
+        function addSubIndicator(kategoriId, subKategoriId) {
+            const container = document.querySelector(`.penilaian-container-${subKategoriId}`);
+            const penilaianId = ++penilaianCounter;
+
             const subIndicatorHtml = `
-                <div class="sub-indicator-item bg-gray-100 dark:bg-gray-600 rounded p-2" data-sub-indicator-id="${subIndicatorId}">
+                <div class="penilaian-item bg-gray-100 dark:bg-gray-600 rounded p-2" data-penilaian-id="${penilaianId}">
                     <div class="flex justify-between items-start mb-2">
                         <div class="flex-1">
-                            <input type="text" name="categories[${categoryId}][indicators][${indicatorId}][sub_indicators][${subIndicatorId}][name]" 
-                                placeholder="Nama Sub-Indikator"
+                            <input type="text" name="kategori[${kategoriId}][sub_kategori][${penilaianId}][penilaian][${penilaianId}][nama]"
+                                placeholder="Nama Penilaian"
                                 class="w-full px-2 py-1 bg-white dark:bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600 text-sm">
                         </div>
-                        <button type="button" onclick="removeSubIndicator(${subIndicatorId})" 
+                        <button type="button" onclick="removeSubIndicator(${penilaianId})"
                             class="ml-2 p-1 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded">
                             <i class="fas fa-trash text-xs"></i>
                         </button>
                     </div>
-                    
+
                     <div class="mb-2">
                         <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Tipe Penilaian</label>
-                        <select name="categories[${categoryId}][indicators][${indicatorId}][sub_indicators][${subIndicatorId}][type]" 
-                            onchange="updateInputType(this, ${subIndicatorId})"
+                        <select name="kategori[${kategoriId}][sub_kategori][${penilaianId}][penilaian][${penilaianId}][type]"
+                            onchange="updateInputType(this, ${penilaianId})"
                             class="w-full px-2 py-1 bg-white dark:bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-bangala border border-gray-200 dark:border-gray-600 text-sm">
                             <option value="">Pilih Tipe Penilaian</option>
                             <option value="boolean">Terlaksana/Tidak Terlaksana</option>
@@ -451,41 +352,41 @@
                             <option value="score">Penilaian Kinerja (1-100)</option>
                         </select>
                     </div>
-                    
-                    <div id="preview-${subIndicatorId}" class="mt-2 p-2 bg-white dark:bg-gray-700 rounded border text-xs">
+
+                    <div id="preview-${penilaianId}" class="mt-2 p-2 bg-white dark:bg-gray-700 rounded border text-xs">
                         <span class="text-gray-500 dark:text-gray-400">Pilih tipe penilaian untuk melihat preview</span>
                     </div>
                 </div>
             `;
-            
+
             container.insertAdjacentHTML('beforeend', subIndicatorHtml);
         }
 
-        function removeSubIndicator(subIndicatorId) {
-            const subIndicatorElement = document.querySelector(`[data-sub-indicator-id="${subIndicatorId}"]`);
-            if (subIndicatorElement) {
-                subIndicatorElement.remove();
+        function removeSubIndicator(penilaianId) {
+            const elementPenilaian = document.querySelector(`[data-penilaian-id="${penilaianId}"]`);
+            if (elementPenilaian) {
+                elementPenilaian.remove();
             }
         }
 
-        function updateInputType(select, subIndicatorId) {
-            const previewContainer = document.getElementById(`preview-${subIndicatorId}`);
+        function updateInputType(select, penilaianId) {
+            const previewContainer = document.getElementById(`preview-${penilaianId}`);
             const type = select.value;
-            
+
             let previewHtml = '';
-            
-            switch(type) {
+
+            switch (type) {
                 case 'boolean':
                     previewHtml = `
                         <div class="space-y-1">
                             <p class="font-medium text-gray-700 dark:text-gray-300">Preview:</p>
                             <div class="flex space-x-4">
                                 <label class="flex items-center space-x-2">
-                                    <input type="radio" name="preview_boolean_${subIndicatorId}" class="custom-radio">
+                                    <input type="radio" name="preview_boolean_${penilaianId}" class="custom-radio">
                                     <span>Terlaksana</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="radio" name="preview_boolean_${subIndicatorId}" class="custom-radio">
+                                    <input type="radio" name="preview_boolean_${penilaianId}" class="custom-radio">
                                     <span>Tidak Terlaksana</span>
                                 </label>
                             </div>
@@ -498,19 +399,19 @@
                             <p class="font-medium text-gray-700 dark:text-gray-300">Preview:</p>
                             <div class="grid grid-cols-2 gap-2">
                                 <label class="flex items-center space-x-2">
-                                    <input type="radio" name="preview_freq_${subIndicatorId}" class="custom-radio">
+                                    <input type="radio" name="preview_freq_${penilaianId}" class="custom-radio">
                                     <span>1 - Sangat Jarang</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="radio" name="preview_freq_${subIndicatorId}" class="custom-radio">
+                                    <input type="radio" name="preview_freq_${penilaianId}" class="custom-radio">
                                     <span>2 - Jarang</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="radio" name="preview_freq_${subIndicatorId}" class="custom-radio">
+                                    <input type="radio" name="preview_freq_${penilaianId}" class="custom-radio">
                                     <span>3 - Sering</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="radio" name="preview_freq_${subIndicatorId}" class="custom-radio">
+                                    <input type="radio" name="preview_freq_${penilaianId}" class="custom-radio">
                                     <span>4 - Sangat Sering</span>
                                 </label>
                             </div>
@@ -522,7 +423,7 @@
                         <div class="space-y-1">
                             <p class="font-medium text-gray-700 dark:text-gray-300">Preview:</p>
                             <div class="flex items-center space-x-2">
-                                <input type="number" min="1" max="100" placeholder="1-100" 
+                                <input type="number" min="1" max="100" placeholder="1-100"
                                     class="w-20 px-2 py-1 bg-gray-100 dark:bg-gray-600 rounded border focus:outline-none focus:ring-2 focus:ring-bangala">
                                 <span class="text-gray-600 dark:text-gray-400">/ 100</span>
                             </div>
@@ -530,9 +431,10 @@
                     `;
                     break;
                 default:
-                    previewHtml = '<span class="text-gray-500 dark:text-gray-400">Pilih tipe penilaian untuk melihat preview</span>';
+                    previewHtml =
+                        '<span class="text-gray-500 dark:text-gray-400">Pilih tipe penilaian untuk melihat preview</span>';
             }
-            
+
             previewContainer.innerHTML = previewHtml;
         }
 
@@ -540,138 +442,154 @@
         function viewForm(formId) {
             const modal = document.getElementById('viewModal');
             const content = document.getElementById('viewContent');
-            
+
             // Sample data - replace with actual data fetching
             const sampleData = {
                 1: {
-                    name: 'Penilaian Kinerja Guru Semester 1',
+                    nama: 'Penilaian Kinerja Guru Semester 1',
                     status: 'Aktif',
-                    description: 'Formulir penilaian kinerja guru untuk semester 1 tahun ajaran 2024/2025',
+                    deskripsi: 'Formulir penilaian kinerja guru untuk semester 1 tahun ajaran 2024/2025',
                     created_at: '15 Januari 2025',
-                    categories: [
-                        {
-                            name: 'Perencanaan Pembelajaran',
-                            description: 'Penilaian terhadap kemampuan guru dalam merencanakan pembelajaran',
-                            indicators: [
-                                {
-                                    name: 'Kelengkapan RPP',
-                                    description: 'Kelengkapan Rencana Pelaksanaan Pembelajaran',
-                                    sub_indicators: [
-                                        { name: 'RPP sesuai dengan kurikulum', type: 'boolean' },
-                                        { name: 'Kelengkapan komponen RPP', type: 'score' }
+                    kategori: [{
+                            nama: 'Perencanaan Pembelajaran',
+                            deskripsi: 'Penilaian terhadap kemampuan guru dalam merencanakan pembelajaran',
+                            sub_kategori: [{
+                                    nama: 'Kelengkapan RPP',
+                                    deskripsi: 'Kelengkapan Rencana Pelaksanaan Pembelajaran',
+                                    penilaian: [{
+                                            nama: 'RPP sesuai dengan kurikulum',
+                                            type: 'boolean'
+                                        },
+                                        {
+                                            nama: 'Kelengkapan komponen RPP',
+                                            type: 'score'
+                                        }
                                     ]
                                 },
                                 {
-                                    name: 'Pemilihan Metode Pembelajaran',
-                                    description: 'Kesesuaian metode pembelajaran dengan materi',
-                                    sub_indicators: [
-                                        { name: 'Metode sesuai dengan karakteristik siswa', type: 'frequency' },
-                                        { name: 'Metode mendorong partisipasi aktif siswa', type: 'frequency' }
+                                    nama: 'Pemilihan Metode Pembelajaran',
+                                    deskripsi: 'Kesesuaian metode pembelajaran dengan materi',
+                                    penilaian: [{
+                                            nama: 'Metode sesuai dengan karakteristik siswa',
+                                            type: 'frequency'
+                                        },
+                                        {
+                                            nama: 'Metode mendorong partisipasi aktif siswa',
+                                            type: 'frequency'
+                                        }
                                     ]
                                 }
                             ]
                         },
                         {
-                            name: 'Pelaksanaan Pembelajaran',
-                            description: 'Penilaian terhadap pelaksanaan pembelajaran di kelas',
-                            indicators: [
-                                {
-                                    name: 'Pengelolaan Kelas',
-                                    description: 'Kemampuan guru dalam mengelola kelas',
-                                    sub_indicators: [
-                                        { name: 'Kelas kondusif untuk pembelajaran', type: 'frequency' },
-                                        { name: 'Disiplin waktu dalam pembelajaran', type: 'boolean' }
-                                    ]
-                                }
-                            ]
+                            nama: 'Pelaksanaan Pembelajaran',
+                            deskripsi: 'Penilaian terhadap pelaksanaan pembelajaran di kelas',
+                            sub_kategori: [{
+                                nama: 'Pengelolaan Kelas',
+                                deskripsi: 'Kemampuan guru dalam mengelola kelas',
+                                penilaian: [{
+                                        nama: 'Kelas kondusif untuk pembelajaran',
+                                        type: 'frequency'
+                                    },
+                                    {
+                                        nama: 'Disiplin waktu dalam pembelajaran',
+                                        type: 'boolean'
+                                    }
+                                ]
+                            }]
                         }
                     ]
                 },
                 2: {
-                    name: 'Evaluasi Perilaku Mengajar',
+                    nama: 'Evaluasi Perilaku Mengajar',
                     status: 'Draft',
-                    description: 'Formulir evaluasi perilaku mengajar guru dalam interaksi dengan siswa',
+                    deskripsi: 'Formulir evaluasi perilaku mengajar guru dalam interaksi dengan siswa',
                     created_at: '10 Januari 2025',
-                    categories: [
-                        {
-                            name: 'Komunikasi',
-                            description: 'Kemampuan guru dalam berkomunikasi dengan siswa',
-                            indicators: [
+                    kategori: [{
+                        nama: 'Komunikasi',
+                        deskripsi: 'Kemampuan guru dalam berkomunikasi dengan siswa',
+                        sub_kategori: [{
+                            nama: 'Kejelasan Penyampaian',
+                            deskripsi: 'Kejelasan guru dalam menyampaikan materi',
+                            penilaian: [{
+                                    nama: 'Bahasa yang digunakan mudah dipahami',
+                                    type: 'frequency'
+                                },
                                 {
-                                    name: 'Kejelasan Penyampaian',
-                                    description: 'Kejelasan guru dalam menyampaikan materi',
-                                    sub_indicators: [
-                                        { name: 'Bahasa yang digunakan mudah dipahami', type: 'frequency' },
-                                        { name: 'Volume suara jelas terdengar', type: 'boolean' }
-                                    ]
+                                    nama: 'Volume suara jelas terdengar',
+                                    type: 'boolean'
                                 }
                             ]
-                        }
-                    ]
+                        }]
+                    }]
                 }
             };
-            
+
             const data = sampleData[formId];
             if (data) {
                 let html = `
                     <div class="space-y-6">
                         <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
                             <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">${data.name}</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">${data.description}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">${data.deskripsi}</p>
                             <div class="flex items-center justify-between">
                                 <span class="px-3 py-1 ${data.status === 'Aktif' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'} rounded-full text-sm">${data.status}</span>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Dibuat: ${data.created_at}</p>
                             </div>
                         </div>
                 `;
-                
-                data.categories.forEach(category => {
+
+                data.kategori.forEach(kategori => {
                     html += `
                         <div class="border border-gray-200 dark:border-gray-600 rounded-xl p-4">
-                            <h5 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">${category.name}</h5>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">${category.description}</p>
+                            <h5 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">${kategori.name}</h5>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">${kategori.deskripsi}</p>
                     `;
-                    
-                    category.indicators.forEach(indicator => {
+
+                    kategori.sub_kategori.forEach(sub_kategori => {
                         html += `
                             <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 mb-3">
-                                <h6 class="font-medium text-gray-700 dark:text-gray-300 mb-2">${indicator.name}</h6>
-                                ${indicator.description ? `<p class="text-sm text-gray-600 dark:text-gray-400 mb-3">${indicator.description}</p>` : ''}
+                                <h6 class="font-medium text-gray-700 dark:text-gray-300 mb-2">${sub_kategori.name}</h6>
+                                ${sub_kategori.deskripsi ? `<p class="text-sm text-gray-600 dark:text-gray-400 mb-3">${sub_kategori.deskripsi}</p>` : ''}
                         `;
-                        
-                        indicator.sub_indicators.forEach(subIndicator => {
+
+                        sub_kategori.penilaian.forEach(penilaian => {
                             let typeBadge = '';
-                            switch(subIndicator.type) {
+                            switch (penilaian.type) {
                                 case 'boolean':
-                                    typeBadge = 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
+                                    typeBadge =
+                                        'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
                                     break;
                                 case 'frequency':
-                                    typeBadge = 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+                                    typeBadge =
+                                        'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
                                     break;
                                 case 'score':
-                                    typeBadge = 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+                                    typeBadge =
+                                        'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
                                     break;
                                 default:
-                                    typeBadge = 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+                                    typeBadge =
+                                        'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
                             }
-                            
+
                             html += `
                                 <div class="bg-white dark:bg-gray-800 rounded p-2 mb-2 border border-gray-100 dark:border-gray-700">
                                     <div class="flex justify-between items-start">
-                                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">${subIndicator.name}</p>
-                                        <span class="px-2 py-1 ${typeBadge} rounded-full text-xs">${getTypeLabel(subIndicator.type)}</span>
+                                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">${penilaian.name}</p>
+                                        <span class="px-2 py-1 ${typeBadge} rounded-full text-xs">${getTypeLabel(penilaian.type)}</span>
                                     </div>
-                                    ${renderPreview(subIndicator.type)}
+                                    ${renderPreview(penilaian.type)}
                                 </div>
                             `;
                         });
-                        
+
                         html += '</div>';
                     });
-                    
+
                     html += '</div>';
                 });
-                
+
                 html += '</div>';
                 content.innerHTML = html;
                 modal.classList.remove('hidden');
@@ -680,16 +598,20 @@
         }
 
         function getTypeLabel(type) {
-            switch(type) {
-                case 'boolean': return 'Ya/Tidak';
-                case 'frequency': return 'Frekuensi';
-                case 'score': return 'Skor';
-                default: return type;
+            switch (type) {
+                case 'boolean':
+                    return 'Ya/Tidak';
+                case 'frequency':
+                    return 'Frekuensi';
+                case 'score':
+                    return 'Skor';
+                default:
+                    return type;
             }
         }
 
         function renderPreview(type) {
-            switch(type) {
+            switch (type) {
                 case 'boolean':
                     return `
                         <div class="mt-2 flex space-x-4">
@@ -727,7 +649,7 @@
                 case 'score':
                     return `
                         <div class="mt-2 flex items-center space-x-2 text-xs">
-                            <input type="number" min="1" max="100" disabled 
+                            <input type="number" min="1" max="100" disabled
                                 class="w-20 px-2 py-1 bg-gray-100 dark:bg-gray-600 rounded border">
                             <span class="text-gray-600 dark:text-gray-400">/ 100</span>
                         </div>
@@ -750,10 +672,10 @@
         function confirmDelete() {
             // Here you would typically make an AJAX call to delete the form
             console.log('Deleting form with ID:', currentFormId);
-            
+
             // Show success message
             alert('Formulir berhasil dihapus');
-            
+
             // Close modal and refresh the list (in a real app, you would update the UI)
             closeDeleteModal();
             // In a real app, you would remove the deleted form from the list or refresh the page
@@ -762,59 +684,84 @@
         function saveForm() {
             // Here you would typically collect the form data and send it to the server
             const formData = {
-                name: document.getElementById('formName').value,
+                nama: document.getElementById('formName').value,
                 status: document.getElementById('formStatus').value,
-                description: document.getElementById('formDescription').value,
-                categories: []
+                deskripsi: document.getElementById('formDescription').value,
+                kategori: []
             };
-            
-            // Collect categories data
-            const categoryElements = document.querySelectorAll('.category-item');
-            categoryElements.forEach(categoryElement => {
-                const categoryId = categoryElement.dataset.categoryId;
-                const category = {
-                    name: categoryElement.querySelector(`input[name="categories[${categoryId}][name]"]`).value,
-                    description: categoryElement.querySelector(`textarea[name="categories[${categoryId}][description]"]`).value,
-                    indicators: []
+
+            // Collect kategori data
+            const elementKategoris = document.querySelectorAll('.kategori-item');
+            elementKategoris.forEach(elementKategori => {
+                const kategoriId = elementKategori.dataset.kategoriId;
+                const kategori = {
+                    nama: elementKategori.querySelector(`input[name="kategori[${kategoriId}][nama]"]`).value,
+                    description: elementKategori.querySelector(
+                        `textarea[name="kategori[${kategoriId}][deskripsi]"]`).value,
+                    sub_kategori: []
                 };
-                
-                // Collect indicators data
-                const indicatorElements = categoryElement.querySelectorAll('.indicator-item');
-                indicatorElements.forEach(indicatorElement => {
-                    const indicatorId = indicatorElement.dataset.indicatorId;
-                    const indicator = {
-                        name: indicatorElement.querySelector(`input[name="categories[${categoryId}][indicators][${indicatorId}][name]"]`).value,
-                        description: indicatorElement.querySelector(`textarea[name="categories[${categoryId}][indicators][${indicatorId}][description]"]`).value || '',
-                        sub_indicators: []
+
+                // Collect sub_kategori data
+                const elementSubKategoris = elementKategori.querySelectorAll('.sub_kategori-item');
+                elementSubKategoris.forEach(elementSubKategori => {
+                    const subKategoriId = elementSubKategori.dataset.subKategoriId;
+                    const sub_kategori = {
+                        nama: elementSubKategori.querySelector(
+                            `input[name="kategori[${kategoriId}][sub_kategori][${subKategoriId}][nama]"]`
+                        ).value,
+                        description: elementSubKategori.querySelector(
+                            `textarea[name="kategori[${kategoriId}][sub_kategori][${subKategoriId}][deskripsi]"]`
+                        ).value || '',
+                        penilaian: []
                     };
-                    
-                    // Collect sub-indicators data
-                    const subIndicatorElements = indicatorElement.querySelectorAll('.sub-indicator-item');
-                    subIndicatorElements.forEach(subIndicatorElement => {
-                        const subIndicatorId = subIndicatorElement.dataset.subIndicatorId;
-                        const subIndicator = {
-                            name: subIndicatorElement.querySelector(`input[name="categories[${categoryId}][indicators][${indicatorId}][sub_indicators][${subIndicatorId}][name]"]`).value,
-                            type: subIndicatorElement.querySelector(`select[name="categories[${categoryId}][indicators][${indicatorId}][sub_indicators][${subIndicatorId}][type]"]`).value
+
+                    // Collect penilaian data
+                    const elementPenilaians = elementSubKategori.querySelectorAll('.penilaian-item');
+                    elementPenilaians.forEach(elementPenilaian => {
+                        const penilaianId = elementPenilaian.dataset.penilaianId;
+                        const penilaian = {
+                            nama: elementPenilaian.querySelector(
+                                `input[name="kategori[${kategoriId}][sub_kategori][${subKategoriId}][penilaian][${penilaianId}][nama]"]`
+                            ).value,
+                            type: elementPenilaian.querySelector(
+                                `select[name="kategori[${kategoriId}][sub_kategori][${subKategoriId}][penilaian][${penilaianId}][type]"]`
+                            ).value
                         };
-                        indicator.sub_indicators.push(subIndicator);
+                        sub_kategori.penilaian.push(penilaian);
                     });
-                    
-                    category.indicators.push(indicator);
+
+                    kategori.sub_kategori.push(sub_kategori);
                 });
-                
-                formData.categories.push(category);
+
+                formData.kategori.push(kategori);
             });
-            
-            console.log('Form data to save:', formData);
-            
-            // Show success message
-            alert(isEditMode ? 'Formulir berhasil diperbarui' : 'Formulir berhasil dibuat');
-            
+
+            const url = '{{ route('formulir.store') }}';
+
+            const method = 'POST';
+
+            const successCallback = function(response) {
+                successToast(response, '{{ route('formulir.index') }}')
+                console.log(response)
+            }
+
+            const errorCallback = function(error) {
+                errorToast(error)
+                console.log(error)
+            }
+
+            ajaxCall(url, method, formData, successCallback, errorCallback);
+
             // Close modal and reset form
             closeFormModal();
             resetForm();
-            
+
             // In a real app, you would update the form list or refresh the page
         }
+
+        $(document).ready(function() {
+            
+
+        })
     </script>
-@endsection
+@endpush
