@@ -67,7 +67,8 @@ class PenilaianTipeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = PenilaianTipe::find($id);
+        return $this->successResponse($data, 'Data berhasil ditemukan.');
     }
 
     /**

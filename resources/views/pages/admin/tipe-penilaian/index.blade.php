@@ -29,25 +29,25 @@
 
     <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md">
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 space-y-4 md:space-y-0">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Guru</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Opsi Tipe Penilaian</h3>
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                 <div class="relative">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" placeholder="Cari nama guru..." id="search"
+                    <input type="text" placeholder="Cari data..." id="search"
                         class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-bangala">
                 </div>
-                <button id="button-tambah"
+                <button id="button-tambah" onclick="openModalOpsi('modal-data-opsi')"
                     class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                     Tambah
                 </button>
             </div>
         </div>
 
-        <div id="table-guru">
+        <div id="table-opsi-penilaian">
 
         </div>
 
-        @include('pages.admin.guru.modal')
+        @include('pages.admin.tipe-penilaian.opsi.modal')
 
     </div>
 @endsection
@@ -98,17 +98,75 @@
         }
 
         // Fungsi untuk menampilkan modal edit
-        function openModal(modalId) {
-            // Kosongkan semua input
-            $('#nama').val('');
-            $('#tipe_input').val('');
-
-            $('#modal-title').text('Tambah Tipe Penilaian');
+        function openModal(modalId, id = null) {
             const modal = document.getElementById(modalId);
+
+            if (id) {
+                const url = '/tipe-penilaian/' + id;
+
+                const successCallback = function(response) {
+                    const modal = document.getElementById('modal-data');
+                    modalOpened = 'modal-data';
+                    const data = response.data
+                    $('#modal-form').attr('data-id', id);
+
+                    $('#nama').val(data.nama);
+                    $('#tipe_input').val(data.tipe_input);
+
+                    $('#modal-title').text('Edit Guru');
+                };
+
+                const errorCallback = function(error) {
+                    errorToast(error);
+                    modalOpened = modalId;
+                };
+
+                ajaxCall(url, "GET", null, successCallback, errorCallback);
+            } else {
+                $('#nama').val('');
+                $('#tipe_input').val('');
+                $('#modal-title').text('Tambah Tipe Penilaian');
+            }
             modalOpened = modalId;
             modal.classList.remove('hidden');
-            // document.body.style.overflow = 'hidden';
+        }
 
+        function openModalOpsi(modalId, id = null) {
+            const modal = document.getElementById(modalId);
+
+            if (id) {
+                const url = '/opsi-penilaian/' + id;
+
+                const successCallback = function(response) {
+                    const modal = document.getElementById('modal-data');
+                    modalOpened = 'modal-data';
+                    const data = response.data
+                    $('#modal-form-opsi').attr('data-id', id);
+
+                    $('#label').val(data.label);
+                    $('#value').val(data.value);
+
+                    loadSelectOptions('#penilaian_tipe_id', '{{ route('tipe-penilaian.index') }}', data
+                        .penilaian_tipe_id);
+
+                    $('#modal-title').text('Edit Opsi Penilaian');
+                };
+
+                const errorCallback = function(error) {
+                    errorToast(error);
+                    modalOpened = modalId;
+                };
+
+                ajaxCall(url, "GET", null, successCallback, errorCallback);
+            } else {
+                $('#label').val('');
+                $('#value').val('');
+
+                loadSelectOptions('#penilaian_tipe_id', '{{ route('tipe-penilaian.index') }}');
+                $('#modal-title').text('Tambah Tipe Penilaian');
+            }
+            modalOpened = modalId;
+            modal.classList.remove('hidden');
         }
 
         function deleteModal(id) {
@@ -116,6 +174,15 @@
             const form_id = $('#form-delete').attr('data-id');
             console.log(id, form_id);
             const modal = document.getElementById('modal-delete');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function deleteModalOpsi(id) {
+            $('#form-delete-opsi').attr('data-id', id);
+            const form_id = $('#form-delete-opsi').attr('data-id');
+            console.log(id, form_id);
+            const modal = document.getElementById('modal-delete-opsi');
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
@@ -158,10 +225,10 @@
             // Fungsi Load Data
             function loadData(page = 1, query = '') {
                 $.ajax({
-                    url: `/guru?page=${page}&search=${encodeURIComponent(query)}`,
+                    url: `/opsi-penilaian?page=${page}&search=${encodeURIComponent(query)}`,
                     type: 'GET',
                     success: function(res) {
-                        $('#table-guru').html(res.data.view);
+                        $('#table-opsi-penilaian').html(res.data.view);
                         $('#paginationLinks').html(res.data.pagination);
                         // update state
                         currentPage = page;
@@ -250,12 +317,69 @@
                 ajaxCall(url, method, formData, successCallback, errorCallback);
             });
 
+            $(document).on('submit', '#modal-form-opsi', function(e) {
+                e.preventDefault();
+
+                const id = $(this).data('id');
+                let url = '{{ route('opsi-penilaian.store') }}';
+                const method = 'POST';
+                const formData = new FormData(this);
+
+                if (id) {
+                    url = `/opsi-penilaian/${id}`; // Ganti URL untuk update
+                    formData.append('_method', 'PUT'); // Spoofing method PUT
+                }
+
+                const successCallback = function(response) {
+                    successToast(response);
+                    closeModal('modal-data');
+                    $('#modal-form-opsi').removeAttr('data-id');
+                    loadData(currentPage, currentQuery);
+                    loadDataTipePenilaian();
+                };
+
+                const errorCallback = function(error) {
+                    console.log(error);
+                    $('#modal-form-opsi').removeAttr('data-id');
+                    handleValidationErrors(error, "modal-form-opsi", ["label", "value",
+                        'penilaian_tipe_id'
+                    ]);
+                };
+
+                ajaxCall(url, method, formData, successCallback, errorCallback);
+            });
+
             $(document).on('submit', '#form-delete', function(e) {
                 e.preventDefault();
 
                 const id = $(this).attr('data-id');
 
-                const url = `/guru/${id}`;
+                const url = `/tipe-penilaian/${id}`;
+                const method = 'DELETE'
+
+                const successCallback = function(response) {
+                    handleSuccess(response);
+                    closeModalDelete();
+                    $('#form-delete').removeAttr('data-id');
+                    loadData(currentPage, currentQuery);
+                    loadDataTipePenilaian();
+                };
+
+                const errorCallback = function(error) {
+                    closeModalDelete();
+                    $('#form-delete').removeAttr('data-id');
+                    handleSimpleError(error)
+                };
+
+                ajaxCall(url, method, null, successCallback, errorCallback);
+            })
+
+            $(document).on('submit', '#form-delete-opsi', function(e) {
+                e.preventDefault();
+
+                const id = $(this).attr('data-id');
+
+                const url = `/opsi-penilaian/${id}`;
                 const method = 'DELETE'
 
                 const successCallback = function(response) {

@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/jabatan', App\Http\Controllers\JabatanController::class)->names('jabatan');
 
     Route::resource('/tipe-penilaian', App\Http\Controllers\PenilaianTipeController::class)->names('tipe-penilaian');
+    Route::resource('/opsi-penilaian', App\Http\Controllers\PenilaianOpsiController::class)->names('opsi-penilaian');
 });
 
 /* Kepsek */
