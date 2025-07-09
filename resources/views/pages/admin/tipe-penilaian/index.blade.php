@@ -74,7 +74,7 @@
                 $('#status').val(data.status);
 
                 const jabatanId = data.jabatans.map(jabatan => jabatan_id);
-                loadSelectOptions('#jabatan_id', '{{ route('jabatan.index') }}', jabatanId, true);
+                loadSelectOptions('#jabatan_id', '{{ route('admin.jabatan.index') }}', jabatanId, true);
 
                 modal.classList.remove('hidden');
                 $('#modal-title').text('Edit Guru');
@@ -102,7 +102,7 @@
             const modal = document.getElementById(modalId);
 
             if (id) {
-                const url = '/tipe-penilaian/' + id;
+                const url = '/admin/tipe-penilaian/' + id;
 
                 const successCallback = function(response) {
                     const modal = document.getElementById('modal-data');
@@ -135,7 +135,7 @@
             const modal = document.getElementById(modalId);
 
             if (id) {
-                const url = '/opsi-penilaian/' + id;
+                const url = '/admin/opsi-penilaian/' + id;
 
                 const successCallback = function(response) {
                     const modal = document.getElementById('modal-data');
@@ -146,7 +146,7 @@
                     $('#label').val(data.label);
                     $('#value').val(data.value);
 
-                    loadSelectOptions('#penilaian_tipe_id', '{{ route('tipe-penilaian.index') }}', data
+                    loadSelectOptions('#penilaian_tipe_id', '{{ route('admin.tipe-penilaian.index') }}', data
                         .penilaian_tipe_id);
 
                     $('#modal-title').text('Edit Opsi Penilaian');
@@ -162,7 +162,7 @@
                 $('#label').val('');
                 $('#value').val('');
 
-                loadSelectOptions('#penilaian_tipe_id', '{{ route('tipe-penilaian.index') }}');
+                loadSelectOptions('#penilaian_tipe_id', '{{ route('admin.tipe-penilaian.index') }}');
                 $('#modal-title').text('Tambah Tipe Penilaian');
             }
             modalOpened = modalId;
@@ -225,7 +225,7 @@
             // Fungsi Load Data
             function loadData(page = 1, query = '') {
                 $.ajax({
-                    url: `/opsi-penilaian?page=${page}&search=${encodeURIComponent(query)}`,
+                    url: `/admin/opsi-penilaian?page=${page}&search=${encodeURIComponent(query)}`,
                     type: 'GET',
                     success: function(res) {
                         $('#table-opsi-penilaian').html(res.data.view);
@@ -242,7 +242,7 @@
 
             function loadDataTipePenilaian() {
                 $.ajax({
-                    url: `/tipe-penilaian`,
+                    url: `/admin/tipe-penilaian`,
                     type: 'GET',
                     success: function(res) {
                         $('#table-tipe-penilaian').html(res.data.view);
@@ -291,12 +291,12 @@
                 e.preventDefault();
 
                 const id = $(this).data('id');
-                let url = '{{ route('tipe-penilaian.store') }}';
+                let url = '{{ route('admin.tipe-penilaian.store') }}';
                 const method = 'POST';
                 const formData = new FormData(this);
 
                 if (id) {
-                    url = `/tipe-penilaian/${id}`; // Ganti URL untuk update
+                    url = `/admin/tipe-penilaian/${id}`; // Ganti URL untuk update
                     formData.append('_method', 'PUT'); // Spoofing method PUT
                 }
 
@@ -321,18 +321,18 @@
                 e.preventDefault();
 
                 const id = $(this).data('id');
-                let url = '{{ route('opsi-penilaian.store') }}';
+                let url = '{{ route('admin.opsi-penilaian.store') }}';
                 const method = 'POST';
                 const formData = new FormData(this);
 
                 if (id) {
-                    url = `/opsi-penilaian/${id}`; // Ganti URL untuk update
+                    url = `/admin/opsi-penilaian/${id}`; // Ganti URL untuk update
                     formData.append('_method', 'PUT'); // Spoofing method PUT
                 }
 
                 const successCallback = function(response) {
                     successToast(response);
-                    closeModal('modal-data');
+                    closeModal('modal-data-opsi');
                     $('#modal-form-opsi').removeAttr('data-id');
                     loadData(currentPage, currentQuery);
                     loadDataTipePenilaian();
@@ -354,7 +354,7 @@
 
                 const id = $(this).attr('data-id');
 
-                const url = `/tipe-penilaian/${id}`;
+                const url = `/admin/tipe-penilaian/${id}`;
                 const method = 'DELETE'
 
                 const successCallback = function(response) {
@@ -379,7 +379,7 @@
 
                 const id = $(this).attr('data-id');
 
-                const url = `/opsi-penilaian/${id}`;
+                const url = `/admin/opsi-penilaian/${id}`;
                 const method = 'DELETE'
 
                 const successCallback = function(response) {

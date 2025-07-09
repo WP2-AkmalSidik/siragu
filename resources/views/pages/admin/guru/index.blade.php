@@ -59,15 +59,20 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         let modalOpen;
+        let isEdit = false;
 
         // Fungsi untuk menampilkan modal edit
         function openEditModal(id) {
-            const url = '/guru/' + id + '/edit';
+            const url = '/admin/guru/' + id + '/edit';
 
             const successCallback = function(response) {
                 const modal = document.getElementById('modal-data');
                 modalOpened = 'modal-data';
                 const data = response.data
+
+                console.log(response, data)
+
+                isEdit = true
                 $('#modal-form').attr('data-id', id);
 
                 $('#nip').val(data.nip);
@@ -76,8 +81,13 @@
                 $('#email').val(data.email);
                 $('#status').val(data.status);
 
-                const jabatanId = data.jabatans.map(jabatan => jabatan_id);
-                loadSelectOptions('#jabatan_id', '{{ route('jabatan.index') }}', jabatanId, true);
+                console.log(data)
+
+                const jabatanIds = data.jabatans.map(item => item.jabatan_id);
+
+                console.log(jabatanIds)
+
+                loadSelectOptions('#jabatan_id', '{{ route('admin.jabatan.index') }}', jabatanIds, true);
 
                 modal.classList.remove('hidden');
                 $('#modal-title').text('Edit Guru');
@@ -95,6 +105,7 @@
         // Fungsi untuk menyembunyikan modal edit
         function closeEditModal() {
             const modal = document.getElementById('modal-data');
+            isEdit = false
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
             modalOpened = '';
@@ -113,8 +124,7 @@
             modalOpened = modalId;
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            loadSelectOptions('#jabatan_id', '{{ route('jabatan.index') }}', null, true);
-
+            loadSelectOptions('#jabatan_id', '{{ route('admin.jabatan.index') }}', null, true);
         }
 
         function deleteModal(id) {
@@ -164,7 +174,7 @@
             // Fungsi Load Data
             function loadData(page = 1, query = '') {
                 $.ajax({
-                    url: `/guru?page=${page}&search=${encodeURIComponent(query)}`,
+                    url: `/admin/guru?page=${page}&search=${encodeURIComponent(query)}`,
                     type: 'GET',
                     success: function(res) {
                         $('#table-guru').html(res.data.view);
@@ -181,7 +191,7 @@
 
             function loadDataJabatan() {
                 $.ajax({
-                    url: `/jabatan`,
+                    url: `/admin/jabatan`,
                     type: 'GET',
                     success: function(res) {
                         $('#table-jabatan').html(res.data.view);
@@ -230,12 +240,12 @@
                 e.preventDefault();
 
                 const id = $(this).data('id');
-                let url = '{{ route('guru.store') }}';
+                let url = '{{ route('admin.guru.store') }}';
                 const method = 'POST';
                 const formData = new FormData(this);
 
                 if (id) {
-                    url = `/guru/${id}`; // Ganti URL untuk update
+                    url = `/admin/guru/${id}`; // Ganti URL untuk update
                     formData.append('_method', 'PUT'); // Spoofing method PUT
                 }
 
@@ -260,7 +270,7 @@
 
                 const id = $(this).attr('data-id');
 
-                const url = `/guru/${id}`;
+                const url = `/admin/guru/${id}`;
                 const method = 'DELETE'
 
                 const successCallback = function(response) {

@@ -32,20 +32,8 @@ class PenilaianTipeController extends Controller
         return view('pages.admin.tipe-penilaian.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // dd($request->all());
         $validated = $request->validate([
             'nama'       => 'required',
             'tipe_input' => 'required',
@@ -61,27 +49,11 @@ class PenilaianTipeController extends Controller
             return $this->errorResponse(null, $e->getMessage());
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $data = PenilaianTipe::find($id);
+        $data = PenilaianTipe::with('opsi')->where('id', $id)->first();
         return $this->successResponse($data, 'Data berhasil ditemukan.');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([

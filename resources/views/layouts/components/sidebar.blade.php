@@ -17,45 +17,45 @@
 
     <!-- Navigation Menu -->
     <nav class="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
-        <a href="/"
-            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('/') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
+        <a href="{{ route('admin.dashboard') }}"
+            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
             <div
                 class="absolute inset-0 bg-gradient-to-r from-goldspel/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
             </div>
             <i
-                class="fas fa-tachometer-alt w-5 {{ request()->is('/') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
+                class="fas fa-tachometer-alt w-5 {{ request()->is('admin') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span class="relative">Dashboard</span>
         </a>
 
-        <a href="{{ route('pengguna.index') }}"
-            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('pengguna*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
+        <a href="{{ route('admin.pengguna.index') }}"
+            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/pengguna*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
             <div
                 class="absolute inset-0 bg-gradient-to-r from-goldspel/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
             </div>
             <i
-                class="fas fa-users w-5 {{ request()->is('pengguna*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
+                class="fas fa-users w-5 {{ request()->is('admin/pengguna*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Data Pengguna</span>
         </a>
-        <a href="/guru"
-            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('guru*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
+        <a href="{{ route('admin.guru.index') }}"
+            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/guru*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
             <div
                 class="absolute inset-0 bg-gradient-to-r from-goldspel/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
             </div>
             <i
-                class="fas fa-users w-5 {{ request()->is('guru*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
+                class="fas fa-users w-5 {{ request()->is('admin/guru*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Data Guru</span>
         </a>
 
-        <a href="{{ route('tipe-penilaian.index') }}"
-            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('tipe-penilaian*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
+        <a href="{{ route('admin.tipe-penilaian.index') }}"
+            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/tipe-penilaian*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
             <i
-                class="fas fa-chart-bar w-5 {{ request()->is('penilaian*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
+                class="fas fa-keyboard w-5 {{ request()->is('admin/penilaian*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Tipe Nilai</span>
         </a>
-        <a href="/penilaian"
-            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('penilaian*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
+        <a href="{{ route('admin.pengisi.index') }}"
+            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/pengisi*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
             <i
-                class="fas fa-chart-bar w-5 {{ request()->is('penilaian*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
+                class="fas fa-chart-bar w-5 {{ request()->is('admin/pengisi*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Penilaian</span>
         </a>
 
@@ -66,13 +66,13 @@
             <span>Rapor</span>
         </a>
         <!-- Menu Template Formulir -->
-        <a href="/form"
-            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('form*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
+        <a href="{{ route('admin.formulir.index') }}"
+            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/formulir*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
             <div
                 class="absolute inset-0 bg-gradient-to-r from-goldspel/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
             </div>
             <i
-                class="fas fa-clipboard-list w-5 {{ request()->is('form*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
+                class="fas fa-clipboard-list w-5 {{ request()->is('admin/form*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Template Formulir</span>
         </a>
 

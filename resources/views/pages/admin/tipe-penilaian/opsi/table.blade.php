@@ -22,10 +22,6 @@
                             <td class="py-4 px-4 text-gray-500 dark:text-gray-300">{{ $opsi->value }}</td>
                             <td class="py-4 px-4">
                                 <div class="flex space-x-2">
-                                    <button
-                                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg">
-                                        <i class="fas fa-eye text-sm"></i>
-                                    </button>
                                     <button onclick="openModalOpsi('modal-data-opsi','{{ $opsi->id }}')"
                                         class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900 rounded-lg">
                                         <i class="fas fa-edit text-sm"></i>

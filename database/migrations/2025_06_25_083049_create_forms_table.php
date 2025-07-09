@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('keterangan');
+            $table->boolean('self')->default(false);
+            $table->string('keterangan')->nullable();
+            $table->foreignId('penilaian_tipe_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

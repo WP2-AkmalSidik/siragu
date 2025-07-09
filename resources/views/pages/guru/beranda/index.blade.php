@@ -1,42 +1,20 @@
-<!doctype html>
-<html>
+@extends('layouts.guru')
+@section('title', 'Dashboard')
+@push('styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+@section('content')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @vite('resources/css/app.css')
-    <script src="https://kit.fontawesome.com/af96158b7b.js" crossorigin="anonymous"></script>
-    <title>SIRAGU - Dashboard Guru</title>
-</head>
-
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen pb-16 font-sans">
-
-    <!-- App Header -->
-    <header class="bg-white dark:bg-gray-800 shadow-sm py-3 px-4 border-b border-gray-100 dark:border-gray-700">
-        <div class="flex justify-between items-center max-w-6xl mx-auto">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-bangala rounded-md flex items-center justify-center text-white font-bold">S</div>
-                <h1 class="font-semibold text-lg">SIRAGU</h1>
-            </div>
-            <div class="flex items-center space-x-3">
-                <button class="text-gray-500 hover:text-bangala">
-                    <i class="far fa-bell"></i>
-                </button>
-                <div
-                    class="w-8 h-8 rounded-full bg-bangala/10 flex items-center justify-center text-bangala font-medium text-sm">
-                    AG
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-4">
         <!-- Teacher Profile Header -->
         <div class="flex items-center justify-between mb-6">
             <div>
-                <h1 class="text-xl font-semibold">Halo, Ahmad Gunawan</h1>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Guru Kelas 4A | Semester Genap 2024/2025</p>
+                <h1 class="text-xl font-semibold">Halo, {{ auth()->user()->nama }}</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    @foreach (auth()->user()->jabatans as $jabatan)
+                        {{ toTitleCase($jabatan->jabatan->jabatan) . ', ' }}
+                    @endforeach
+                </p>
             </div>
             <div class="text-right">
                 <div class="text-2xl font-bold text-bangala">80%</div>
@@ -347,25 +325,7 @@
             </div>
         </div>
     </main>
-
-    <!-- Bottom Navigation -->
-    <nav
-        class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-2">
-        <div class="flex justify-around max-w-2xl mx-auto">
-            <a href="/" class="flex flex-col items-center text-bangala">
-                <i class="fas fa-home"></i>
-                <span class="text-xs mt-1">Beranda</span>
-            </a>
-            <a href="/statistik" class="flex flex-col items-center text-gray-400 hover:text-bangala">
-                <i class="fas fa-chart-line text-sm sm:text-base"></i>
-                <span class="text-xs mt-1">Statistik</span>
-            </a>
-            <a href="/profile" class="flex flex-col items-center text-gray-400 hover:text-bangala">
-                <i class="fas fa-user"></i>
-                <span class="text-xs mt-1">Profil</span>
-            </a>
-        </div>
-    </nav>
-</body>
-
-</html>
+@endsection
+@push('scripts')
+    <script></script>
+@endpush

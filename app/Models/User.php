@@ -3,9 +3,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\JabatanUser;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -52,5 +52,19 @@ class User extends Authenticatable
     public function jabatans()
     {
         return $this->hasMany(JabatanUser::class);
+    }
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class);
+    }
+
+    public function nilaiAsPengisi()
+    {
+        return $this->hasMany(Nilai::class, 'pengisi_id');
+    }
+
+    public function nilaiAsTarget()
+    {
+        return $this->hasMany(Nilai::class, 'target_id');
     }
 }

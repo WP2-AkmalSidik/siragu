@@ -2,15 +2,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
-use App\Traits\JsonResponder;
+use App\Models\JabatanUser;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class JabatanController extends Controller
 {
-    use JsonResponder;
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         if ($request->ajax() && $request->mode == 'select') {
@@ -32,10 +29,6 @@ class JabatanController extends Controller
 
         return redirect()->back();
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -62,18 +55,6 @@ class JabatanController extends Controller
             return $this->errorResponse(null, $e->getMessage());
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         try {
@@ -83,10 +64,6 @@ class JabatanController extends Controller
             return $this->errorResponse(null, $e->getMessage());
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
@@ -111,10 +88,6 @@ class JabatanController extends Controller
             return $this->errorResponse(null, $e->getMessage());
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         try {
@@ -122,6 +95,26 @@ class JabatanController extends Controller
             return $this->successResponse(null, 'Guru berhasil dihapus.');
         } catch (\Exception $e) {
             return $this->errorResponse(null, $e->getMessage());
+        }
+    }
+
+    public function target(Request $request)
+    {
+        if ($request->ajax() && $request->mode == 'select') {
+            $pengisi_jabatan_ids = JabatanUser::where('user_id', auth()->user()->id)->pluck('jabatan_id');
+
+            $target_jabatans = Jabatan::whereHas('target', function ($query) use ($pengisi_jabatan_ids) {
+                $query->whereHas('form', function ($q) use ($pengisi_jabatan_ids) {
+                    $q->whereHas('pengisi', function ($qry) use ($pengisi_jabatan_ids) {
+                        $qry->whereIn('jabatan_id', $pengisi_jabatan_ids);
+                    });
+                });
+            })
+                ->select('id', 'jabatan')
+                ->distinct()
+                ->get();
+
+            return $this->successResponse($target_jabatans, 'Daftar jabatan target berhasil ditemukan');
         }
     }
 }

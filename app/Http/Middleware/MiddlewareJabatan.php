@@ -18,6 +18,7 @@ class MiddlewareJabatan
 
         if (! $user) {
             abort(403, 'Tidak terautentikasi.');
+            return redirect()->route('login');
         }
 
         $userJabatans = $user->jabatans->pluck('nama')->toArray();
@@ -25,6 +26,7 @@ class MiddlewareJabatan
         // Cek apakah salah satu jabatan yang dimiliki user cocok dengan yang diminta
         if (! array_intersect($jabatans, $userJabatans)) {
             abort(403, 'Akses ditolak. Jabatan tidak sesuai.');
+            return redirect()->back();
         }
 
         return $next($request);

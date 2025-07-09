@@ -3,14 +3,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Form;
 use App\Models\FormKategori;
-use Illuminate\Http\Request;
 use App\Models\FormPenilaian;
-use App\Traits\JsonResponder;
 use App\Models\FormSubKategori;
+use App\Traits\JsonResponder;
+use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
-    use JsonResponder;
     /**
      * Display a listing of the resource.
      */

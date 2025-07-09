@@ -23,7 +23,7 @@
             <!-- Bagian 1: Kompetensi Pedagogik -->
             <div class="mb-8">
                 <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">1. Kompetensi Pedagogik</h4>
-                
+
                 <!-- Pertanyaan 1.1 -->
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">1.1. Penguasaan terhadap karakteristik peserta didik</label>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Pertanyaan 1.2 -->
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">1.2. Penguasaan teori belajar dan prinsip-prinsip pembelajaran</label>
@@ -67,7 +67,7 @@
             <!-- Bagian 2: Kompetensi Kepribadian -->
             <div class="mb-8">
                 <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">2. Kompetensi Kepribadian</h4>
-                
+
                 <!-- Pertanyaan 2.1 -->
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">2.1. Bersikap sesuai dengan norma agama, hukum, sosial, dan kebudayaan nasional</label>
@@ -79,7 +79,7 @@
                         <option value="4">4 (Sangat Baik)</option>
                     </select>
                 </div>
-                
+
                 <!-- Pertanyaan 2.2 -->
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">2.2. Menunjukkan pribadi yang dewasa dan teladan</label>
@@ -111,7 +111,7 @@
             <!-- Bagian 3: Kompetensi Sosial -->
             <div class="mb-8">
                 <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">3. Kompetensi Sosial</h4>
-                
+
                 <!-- Pertanyaan 3.1 -->
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">3.1. Berkomunikasi secara efektif dengan peserta didik</label>
@@ -123,7 +123,7 @@
                         <option value="4">4 (Sangat Baik)</option>
                     </select>
                 </div>
-                
+
                 <!-- Pertanyaan 3.2 -->
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">3.2. Berkomunikasi secara efektif dengan sesama guru dan tenaga kependidikan</label>
@@ -140,7 +140,7 @@
             <!-- Bagian 4: Kompetensi Profesional -->
             <div class="mb-8">
                 <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">4. Kompetensi Profesional</h4>
-                
+
                 <!-- Pertanyaan 4.1 -->
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">4.1. Penguasaan materi pelajaran</label>
@@ -152,7 +152,7 @@
                         <option value="4">4 (Sangat Baik)</option>
                     </select>
                 </div>
-                
+
                 <!-- Pertanyaan 4.2 -->
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">4.2. Pengembangan keprofesian melalui tindakan reflektif</label>
@@ -185,7 +185,7 @@
             <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 mb-6">
                 <label class="block text-gray-700 dark:text-gray-300 mb-2">Catatan Tambahan</label>
                 <textarea name="catatan" rows="3" class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala"></textarea>
-                
+
                 <div class="flex justify-between items-center mt-4">
                     <div>
                         <span class="text-sm text-gray-500 dark:text-gray-400">Total Nilai:</span>
