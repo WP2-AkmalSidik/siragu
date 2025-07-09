@@ -171,13 +171,6 @@ function confirmLogout (url, redirect = null) {
     })
 }
 
-/**
- * Loads options into a select element from a remote URL
- * @param {string} selector - jQuery selector for the select element
- * @param {string} url - API endpoint URL
- * @param {string|array|null} selectedValue - Value(s) to be selected (supports single or multiple select)
- * @param {string} placeholder - Placeholder text for empty option
- */
 const loadSelectOptions = (
     selector,
     url,

@@ -24,6 +24,7 @@
                             <select name="tipe_input" id="tipe_input"
                                 class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                                 <option value="number">Angka</option>
+                                <option value="select">Select</option>
                                 <option value="radio">Radio</option>
                             </select>
                             <small class="text-xs text-red-500 dark:text-red-400" id="errortipe_input"></small>

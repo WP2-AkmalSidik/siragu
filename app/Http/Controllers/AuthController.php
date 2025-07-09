@@ -2,12 +2,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Traits\JsonResponder;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    use JsonResponder;
     public function login(Request $request)
     {
         if ($request->isMethod('GET')) {
@@ -19,7 +17,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $validated['email'])->first();
+        $user = User::with('jabatans.jabatan')->where('email', $validated['email'])->first();
 
         if (! $user) {
             return $this->errorResponse(null, 'Akun dengan alamat email ' . $validated['email'] . ' tidak ditemukan.');

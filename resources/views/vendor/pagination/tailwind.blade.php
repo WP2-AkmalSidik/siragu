@@ -1,6 +1,6 @@
     <div class="flex items-center justify-between mt-6">
         <p class="text-sm text-gray-500 dark:text-gray-400">
-            Menampilkan {{ $paginator->firstItem() }} - {{ $paginator->lastItem() }} dari {{ $paginator->total() }} guru
+            Menampilkan {{ $paginator->firstItem() }} - {{ $paginator->lastItem() }} dari {{ $paginator->total() }} data
         </p>
 
         <div class="flex space-x-2 pagination">

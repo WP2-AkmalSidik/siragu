@@ -3,13 +3,12 @@ namespace App\Http\Controllers;
 
 use App\Models\JabatanUser;
 use App\Models\User;
-use App\Traits\JsonResponder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class GuruController extends Controller
 {
-    use JsonResponder;
     /**
      * Display a listing of the resource.
      */
@@ -60,6 +59,8 @@ class GuruController extends Controller
             'jabatan_id.*' => 'nullable',
         ]);
 
+        DB::beginTransaction();
+
         try {
             $user = User::create([
                 'nip'      => $validated['nip'],
@@ -71,18 +72,21 @@ class GuruController extends Controller
                 'status'   => $validated['status'],
             ]);
 
-            foreach ($validated['jabatan_id'] as $jabatan_id) {
-                $jabatanExist = JabatanUser::where('jabatan_id', $jabatan_id)->where('user_id', $user->id)->exists();
-                if (! $jabatanExist) {
-                    JabatanUser::create([
+            // Handle jabatan jika ada
+            if (isset($validated['jabatan_id'])) {
+                foreach ($validated['jabatan_id'] as $jabatan_id) {
+                    JabatanUser::firstOrCreate([
                         'jabatan_id' => $jabatan_id,
                         'user_id'    => $user->id,
                     ]);
                 }
             }
 
-            return $this->successResponse(null, 'Guru berhasil ditambahkan.');
+            DB::commit();
+
+            return $this->successResponse($user, 'Guru berhasil ditambahkan.');
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->errorResponse(null, $e->getMessage());
         }
     }
@@ -92,7 +96,12 @@ class GuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $data = User::with('jabatans.jabatan')->findOrFail($id);
+            return $this->successResponse($data, 'Data berhasil ditemukan.');
+        } catch (\Exception $e) {
+            return $this->errorResponse(null, $e->getMessage());
+        }
     }
 
     /**
@@ -101,7 +110,7 @@ class GuruController extends Controller
     public function edit(string $id)
     {
         try {
-            $data = User::find($id);
+            $data = User::with('jabatans.jabatan')->findOrFail($id);
             return $this->successResponse($data, 'Data berhasil ditemukan.');
         } catch (\Exception $e) {
             return $this->errorResponse(null, $e->getMessage());
@@ -114,15 +123,20 @@ class GuruController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'nama'   => 'required',
-            'status' => 'required|in:1,0',
-            'nip'    => ['nullable', Rule::unique('users', 'nip')->ignore($id)],
-            'email'  => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
-            'no_hp'  => ['nullable', Rule::unique('users', 'no_hp')->ignore($id)],
+            'nama'         => 'required',
+            'status'       => 'required|in:1,0',
+            'nip'          => ['nullable', Rule::unique('users', 'nip')->ignore($id)],
+            'email'        => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
+            'no_hp'        => ['nullable', Rule::unique('users', 'no_hp')->ignore($id)],
+            'jabatan_id'   => 'nullable|array|min:1',
+            'jabatan_id.*' => 'nullable',
         ]);
 
+        DB::beginTransaction();
+
         try {
-            User::find($id)->update([
+            $user = User::findOrFail($id);
+            $user->update([
                 'nip'    => $validated['nip'],
                 'nama'   => $validated['nama'],
                 'email'  => $validated['email'],
@@ -130,8 +144,27 @@ class GuruController extends Controller
                 'status' => $validated['status'],
             ]);
 
-            return $this->successResponse(null, 'Guru berhasil diupdate.');
+            // Handle jabatan jika ada
+            if (isset($validated['jabatan_id'])) {
+                // Hapus jabatan yang tidak ada di request
+                JabatanUser::where('user_id', $user->id)
+                    ->whereNotIn('jabatan_id', $validated['jabatan_id'])
+                    ->delete();
+
+                // Tambahkan jabatan baru
+                foreach ($validated['jabatan_id'] as $jabatan_id) {
+                    JabatanUser::firstOrCreate([
+                        'jabatan_id' => $jabatan_id,
+                        'user_id'    => $user->id,
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return $this->successResponse($user, 'Guru berhasil diupdate.');
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->errorResponse(null, $e->getMessage());
         }
     }
@@ -141,11 +174,41 @@ class GuruController extends Controller
      */
     public function destroy(string $id)
     {
+        DB::beginTransaction();
+
         try {
-            User::find($id)->delete();
+            $user = User::findOrFail($id);
+
+            // Hapus relasi jabatan terlebih dahulu
+            JabatanUser::where('user_id', $user->id)->delete();
+
+            // Hapus user
+            $user->delete();
+
+            DB::commit();
+
             return $this->successResponse(null, 'Guru berhasil dihapus.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse(null, $e->getMessage());
+        }
+    }
+
+    public function jabatan(string $id)
+    {
+        try {
+            $data = User::where('role', 'guru')->with('jabatans.jabatan')
+                ->whereHas('jabatans', function ($query) use ($id) {
+                    $query->where('jabatan_id', $id);
+                })
+                ->get();
+
+            return $this->successResponse($data, 'Data berhasil ditemukan.');
         } catch (\Exception $e) {
             return $this->errorResponse(null, $e->getMessage());
         }
     }
+
+    
+
 }

@@ -8,8 +8,8 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Guru</p>
-                    <p class="text-3xl font-bold text-gray-900 dark:text-white">24</p>
-                    <p class="text-sm text-green-600 dark:text-green-400">+2 bulan ini</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $gurus }}</p>
+                    <p class="text-sm text-green-600 dark:text-green-400">+{{ $guruThisMonth }} bulan ini</p>
                 </div>
                 <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
                     <i class="fas fa-users text-blue-600 dark:text-blue-400"></i>
@@ -64,7 +64,7 @@
             class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
             <h3 class="text-lg font-semibold mb-3 sm:mb-4 text-gray-900 dark:text-white flex items-center">
                 <i class="fas fa-trophy text-yellow-500 mr-2"></i>
-                Guru Terbaik Bulan Ini
+                Guru Terbaik {{ tahunAjaranSekarang() }} {{ semesterSekarang() }}
             </h3>
 
             <div class="space-y-3 sm:space-y-4">

@@ -9,11 +9,16 @@ class Nilai extends Model
 
     public function pengisi()
     {
-        return $this->belongsTo(User::class, 'pengisi');
+        return $this->belongsTo(User::class, 'pengisi_id');
     }
 
     public function target()
     {
-        return $this->belongsTo(User::class, 'target');
+        return $this->belongsTo(User::class, 'target_id');
+    }
+
+    public function penilaian()
+    {
+        return $this->belongsTo(FormPenilaian::class, 'form_penilaian_id');
     }
 }

@@ -10,6 +10,6 @@ class PenilaianOpsi extends Model
 
     public function tipe()
     {
-        return $this->belongsTo(PenilaianTipe::class);
+        return $this->belongsTo(PenilaianTipe::class, 'penilaian_tipe_id');
     }
 }

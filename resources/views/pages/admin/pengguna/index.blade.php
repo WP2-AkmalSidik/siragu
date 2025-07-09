@@ -31,7 +31,7 @@
     <script>
         // Fungsi untuk menampilkan modal edit
         function openEditModal(id) {
-            const url = '/pengguna/' + id + '/edit';
+            const url = '/admin/pengguna/' + id + '/edit';
 
             const successCallback = function(response) {
                 const modal = document.getElementById('modal-data');
@@ -118,7 +118,7 @@
             // Fungsi Load Data
             function loadData(page = 1, query = '') {
                 $.ajax({
-                    url: `/pengguna?page=${page}&search=${encodeURIComponent(query)}`,
+                    url: `/admin/pengguna?page=${page}&search=${encodeURIComponent(query)}`,
                     type: 'GET',
                     success: function(res) {
                         $('#table-pengguna').html(res.data.view);
@@ -165,12 +165,12 @@
                 e.preventDefault();
 
                 const id = $(this).data('id');
-                let url = '{{ route('pengguna.store') }}';
+                let url = '{{ route('admin.pengguna.store') }}';
                 const method = 'POST';
                 const formData = new FormData(this);
 
                 if (id) {
-                    url = `/pengguna/${id}`; // Ganti URL untuk update
+                    url = `/admin/pengguna/${id}`; // Ganti URL untuk update
                     formData.append('_method', 'PUT'); // Spoofing method PUT
                 }
 
@@ -195,7 +195,7 @@
 
                 const id = $(this).attr('data-id');
 
-                const url = `/pengguna/${id}`;
+                const url = `/admin/pengguna/${id}`;
                 const method = 'DELETE'
 
                 const successCallback = function(response) {

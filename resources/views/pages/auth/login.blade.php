@@ -135,7 +135,7 @@
                 const data = new FormData(this);
 
                 const successCallback = function(response) {
-                    successToast(response, '{{ route('dashboard.index') }}')
+                    successToast(response, '/')
                     console.log(response)
                 }
 

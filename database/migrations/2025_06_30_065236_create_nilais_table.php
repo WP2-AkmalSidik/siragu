@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('nilais', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_penilaian_id')->constrained()->onDelete('cascade');
-            $table->foreignId('pengisi')->constrained('users')->onDelete('cascade');
-            $table->foreignId('target')->constrained('users')->onDelete('cascade');
+            $table->foreignId('pengisi_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('target_id')->constrained('users')->onDelete('cascade');
             $table->string('nilai');
-            $table->timestamps();
+            $table->string('tahun_ajaran');
+            $table->string('semester');
+            $table->unique(
+                ['form_penilaian_id', 'pengisi_id', 'target_id', 'tahun_ajaran', 'semester'],
+                'nilai_unik_periode_idx'
+            ); $table->timestamps();
         });
     }
 

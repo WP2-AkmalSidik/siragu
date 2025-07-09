@@ -2,13 +2,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Traits\JsonResponder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class PenggunaController extends Controller
 {
-    use JsonResponder;
     /**
      * Display a listing of the resource.
      */
