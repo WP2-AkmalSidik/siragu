@@ -1,51 +1,39 @@
 @extends('layouts.guru')
+
 @section('title', 'Penilaian Guru')
 @section('description', 'Form Penilaian Kinerja Guru')
+
 @push('styles')
-    <style>
-        /* ... (keep all your existing styles) ... */
-
-        .loading-spinner {
-            display: inline-block;
-            width: 2rem;
-            height: 2rem;
-            border: 3px solid rgba(255, 255, 255, .3);
-            border-radius: 50%;
-            border-top-color: #667eea;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
 @endpush
-@section('content')
 
-    <!-- Main Content -->
+@section('content')
     <main class="max-w-6xl mx-auto px-4 py-4">
 
-        <div class="flex items-center justify-between mb-6 mobile-stack mobile-space-y-2">
-            <div class="mobile-full-width mobile-text-center sm:text-left">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <!-- Kiri (judul dan deskripsi) -->
+            <div class="text-center sm:text-left">
                 <h1 class="text-xl font-semibold">Statistik Penilaian Guru</h1>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Analisis Kinerja Guru SMP • Semester Ganjil 2024/2025</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Analisis Kinerja Guru SMP • Semester
+                    <span id="smt-label">{{ ucfirst(semesterSekarang()) }}</span>
+                    {{ now()->year }}/{{ now()->year + 1 }}
+                </p>
             </div>
-            <div class="flex gap-4 justify-end mb-4">
+
+            <!-- Kanan (filter select) -->
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center sm:justify-end">
                 <div class="relative">
                     <select id="tahun_ajaran"
-                        class="w-48 pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
+                        class="w-full sm:w-48 pl-4 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition text-sm">
                         @foreach (tahunAjaranTerakhir() as $tahun)
                             <option value="{{ $tahun }}">{{ $tahun }}</option>
                         @endforeach
                     </select>
-                    {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i> --}}
                 </div>
 
                 <div class="relative">
                     <select id="semester"
-                        class="w-40 pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
+                        class="w-full sm:w-40 pl-4 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition text-sm">
                         <option value="ganjil" @if (semesterSekarang() == 'ganjil') selected @endif>Ganjil</option>
                         <option value="genap" @if (semesterSekarang() == 'genap') selected @endif>Genap</option>
                     </select>
@@ -53,57 +41,66 @@
             </div>
         </div>
 
-        <div id="report-container"></div>
-    </main>
 
+        <div class="grid grid-cols-1 gap-4">
+            <div id="report-container">
+
+            </div>
+        </div>
+    </main>
 @endsection
+
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize chart variable
             let trendChart = null;
 
-            // Format tahun ajaran for URL (replace / with -)
             function formatTahunAjaran(tahun) {
                 return tahun.replace(/\//g, '-');
             }
 
-            // Show error message
             function showError(message) {
                 $('#report-container').html(`
-                    <div class="text-center py-8 text-red-500">
-                        <i class="fas fa-exclamation-circle mr-2"></i>
-                        ${message}
-                    </div>
-                `);
+                <div class="text-center py-8 text-red-500">
+                    <i class="fas fa-exclamation-circle mr-2"></i>${message}
+                </div>
+            `);
             }
 
-            // Initialize chart
-            function initChart(labels, data) {
+            function initChart(labels, nilaiPerSemester, overallAverage) {
                 const ctx = document.getElementById('trendChart').getContext('2d');
 
-                if (trendChart) {
-                    trendChart.destroy();
-                }
+                if (trendChart) trendChart.destroy();
 
                 trendChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Rata-rata Nilai',
-                            data: data,
-                            borderColor: '#667eea',
-                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: '#ef4444',
-                            pointBorderColor: '#fff',
-                            pointBorderWidth: 2,
-                            pointRadius: 4,
-                            pointHoverRadius: 6
-                        }]
+                                label: 'Rata-rata Nilai',
+                                data: nilaiPerSemester,
+                                borderColor: '#667eea',
+                                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                                borderWidth: 3,
+                                fill: true,
+                                tension: 0.4,
+                                pointBackgroundColor: '#ef4444',
+                                pointBorderColor: '#fff',
+                                pointBorderWidth: 2,
+                                pointRadius: 4,
+                                pointHoverRadius: 6
+                            },
+                            {
+                                label: 'Rata-rata Keseluruhan',
+                                data: Array(labels.length).fill(overallAverage),
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                backgroundColor: 'transparent',
+                                borderWidth: 2,
+                                pointRadius: 0,
+                                fill: false,
+                                borderDash: [5, 5]
+                            }
+                        ]
                     },
                     options: {
                         responsive: true,
@@ -123,13 +120,6 @@
                             tooltip: {
                                 mode: 'index',
                                 intersect: false,
-                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                                titleColor: '#fff',
-                                bodyColor: '#fff',
-                                borderColor: '#667eea',
-                                borderWidth: 1,
-                                cornerRadius: 8,
-                                displayColors: true,
                                 callbacks: {
                                     label: function(context) {
                                         return context.dataset.label + ': ' + context.parsed.y.toFixed(
@@ -151,7 +141,6 @@
                                 }
                             },
                             y: {
-                                beginAtZero: false,
                                 min: 70,
                                 max: 100,
                                 grid: {
@@ -172,17 +161,11 @@
                             mode: 'nearest',
                             axis: 'x',
                             intersect: false
-                        },
-                        elements: {
-                            point: {
-                                hoverBackgroundColor: '#fff'
-                            }
                         }
                     }
                 });
             }
 
-            // Load data via AJAX
             function loadData(semester, tahun_ajaran) {
                 const formattedTahun = formatTahunAjaran(tahun_ajaran);
 
@@ -194,19 +177,9 @@
                         if (response.success) {
                             $('#report-container').html(response.data.view);
 
-                            // Reinitialize chart with new data
-                            const currentSemester = $('#semester').val();
-                            const currentTahun = $('#tahun_ajaran').val();
-                            const labels = [
-                                'Sem Ganjil 22/23',
-                                'Sem Genap 22/23',
-                                'Sem Ganjil 23/24',
-                                'Sem Genap 23/24',
-                                `Sem ${currentSemester.charAt(0).toUpperCase() + currentSemester.slice(1)} ${currentTahun}`
-                            ];
+                            const chart = response.data.chart;
 
-                            const data = [85.2, 86.8, 87.5, 87.2, response.data.data.overall_average];
-                            initChart(labels, data);
+                            initChart(chart.labels, chart.values, chart.overall_average);
                         } else {
                             showError(response.message || 'Gagal memuat data');
                         }
@@ -217,24 +190,15 @@
                 });
             }
 
-            // Event handlers
             $(document)
                 .on('change', '#tahun_ajaran', function() {
-                    const semester = $('#semester').val();
-                    const tahun_ajaran = $(this).val();
-                    loadData(semester, tahun_ajaran);
+                    loadData($('#semester').val(), $(this).val());
                 })
                 .on('change', '#semester', function() {
-                    const semester = $(this).val();
-                    const tahun_ajaran = $('#tahun_ajaran').val();
-                    loadData(semester, tahun_ajaran);
+                    loadData($(this).val(), $('#tahun_ajaran').val());
                 });
 
-            // Initial load
-            const initialTahun = $('#tahun_ajaran').val();
-            const initialSemester = $('#semester').val();
-
-            loadData(initialSemester, initialTahun);
+            loadData($('#semester').val(), $('#tahun_ajaran').val());
         });
     </script>
 @endpush

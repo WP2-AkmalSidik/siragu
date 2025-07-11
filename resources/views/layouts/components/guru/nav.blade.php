@@ -6,14 +6,11 @@
                 <i class="fas fa-home"></i>
                 <span class="text-xs mt-1">Beranda</span>
             </a>
-            {{-- <a href="/statistik" class="flex flex-col items-center text-gray-400 hover:text-bangala">
+            <a href="{{ route('guru.statistik') }}"
+                class="flex flex-col items-center {{ request()->is('guru/statistik*') ? 'text-bangala' : 'hover:text-bangala' }}">
                 <i class="fas fa-chart-line text-sm sm:text-base"></i>
                 <span class="text-xs mt-1">Statistik</span>
-            </a> --}}
-            {{-- <a href="/statistik" class="flex flex-col items-center text-gray-400 hover:text-bangala">
-                <i class="fas fa-chart-line text-sm sm:text-base"></i>
-                <span class="text-xs mt-1">Nilai</span>
-            </a> --}}
+            </a>
             <a href="{{ route('guru.penilaian.index') }}"
                 class="flex flex-col items-center text-gray-400 {{ request()->is('guru/penilaian*') ? 'text-bangala' : 'hover:text-bangala' }}">
                 <i class="fas fa-chart-line text-sm sm:text-base"></i>

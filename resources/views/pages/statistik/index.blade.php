@@ -196,7 +196,7 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
+            {{-- <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-500 dark:text-gray-400">Guru Berprestasi</p>
@@ -207,7 +207,7 @@
                         <i class="fas fa-star text-goldspel"></i>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Chart Section -->

@@ -1,6 +1,5 @@
-
 <!-- Summary Cards -->
-<div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<div class="grid grid-cols-1 xs:grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
     <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
         <div class="flex items-center justify-between">
             <div>
@@ -41,20 +40,6 @@
             </div>
         </div>
     </div>
-
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Guru Berprestasi</p>
-                <p class="text-2xl font-bold text-goldspel">{{ $excellent_teachers }}</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">≥85
-                    ({{ round(($excellent_teachers / count($result)) * 100) }}% dari total)</p>
-            </div>
-            <div class="w-10 h-10 bg-goldspel/10 rounded-full flex items-center justify-center">
-                <i class="fas fa-star text-goldspel"></i>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- Chart Section -->
@@ -71,38 +56,50 @@
 </div>
 
 <!-- Assessment Results -->
-<div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700 mb-6">
-    <div class="p-4 border-b border-gray-100 dark:border-gray-700">
-        <h2 class="text-lg font-semibold">Detail Penilaian</h2>
+<div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-6">
+    <!-- Header -->
+    <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+        <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Detail Penilaian</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400">Hasil penilaian per aspek</p>
     </div>
+
+    <!-- Table Container -->
     <div class="p-4">
         <div class="overflow-x-auto">
-            <table class="w-full">
+            <table class="w-full text-sm text-gray-700 dark:text-gray-200">
                 <thead>
-                    <tr class="text-left border-b border-gray-100 dark:border-gray-700">
-                        <th class="pb-2">Aspek Penilaian</th>
-                        <th class="pb-2 text-right">Rata-rata</th>
-                        <th class="pb-2 text-right">Jumlah Penilaian</th>
+                    <tr class="text-left border-b border-gray-100 dark:border-gray-700 text-xs uppercase tracking-wide">
+                        <th class="pb-3">Aspek Penilaian</th>
+                        <th class="pb-3 text-center">Jumlah Aspek Penilaian</th>
+                        <th class="pb-3 text-center">Rata-rata</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                     @foreach ($result as $item)
                         <tr>
-                            <td class="py-3">
-                                <p class="font-medium">{{ $item->form_nama }}</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ $item->keterangan }}</p>
+                            <!-- Aspek Penilaian -->
+                            <td class="py-3 w-full max-w-xs">
+                                <div>
+                                    <p class="font-medium text-gray-800 dark:text-white">{{ $item->form_nama }}</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ $item->keterangan }}</p>
+                                </div>
                             </td>
-                            <td class="py-3 text-right">
-                                <div class="flex items-center justify-end">
-                                    <span class="font-medium">{{ $item->rata_nilai }}</span>
-                                    <div class="ml-2 w-16 bg-gray-100 dark:bg-gray-700 rounded-full h-2">
-                                        <div class="bg-bangala h-2 rounded-full"
+
+                            <!-- Jumlah Penilaian -->
+                            <td class="py-3 text-center whitespace-nowrap">
+                                {{ $item->total_penilaian }}
+                            </td>
+
+                            <!-- Rata-rata -->
+                            <td class="py-3 text-right whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-2">
+                                    <span class="font-semibold">{{ $item->rata_nilai }}</span>
+                                    <div class="w-20 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                        <div class="h-full bg-bangala rounded-full"
                                             style="width: {{ $item->rata_nilai }}%"></div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="py-3 text-right">{{ $item->total_penilaian }}</td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -51,114 +51,116 @@
     </style>
 @endpush
 @section('content')
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-        <div class="w-full sm:w-auto text-center sm:text-left">
-            <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">Edit Profil</h1>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Kelola informasi akun dan profil Anda</p>
-        </div>
-    </div>
-
-    <!-- Profile Edit Form -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Left Column - Profile Picture & Password -->
-
-        <!-- Right Column - Form -->
-        <div class="lg:col-span-2 space-y-6">
-            <!-- Signature Card -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-                <h2 class="font-semibold text-lg mb-5 text-gray-800 dark:text-white">Tanda Tangan Digital</h2>
-
-                <!-- Existing Signature -->
-                <div id="existing-signature" class="mb-6">
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Tanda tangan saat ini:</p>
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                        <div class="border-2 border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white">
-                            <img id="signature-preview"
-                                src="{{ auth()->user()->ttd ? asset('/storage' . '/' . auth()->user()->ttd) : getUiAvatar(auth()->user()->nama) }}"
-                                alt="Current Signature" class="max-w-full h-auto object-contain">
-                        </div>
-                        <button onclick="showSignaturePad()"
-                            class="text-bangala font-medium flex items-center gap-2 hover:text-bangala/80 transition-colors mt-2 sm:mt-0">
-                            <i class="fas fa-edit"></i>
-                            Ubah Tanda Tangan
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Signature Pad (Hidden by default) -->
-                <div id="signature-pad-container" class="hidden">
-                    <div class="mb-5">
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Gambar tanda tangan Anda di area berikut:
-                        </p>
-                        <div class="border-2 border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white">
-                            <canvas id="signature-pad" class="w-full aspect-square bg-white"></canvas>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="clearSignature()"
-                            class="px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-                            <i class="fas fa-eraser mr-2"></i>Hapus
-                        </button>
-                        <button onclick="saveSignature()"
-                            class="px-4 py-2.5 bg-bangala hover:bg-bangala/90 text-white rounded-lg flex-1 focus:outline-none focus:ring-2 focus:ring-bangala focus:ring-offset-2 transition-colors">
-                            <i class="fas fa-save mr-2"></i>Simpan Tanda Tangan
-                        </button>
-                        <button onclick="cancelSignature()"
-                            class="px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-                            Batal
-                        </button>
-                    </div>
-                </div>
+    <main class="max-w-6xl mx-auto px-4 py-4">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+            <div class="w-full sm:w-auto text-center sm:text-left">
+                <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">Edit Profil</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Kelola informasi akun dan profil Anda</p>
             </div>
-            <!-- Personal Information Card -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-                    <h2 class="font-semibold text-lg mb-5 text-gray-800 dark:text-white">Informasi Pribadi</h2>
-                    <div class="w-full sm:w-auto text-center sm:text-right">
-                        <button type="submit" form="form-profile"
-                            class="bg-bangala hover:bg-bangala/90 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-bangala focus:ring-offset-2">
-                            Simpan
-                        </button>
+        </div>
+
+        <!-- Profile Edit Form -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Column - Profile Picture & Password -->
+
+            <!-- Right Column - Form -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Signature Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                    <h2 class="font-semibold text-lg mb-5 text-gray-800 dark:text-white">Tanda Tangan Digital</h2>
+
+                    <!-- Existing Signature -->
+                    <div id="existing-signature" class="mb-6">
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Tanda tangan saat ini:</p>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                            <div class="border-2 border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white">
+                                <img id="signature-preview"
+                                    src="{{ auth()->user()->ttd ? asset('/storage' . '/' . auth()->user()->ttd) : getUiAvatar(auth()->user()->nama) }}"
+                                    alt="Current Signature" class="max-w-full h-auto object-contain">
+                            </div>
+                            <button onclick="showSignaturePad()"
+                                class="text-bangala font-medium flex items-center gap-2 hover:text-bangala/80 transition-colors mt-2 sm:mt-0">
+                                <i class="fas fa-edit"></i>
+                                Ubah Tanda Tangan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Signature Pad (Hidden by default) -->
+                    <div id="signature-pad-container" class="hidden">
+                        <div class="mb-5">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Gambar tanda tangan Anda di area
+                                berikut:
+                            </p>
+                            <div class="border-2 border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white">
+                                <canvas id="signature-pad" class="w-full aspect-square bg-white"></canvas>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="clearSignature()"
+                                class="px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                                <i class="fas fa-eraser mr-2"></i>Hapus
+                            </button>
+                            <button onclick="saveSignature()"
+                                class="px-4 py-2.5 bg-bangala hover:bg-bangala/90 text-white rounded-lg flex-1 focus:outline-none focus:ring-2 focus:ring-bangala focus:ring-offset-2 transition-colors">
+                                <i class="fas fa-save mr-2"></i>Simpan Tanda Tangan
+                            </button>
+                            <button onclick="cancelSignature()"
+                                class="px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                                Batal
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <form id="form-profile">
-                        <!-- Nama Lengkap -->
-                        <div>
-                            <label for="nama"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Nama
-                                Lengkap</label>
-                            <input type="text" id="nama" value="{{ auth()->user()->nama }}" name="nama"
-                                class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
+                <!-- Personal Information Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+                        <h2 class="font-semibold text-lg mb-5 text-gray-800 dark:text-white">Informasi Pribadi</h2>
+                        <div class="w-full sm:w-auto text-center sm:text-right">
+                            <button type="submit" form="form-profile"
+                                class="bg-bangala hover:bg-bangala/90 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-bangala focus:ring-offset-2">
+                                Simpan
+                            </button>
                         </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <form id="form-profile">
+                            <!-- Nama Lengkap -->
+                            <div>
+                                <label for="nama"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Nama
+                                    Lengkap</label>
+                                <input type="text" id="nama" value="{{ auth()->user()->nama }}" name="nama"
+                                    class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
+                            </div>
 
-                        <!-- NIP -->
-                        <div>
-                            <label for="nip"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">NIP</label>
-                            <input type="text" id="nip" value="{{ auth()->user()->nip }}" name="nip"
-                                class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
-                        </div>
+                            <!-- NIP -->
+                            <div>
+                                <label for="nip"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">NIP</label>
+                                <input type="text" id="nip" value="{{ auth()->user()->nip }}" name="nip"
+                                    class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
+                            </div>
 
-                        <!-- Email -->
-                        <div class="md:col-span-2">
-                            <label for="email"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
-                            <input type="email" id="email" value="{{ auth()->user()->email }}" name="email"
-                                class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
-                        </div>
+                            <!-- Email -->
+                            <div class="md:col-span-2">
+                                <label for="email"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
+                                <input type="email" id="email" value="{{ auth()->user()->email }}" name="email"
+                                    class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
+                            </div>
 
-                        <!-- Nomor HP -->
-                        <div>
-                            <label for="phone"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Nomor
-                                HP</label>
-                            <input type="tel" id="phone" value="{{ auth()->user()->no_hp }}" name="no_hp"
-                                class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
-                        </div>
+                            <!-- Nomor HP -->
+                            <div>
+                                <label for="phone"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Nomor
+                                    HP</label>
+                                <input type="tel" id="phone" value="{{ auth()->user()->no_hp }}" name="no_hp"
+                                    class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
+                            </div>
 
-                        <!-- Jenis Kelamin -->
-                        {{-- <div>
+                            <!-- Jenis Kelamin -->
+                            {{-- <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Jenis
                             Kelamin</label>
                         <div class="flex gap-4">
@@ -174,90 +176,91 @@
                             </label>
                         </div>
                     </div> --}}
-                    </form>
-                </div>
-            </div>
-
-            {{-- {{ dd(auth()->user()) }} --}}
-        </div>
-
-        <div class="space-y-6">
-            <!-- Profile Picture Card -->
-
-            <!-- Password Card -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-                    <h2 class="font-semibold text-lg mb-4 text-gray-800 dark:text-white">Ubah Password</h2>
-                    <div class="w-full sm:w-auto text-center sm:text-right">
-                        <button type="submit" form="form-password"
-                            class="bg-bangala hover:bg-bangala/90 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-bangala focus:ring-offset-2">
-                            Simpan
-                        </button>
+                        </form>
                     </div>
                 </div>
 
-                <div class="space-y-4">
-                    <form id="form-password">
-                        <div>
-                            <label for="current-password"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Password Saat
-                                Ini</label>
-                            <div class="relative">
-                                <input type="password" id="current-password" name="password_lama"
-                                    class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
-                                <button type="button"
-                                    class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                    onclick="togglePassword('current-password')">
-                                    <i class="far fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                {{-- {{ dd(auth()->user()) }} --}}
+            </div>
 
-                        <!-- New Password -->
-                        <div>
-                            <label for="new-password"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Password
-                                Baru</label>
-                            <div class="relative">
-                                <input type="password" id="new-password" name="password_baru"
-                                    class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
-                                <button type="button"
-                                    class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                    onclick="togglePassword('new-password')">
-                                    <i class="far fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+            <div class="space-y-6">
+                <!-- Profile Picture Card -->
 
-                        <!-- Confirm New Password -->
-                        <div>
-                            <label for="confirm-password"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Konfirmasi
-                                Password Baru</label>
-                            <div class="relative">
-                                <input type="password" id="confirm-password"
-                                    class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
-                                <button type="button"
-                                    class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                    onclick="togglePassword('confirm-password')">
-                                    <i class="far fa-eye"></i>
-                                </button>
-                            </div>
+                <!-- Password Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+                        <h2 class="font-semibold text-lg mb-4 text-gray-800 dark:text-white">Ubah Password</h2>
+                        <div class="w-full sm:w-auto text-center sm:text-right">
+                            <button type="submit" form="form-password"
+                                class="bg-bangala hover:bg-bangala/90 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-bangala focus:ring-offset-2">
+                                Simpan
+                            </button>
                         </div>
-                    </form>
-                </div>
+                    </div>
 
-                <div class="mt-5 text-sm text-gray-500 dark:text-gray-400">
-                    <p class="font-medium mb-2">Pastikan password Anda:</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Minimal 8 karakter</li>
-                        <li>Mengandung huruf besar dan kecil</li>
-                        <li>Mengandung angka atau karakter khusus</li>
-                    </ul>
+                    <div class="space-y-4">
+                        <form id="form-password">
+                            <div>
+                                <label for="current-password"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Password Saat
+                                    Ini</label>
+                                <div class="relative">
+                                    <input type="password" id="current-password" name="password_lama"
+                                        class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
+                                    <button type="button"
+                                        class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                        onclick="togglePassword('current-password')">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- New Password -->
+                            <div>
+                                <label for="new-password"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Password
+                                    Baru</label>
+                                <div class="relative">
+                                    <input type="password" id="new-password" name="password_baru"
+                                        class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
+                                    <button type="button"
+                                        class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                        onclick="togglePassword('new-password')">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Confirm New Password -->
+                            <div>
+                                <label for="confirm-password"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Konfirmasi
+                                    Password Baru</label>
+                                <div class="relative">
+                                    <input type="password" id="confirm-password"
+                                        class="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent transition-all">
+                                    <button type="button"
+                                        class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                        onclick="togglePassword('confirm-password')">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="mt-5 text-sm text-gray-500 dark:text-gray-400">
+                        <p class="font-medium mb-2">Pastikan password Anda:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Minimal 8 karakter</li>
+                            <li>Mengandung huruf besar dan kecil</li>
+                            <li>Mengandung angka atau karakter khusus</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>

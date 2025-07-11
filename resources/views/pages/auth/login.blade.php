@@ -114,7 +114,7 @@
         <!-- Copyright -->
         <div class="text-center mt-6">
             <p class="text-gray-600 dark:text-gray-400 text-sm">
-                © 2025 SIRAGU - Sistem Informasi Rapor Guru
+                © {{ date('Y') }} {{ getPengaturan()->singkatan }} - {{ getPengaturan()->nama_aplikasi }}
             </p>
         </div>
     </div>

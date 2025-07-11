@@ -40,7 +40,7 @@
         </div>
 
         <!-- Quick Actions Grid -->
-        <div class="grid grid-cols-4 gap-3 mb-6">
+        {{-- <div class="grid grid-cols-4 gap-3 mb-6">
             <!-- Supervisi Kelas -->
             <a href="/super-visi"
                 class="dashboard-card bg-white dark:bg-gray-800 rounded-lg p-3 text-center shadow-xs border border-gray-100 dark:border-gray-700 hover:border-bangala transition-colors">
@@ -80,7 +80,7 @@
                 </div>
                 <span class="text-xs font-medium">Jadwal</span>
             </a>
-        </div>
+        </div> --}}
         <!-- Report Card Preview -->
         <div id="report-container"></div>
     </main>

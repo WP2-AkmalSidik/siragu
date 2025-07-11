@@ -70,12 +70,12 @@
                 <select id="search-form"
                     class="flex-grow pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-bangala focus:border-transparent">
                 </select>
-                <button
-                    class="px-4 py-2 bg-gradient-to-r from-bangala to-goldspel text-white rounded-lg hover:shadow-lg transition-all">Formulir</button>
+                <a href="{{ route('guru.penilaian.create') }}"
+                    class="px-4 py-2 bg-gradient-to-r from-bangala to-goldspel text-white rounded-lg hover:shadow-lg transition-all">Tambah</a>
             </div>
         </div>
         <!-- Teacher List -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 gap-4">
             <div id="table-penilaian">
 
             </div>
