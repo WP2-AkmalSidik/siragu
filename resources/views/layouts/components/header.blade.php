@@ -21,11 +21,13 @@
 
             <div class="flex items-center space-x-3">
                 <div class="w-8 h-8 bg-bangala rounded-full flex items-center justify-center">
-                    <i class="fas fa-user text-white text-sm"></i>
+                    <p class="text-white text-sm">{{ Str::upper(Str::substr(auth()->user()->nama, 0, 2)) }}</p>
                 </div>
                 <div class="hidden md:block">
-                    <p class="font-medium text-sm">Admin SIRAGU</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Kepala Sekolah</p>
+                    <p class="font-medium text-sm">{{ auth()->user()->nama }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        {{ auth()->user()->jabatans->first()->jabatan->jabatan ?? auth()->user()->role }}
+                    </p>
                 </div>
             </div>
         </div>

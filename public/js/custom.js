@@ -147,13 +147,20 @@ const confirmApprove = (url, modalId) => {
 
 function confirmLogout (url, redirect = null) {
     swal.fire({
-        title: 'Apakah Kamu Yakin?',
-        text: 'Anda akan logout dari aplikasi.',
+        title: 'Apakah Anda yakin?',
+        text: 'Anda akan logout dari aplikasi ini.',
         icon: 'warning',
-        buttons: true,
-        dangerMode: true
-    }).then(willApprove => {
-        if (willApprove) {
+        theme: 'dark',
+        showCancelButton: true,
+        confirmButtonColor: '#913013',
+        cancelButtonColor: '#c19e5e',
+        confirmButtonText: 'Ya, Logout!',
+        cancelButtonText: 'Batal',
+        allowOutsideClick: false, // Prevent closing by clicking outside
+        allowEscapeKey: false // Prevent closing with ESC key
+    }).then(result => {
+        if (result.isConfirmed) {
+            // Only proceed if "Ya, Logout!" is clicked
             const data = null
 
             const successCallback = function (response) {
@@ -164,9 +171,10 @@ function confirmLogout (url, redirect = null) {
                 errorToast(error)
             }
 
-            console.log(url)
-
             ajaxCall(url, 'POST', data, successCallback, errorCallback)
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // Optional: Add any cancel action here if needed
+            console.log('Logout dibatalkan')
         }
     })
 }
@@ -263,4 +271,14 @@ const loadSelectOptions = (
 
     // Make AJAX request
     ajaxCall(url, 'GET', { mode: 'select' }, successCallback, errorCallback)
+}
+
+function formatJabatan (jabatan) {
+    if (!jabatan || typeof jabatan !== 'string') return ''
+
+    return jabatan
+        .replace(/_/g, ' ') // ubah underscore jadi spasi
+        .split(' ') // pecah berdasarkan spasi
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // kapitalisasi tiap kata
+        .join(' ') // gabungkan kembali
 }

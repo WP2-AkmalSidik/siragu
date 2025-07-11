@@ -282,6 +282,7 @@ class FormPenilaianController extends Controller
                 'penilaian_tipe_id'  => $form->penilaian_tipe_id,
                 'pengisi'            => $form->pengisi->jabatan->id,
                 'target'             => $form->target->jabatan->id,
+                'self'               => $form->self,
                 'tipe_penilaian'     => $form->tipePenilaian ? [
                     'id'         => $form->tipePenilaian->id,
                     'nama'       => $form->tipePenilaian->nama,
@@ -337,7 +338,116 @@ class FormPenilaianController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'nama'                                       => 'required',
+            'self'                                       => 'nullable',
+            'pengisi'                                    => 'required|exists:jabatans,id',
+            'target'                                     => 'required|exists:jabatans,id',
+            'keterangan'                                 => 'nullable',
+            'penilaian_tipe_id'                          => 'required',
+            'kategori'                                   => 'nullable|array',
+            'kategori.*.nama'                            => 'required_with:kategori.*',
+            'kategori.*.penilaian'                       => 'nullable|array',
+            'kategori.*.penilaian.*.nama'                => 'required',
+            'kategori.*.sub_kategori'                    => 'nullable|array',
+            'kategori.*.sub_kategori.*.nama'             => 'required_with:kategori.*.sub_kategori.*',
+            'kategori.*.sub_kategori.*.penilaian'        => 'nullable|array',
+            'kategori.*.sub_kategori.*.penilaian.*.nama' => 'required',
+            'penilaian'                                  => 'nullable|array',
+            'penilaian.*.nama'                           => 'required',
+        ], [
+            'penilaian_tipe_id.required' => 'Tipe penilaian harus diisi',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $form = Form::findOrFail($id);
+            $form->update([
+                'nama'              => $validated['nama'],
+                'self'              => $validated['self'],
+                'keterangan'        => $validated['keterangan'],
+                'penilaian_tipe_id' => $validated['penilaian_tipe_id'],
+            ]);
+
+            // Update pengisi dan target
+            FormPengisi::updateOrCreate(
+                ['form_id' => $form->id],
+                ['jabatan_id' => $validated['pengisi']]
+            );
+
+            FormTarget::updateOrCreate(
+                ['form_id' => $form->id],
+                ['jabatan_id' => $validated['target']]
+            );
+
+            // Hapus semua data terkait (penilaian, kategori, subkategori)
+            FormPenilaian::where('form_id', $form->id)->delete();
+            FormSubKategori::where('form_id', $form->id)->delete();
+            FormKategori::where('form_id', $form->id)->delete();
+
+            // Penilaian langsung tanpa kategori
+            if (! empty($validated['penilaian'])) {
+                foreach ($validated['penilaian'] as $penilaianData) {
+                    FormPenilaian::create([
+                        'form_id'              => $form->id,
+                        'form_kategori_id'     => null,
+                        'form_sub_kategori_id' => null,
+                        'nama'                 => $penilaianData['nama'],
+                    ]);
+                }
+            }
+
+            // Penilaian dengan kategori (dan opsional subkategori)
+            if (! empty($validated['kategori'])) {
+                foreach ($validated['kategori'] as $kategoriData) {
+                    $kategori = FormKategori::create([
+                        'form_id'  => $form->id,
+                        'kategori' => $kategoriData['nama'],
+                    ]);
+
+                    // Penilaian langsung di kategori
+                    if (! empty($kategoriData['penilaian'])) {
+                        foreach ($kategoriData['penilaian'] as $penilaianData) {
+                            FormPenilaian::create([
+                                'form_id'              => $form->id,
+                                'form_kategori_id'     => $kategori->id,
+                                'form_sub_kategori_id' => null,
+                                'nama'                 => $penilaianData['nama'],
+                            ]);
+                        }
+                    }
+
+                    // Subkategori dan penilaiannya
+                    if (! empty($kategoriData['sub_kategori'])) {
+                        foreach ($kategoriData['sub_kategori'] as $subKategoriData) {
+                            $subKategori = FormSubKategori::create([
+                                'form_id'          => $form->id,
+                                'form_kategori_id' => $kategori->id,
+                                'sub_kategori'     => $subKategoriData['nama'],
+                            ]);
+
+                            if (! empty($subKategoriData['penilaian'])) {
+                                foreach ($subKategoriData['penilaian'] as $penilaianData) {
+                                    FormPenilaian::create([
+                                        'form_id'              => $form->id,
+                                        'form_kategori_id'     => $kategori->id,
+                                        'form_sub_kategori_id' => $subKategori->id,
+                                        'nama'                 => $penilaianData['nama'],
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            DB::commit();
+            return $this->successResponse(null, 'Form berhasil diperbarui.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse(null, $e->getMessage());
+        }
     }
 
     /**

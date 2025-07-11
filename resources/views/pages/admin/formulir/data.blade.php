@@ -1,21 +1,24 @@
-    <!-- Form List -->
-    <div class="grid gap-6">
+    <!-- Form Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         @foreach ($forms as $form)
-            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md dashboard-card">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 transition hover:shadow-xl">
+                <!-- Header -->
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-4 space-y-2 lg:space-y-0">
                     <div>
-                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $form->nama }}</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            Dibuat: {{ $form->created_at->format('d F Y') }}
-                        </p>
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            {{ $form->nama }}
+                        </h4>
                     </div>
-                    <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            Penilai: {{ toTitleCase($form->pengisi->jabatan->jabatan) }}
-                        </p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            Yang Ditilai: {{ toTitleCase($form->target->jabatan->jabatan) }}
-                        </p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Dibuat: {{ $form->created_at->format('d F Y') }}
+                    </p>
+
+                </div>
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-4 space-y-2 lg:space-y-0">
+
+                    <div class="text-sm text-gray-500 dark:text-gray-400">
+                        <p>Penilai: {{ toTitleCase($form->pengisi->jabatan->jabatan) }}</p>
+                        <p>Target: {{ toTitleCase($form->target->jabatan->jabatan) }}</p>
                     </div>
                     <div class="flex space-x-2">
                         <button onclick="viewForm({{ $form->id }})"
@@ -37,7 +40,9 @@
                 <div class="space-y-3">
                     @if ($form->penilaianLangsung->count() > 0)
                         <div class="border-l-4 border-indigo-500 pl-4">
-                            <h5 class="font-medium text-gray-800 dark:text-gray-200">Penilaian Langsung</h5>
+                            <h5 class="font-medium text-gray-800 dark:text-gray-200">
+                                Penilaian
+                            </h5>
                             <p class="text-sm text-gray-600 dark:text-gray-400">
                                 {{ $form->penilaianLangsung->count() }} Penilaian
                             </p>
@@ -45,12 +50,13 @@
                     @endif
 
                     @foreach ($form->kategori as $index => $kategori)
-                        <div class="border-l-4 {{ $index % 2 == 0 ? 'border-bangala' : 'border-goldspel' }} pl-4">
-                            <h5 class="font-medium text-gray-800 dark:text-gray-200">{{ $kategori->kategori }}</h5>
+                        <div class="border-l-4 {{ $index % 2 === 0 ? 'border-bangala' : 'border-goldspel' }} pl-4">
+                            <h5 class="font-medium text-gray-800 dark:text-gray-200">
+                                {{ $kategori->kategori }}
+                            </h5>
                             <p class="text-sm text-gray-600 dark:text-gray-400">
                                 {{ $kategori->penilaian->count() }} Penilaian •
-                                {{ $kategori->subKategori->sum(function ($sub) {return $sub->penilaian->count();}) }}
-                                Sub-Kategori
+                                {{ $kategori->subKategori->sum(fn($sub) => $sub->penilaian->count()) }} Sub-Kategori
                             </p>
                         </div>
                     @endforeach

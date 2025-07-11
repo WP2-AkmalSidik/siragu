@@ -62,18 +62,18 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                             ${data.nilai.map(item => `
-                                                                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                                                            <td class="py-2 px-4">${item.penilaian.form.nama}</td>
-                                                                                            <td class="py-2 px-4">${item.nilai}</td>
-                                                                                            <td class="py-2 px-4">
-                                                                                                ${item.penilaian.kategori?.kategori || '-'} /
-                                                                                                ${item.penilaian.subKategori?.sub_kategori || '-'}
-                                                                                            </td>
-                                                                                            <td class="py-2 px-4">${item.tahun_ajaran}</td>
-                                                                                            <td class="py-2 px-4">${item.semester}</td>
-                                                                                            <td class="py-2 px-4">${new Date(item.created_at).toLocaleDateString()}</td>
-                                                                                        </tr>
-                                                                                    `).join('')}
+                                                                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                                                                                <td class="py-2 px-4">${item.penilaian.form.nama}</td>
+                                                                                                <td class="py-2 px-4">${item.nilai}</td>
+                                                                                                <td class="py-2 px-4">
+                                                                                                    ${item.penilaian.kategori?.kategori || '-'} /
+                                                                                                    ${item.penilaian.subKategori?.sub_kategori || '-'}
+                                                                                                </td>
+                                                                                                <td class="py-2 px-4">${item.tahun_ajaran}</td>
+                                                                                                <td class="py-2 px-4">${item.semester}</td>
+                                                                                                <td class="py-2 px-4">${new Date(item.created_at).toLocaleDateString()}</td>
+                                                                                            </tr>
+                                                                                        `).join('')}
                         </tbody>
                     </table>
                 </div>
@@ -204,7 +204,7 @@
                 }, debounceDelay);
             });
 
-            $(document).on('click', '#delete-button', function(e) {
+              $(document).on('click', '#delete-button', function(e) {
                 e.preventDefault();
 
                 const url = $(this).data('url');
@@ -213,9 +213,10 @@
                     title: 'Apakah Anda yakin?',
                     text: "Data yang dihapus tidak dapat dikembalikan!",
                     icon: 'warning',
+                    theme: 'dark',
                     showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#913013',
+                    cancelButtonColor: '#c19e5e',
                     confirmButtonText: 'Ya, Hapus!',
                     cancelButtonText: 'Batal'
                 }).then((result) => {
@@ -233,6 +234,7 @@
                     }
                 });
             });
+
 
             // Event: Klik link pagination
             $(document).on('click', '.pagination a', function(e) {

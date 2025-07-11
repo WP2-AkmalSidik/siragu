@@ -11,12 +11,11 @@
             <div class="px-6 py-4">
                 <form id="modal-form-jabatan">
                     <div class="space-y-4">
-
                         <div>
                             <label for="jabatan"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama
                                 Jabatan</label>
-                            <input type="text" name="jabatan" placeholder="Nama Guru" id="jabatan"
+                            <input type="text" name="jabatan" placeholder="Nama Jabatan" id="jabatan"
                                 class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                             <small class="text-xs text-red-500 dark:text-red-400" id="errorjabatan"></small>
                         </div>
@@ -35,7 +34,7 @@
                     class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition">
                     Batal
                 </button>
-                <button type="submit" form="modal-form"
+                <button type="submit" form="modal-form-jabatan"
                     class="px-4 py-2 bg-bangala text-white rounded-lg hover:bg-bangala/90 transition">
                     Simpan Perubahan
                 </button>
