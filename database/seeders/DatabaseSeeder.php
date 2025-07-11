@@ -2,18 +2,19 @@
 namespace Database\Seeders;
 
 use App\Models\Form;
-use App\Models\FormPengisi;
-use App\Models\FormPenilaian;
-use App\Models\FormTarget;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Nilai;
 use App\Models\Jabatan;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\FormTarget;
+use App\Models\FormPengisi;
 use App\Models\JabatanUser;
+use Faker\Factory as Faker;
+use App\Models\FormPenilaian;
 use App\Models\PenilaianOpsi;
 use App\Models\PenilaianTipe;
-use App\Models\User;
-use Database\Seeders\PengaturanSeeder;
-use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
+use Database\Seeders\PengaturanSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -127,10 +128,24 @@ class DatabaseSeeder extends Seeder
             'Saya aktif dalam kegiatan pembinaan keagamaan di lingkungan tempat tinggal',
         ];
 
+        $formPenilaianIds = [];
+
         foreach ($penilaianForm as $penilaian) {
-            FormPenilaian::create([
+            $created = FormPenilaian::create([
                 'form_id' => $form->id,
                 'nama'    => $penilaian,
+            ]);
+            $formPenilaianIds[] = $created->id;
+        }
+
+        foreach ($formPenilaianIds as $formPenilaianId) {
+            Nilai::create([
+                'pengisi_id'        => 2,
+                'target_id'         => 2,
+                'form_penilaian_id' => $formPenilaianId,
+                'nilai'             => 4,
+                'tahun_ajaran'      => '2025/2026',
+                'semester'          => 'genap',
             ]);
         }
 
