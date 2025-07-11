@@ -119,6 +119,8 @@
                 // Fill basic form data
                 document.getElementById('formName').value = formData.nama || '';
                 document.getElementById('formDescription').value = formData.keterangan || '';
+                document.getElementById('self').value = formData.self || '';
+                console.log(formData)
 
                 // Load tipe penilaian options
                 await loadSelectOptions('#tipe-penilaian', '{{ route('admin.tipe-penilaian.index') }}', formData
@@ -992,76 +994,67 @@
             const penilaian_tipe_id = $('#tipe-penilaian').val();
 
             const formData = {
-                nama: document.getElementById('formName').value,
-                penilaian_tipe_id: penilaian_tipe_id,
+                nama: $('#formName').val(),
+                penilaian_tipe_id,
                 pengisi: $('#pengisi').val(),
                 target: $('#target').val(),
                 self: $('#self').val(),
-                keterangan: document.getElementById('formDescription').value,
-                penilaian: [], // Penilaian langsung tanpa kategori
+                keterangan: $('#formDescription').val(),
+                penilaian: [],
                 kategori: []
             };
 
-            // 1. Collect penilaian langsung (tanpa kategori)
-            const directPenilaianElements = document.querySelectorAll('.direct-penilaian-item');
-            directPenilaianElements.forEach(element => {
-                const input = element.querySelector('input[name^="penilaian["]');
-                if (input && input.value.trim()) {
+            // 1. Penilaian langsung tanpa kategori
+            document.querySelectorAll('.direct-penilaian-item').forEach(el => {
+                const input = el.querySelector('input[name^="penilaian["]');
+                if (input?.value.trim()) {
                     formData.penilaian.push({
                         nama: input.value.trim()
                     });
                 }
             });
 
-            // 2. Collect kategori data
-            const kategoriElements = document.querySelectorAll('.kategori-item');
-            kategoriElements.forEach(kategoriElement => {
-                const kategoriId = kategoriElement.dataset.kategoriId;
-                const kategoriNamaInput = kategoriElement.querySelector(
-                    `input[name="kategori[${kategoriId}][nama]"]`);
+            // 2. Kategori
+            document.querySelectorAll('.kategori-item').forEach(kategoriEl => {
+                const kategoriId = kategoriEl.dataset.kategoriId;
+                const namaInput = kategoriEl.querySelector(`input[name="kategori[${kategoriId}][nama]"]`);
 
-                if (!kategoriNamaInput || !kategoriNamaInput.value.trim()) return;
+                if (!namaInput || !namaInput.value.trim()) return;
 
                 const kategori = {
-                    nama: kategoriNamaInput.value.trim(),
-                    penilaian: [], // Penilaian langsung di kategori
+                    nama: namaInput.value.trim(),
+                    penilaian: [],
                     sub_kategori: []
                 };
 
-                // 2a. Collect penilaian langsung di kategori
-                const kategoriPenilaianElements = kategoriElement.querySelectorAll('.kategori-penilaian-item');
-                kategoriPenilaianElements.forEach(penilaianElement => {
-                    const input = penilaianElement.querySelector(
-                        `input[name^="kategori[${kategoriId}][penilaian]["]`);
-                    if (input && input.value.trim()) {
+                // 2a. Penilaian di kategori
+                kategoriEl.querySelectorAll('.kategori-penilaian-item').forEach(pnl => {
+                    const input = pnl.querySelector(`input[name^="kategori[${kategoriId}][penilaian]["]`);
+                    if (input?.value.trim()) {
                         kategori.penilaian.push({
                             nama: input.value.trim()
                         });
                     }
                 });
 
-                // 2b. Collect sub kategori data
-                const subKategoriElements = kategoriElement.querySelectorAll('.sub_kategori-item');
-                subKategoriElements.forEach(subKategoriElement => {
-                    const subKategoriId = subKategoriElement.dataset.subKategoriId;
-                    const subKategoriNamaInput = subKategoriElement.querySelector(
-                        `input[name="kategori[${kategoriId}][sub_kategori][${subKategoriId}][nama]"]`
-                    );
-
-                    if (!subKategoriNamaInput || !subKategoriNamaInput.value.trim()) return;
+                // 2b. Sub-kategori
+                kategoriEl.querySelectorAll('.sub_kategori-item').forEach(subEl => {
+                    const subKategoriId = subEl.dataset.subKategoriId;
+                    const subInput = subEl.querySelector(
+                        `input[name="kategori[${kategoriId}][sub_kategori][${subKategoriId}][nama]"]`);
+                    if (!subInput || !subInput.value.trim()) return;
 
                     const sub_kategori = {
-                        nama: subKategoriNamaInput.value.trim(),
+                        nama: subInput.value.trim(),
                         penilaian: []
                     };
 
-                    // Collect penilaian data di sub kategori
-                    const penilaianElements = subKategoriElement.querySelectorAll('.penilaian-item');
-                    penilaianElements.forEach(penilaianElement => {
-                        const input = penilaianElement.querySelector(
+                    // Penilaian dalam sub kategori
+                    subEl.querySelectorAll('.penilaian-item').forEach(pnlEl => {
+                        const input = pnlEl.querySelector(
                             `input[name^="kategori[${kategoriId}][sub_kategori][${subKategoriId}][penilaian]["]`
                         );
-                        if (input && input.value.trim()) {
+                        if (input?.value.trim()) {
                             sub_kategori.penilaian.push({
                                 nama: input.value.trim()
                             });
@@ -1074,28 +1067,30 @@
                 formData.kategori.push(kategori);
             });
 
-            console.log('Form data to be submitted:', formData);
+            // Tentukan URL & METHOD
+            let url = '{{ route('admin.formulir.store') }}';
+            let method = 'POST';
 
-            const url = '{{ route('admin.formulir.store') }}';
-            const method = 'POST';
-
-            if (currentFormId && isEditMode == true) {
-                formData.append('_method', 'PUT');
-                currentFormId = null;
-                isEditMode = false;
+            if (currentFormId && isEditMode === true) {
+                url = `/admin/formulir/${currentFormId}`;
+                method = 'POST'; // Tetap POST, tapi override pakai _method: PUT
+                formData._method = 'PUT';
             }
 
-            const successCallback = function(response) {
+            console.log('Form data to be submitted:', formData);
+
+            // Ajax call (asumsi pakai JSON request)
+            const successCallback = (response) => {
                 successToast(response);
                 closeFormModal();
                 resetForm();
                 loadData(currentSearch);
-            }
+            };
 
-            const errorCallback = function(error) {
+            const errorCallback = (error) => {
                 errorToast(error);
                 console.error('Error:', error);
-            }
+            };
 
             ajaxCall(url, method, formData, successCallback, errorCallback);
         }

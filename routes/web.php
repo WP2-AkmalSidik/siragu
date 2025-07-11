@@ -126,20 +126,46 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
             ]);
         });
 
+        Route::get('/profil', [App\Http\Controllers\PenggunaController::class, 'profile'])->name('profile');
+        Route::put('/profil/ttd', [App\Http\Controllers\PenggunaController::class, 'updateTtd'])->name('profile.update.ttd');
+        Route::put('/profil/password', [App\Http\Controllers\PenggunaController::class, 'updatePassword'])->name('profile.update.password');
+        Route::put('/profil/profile', [App\Http\Controllers\PenggunaController::class, 'updateProfile'])->name('profile.update.profile');
+
+        Route::get('/rapor/{guru_id}/{semester}/{tahun_ajaran}', [App\Http\Controllers\RaporController::class, 'rapor'])->name('rapor.guru');
+
         Route::resource('/tipe-penilaian', App\Http\Controllers\PenilaianTipeController::class)->names('tipe-penilaian');
         Route::resource('/opsi-penilaian', App\Http\Controllers\PenilaianOpsiController::class)->names('opsi-penilaian');
+
+        Route::get('/pengaturan', [App\Http\Controllers\PengaturanController::class, 'index'])->name('pengaturan.index');
+        Route::put('/pengaturan/update', [App\Http\Controllers\PengaturanController::class, 'update'])->name('pengaturan.update');
+        Route::put('/pengaturan/logo', [App\Http\Controllers\PengaturanController::class, 'updateLogo'])->name('pengaturan.update.logo');
     });
 });
 
 Route::prefix('guru')->name('guru.')->middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/', [App\Http\Controllers\Guru\DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/rapor/{semester}/{tahun_ajaran}', [App\Http\Controllers\Guru\DashboardController::class, 'rapor'])->name('dashboard.rapor');
+    Route::get('/rapor/{semester}/{tahun_ajaran}/pdf', [App\Http\Controllers\Guru\DashboardController::class, 'generateRaporPdf'])->name('dashboard.rapor.pdf');
 
     Route::resource('/penilaian', App\Http\Controllers\Guru\PenilaianController::class)->names('penilaian');
+    Route::get('/penilaian/{tahun}/{semester}/{form}/{id}/edit', [App\Http\Controllers\Guru\PenilaianController::class, 'edit'])->name('penilaian.edit.nilai');
+    Route::get('/penilaian/saveUpdate', [App\Http\Controllers\FormPengisiController::class, 'update'])->name('penilaian.update.save');
+
     Route::get('/jabatan/target', [App\Http\Controllers\Guru\JabatanController::class, 'target'])->name('jabatan.target');
     Route::get('/jabatan/{id}/form', [App\Http\Controllers\Guru\JabatanController::class, 'form'])->name('jabatan.form');
     Route::get('/jabatan/{id}/guru/{formId}', [App\Http\Controllers\Guru\JabatanController::class, 'guru'])->name('jabatan.guru');
 
+    Route::get('/formulir/pengisi', [App\Http\Controllers\FormPenilaianController::class, 'formPengisi'])->name('formulir.pengisi');
+
     Route::get('/form/{id}', [App\Http\Controllers\Guru\FormController::class, 'show'])->name('form.show');
+
+    Route::get('/profil', [App\Http\Controllers\Guru\ProfileController::class, 'profile'])->name('profile');
+    Route::put('/profil/ttd', [App\Http\Controllers\Guru\ProfileController::class, 'updateTtd'])->name('profile.update.ttd');
+    Route::put('/profil/password', [App\Http\Controllers\Guru\ProfileController::class, 'updatePassword'])->name('profile.update.password');
+    Route::put('/profil/profile', [App\Http\Controllers\Guru\ProfileController::class, 'updateProfile'])->name('profile.update.profile');
+
+    Route::get('/statistik', [App\Http\Controllers\Guru\StatistikController::class, 'index'])->name('statistik');
+    Route::get('/statistik/{semester}/{tahun_ajaran}', [App\Http\Controllers\Guru\StatistikController::class, 'statistik'])->name('statistik.data');
 });
 
 /* Kepsek */

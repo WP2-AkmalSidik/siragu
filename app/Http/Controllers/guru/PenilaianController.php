@@ -165,7 +165,7 @@ class PenilaianController extends Controller
 
         // dd($nilais);
 
-        return view('pages.admin.pengisi.edit', compact('nilais'));
+        return view('pages.guru.penilaian.edit', compact('nilais'));
     }
 
     public function store(Request $request)

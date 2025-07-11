@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Jabatan;
 use App\Models\JabatanUser;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -208,7 +209,4 @@ class GuruController extends Controller
             return $this->errorResponse(null, $e->getMessage());
         }
     }
-
-    
-
 }

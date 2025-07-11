@@ -19,17 +19,19 @@
             <!-- Logo & Title -->
             <div class="text-center mb-8">
                 <div class="inline-flex items-center justify-center w-20 h-20 mb-4 mx-auto">
-                    @if (file_exists(public_path('img/logo-yayasan.png')))
-                        <img src="{{ asset('img/logo-yayasan.png') }}" alt="SIRAGU Logo"
-                            class="w-full h-full object-contain">
-                    @else
+                    {{-- @if (file_exists(public_path('img/logo-yayasan.png'))) --}}
+                    <img src="{{ Str::endsWith(getPengaturan()->logo, ['logo.png', 'logo.jpg', 'logo.jpeg']) ? asset(getPengaturan()->logo) : asset(getPengaturan()->logo) }}"
+                        alt="SIRAGU Logo" class="w-full h-full object-contain">
+                    {{-- @else
                         <div class="w-full h-full flex items-center justify-center bg-bangala rounded-full shadow-lg">
                             <i class="fas fa-graduation-cap text-white text-3xl"></i>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
-                <h1 class="text-3xl font-bold text-bangala dark:text-goldspel mb-2">SIRAGU</h1>
-                <p class="text-gray-600 dark:text-gray-400">Sistem Informasi Rapor Guru</p>
+                <h1 class="text-3xl font-bold text-bangala dark:text-goldspel mb-2">{{ getPengaturan()->nama_aplikasi }}
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400">{{ getPengaturan()->singkatan }}</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ getPengaturan()->nama_sekolah }}</p>
             </div>
 
             <!-- Login Form -->

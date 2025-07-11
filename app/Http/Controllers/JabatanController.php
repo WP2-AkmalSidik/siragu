@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Jabatan;
 use App\Models\JabatanUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class JabatanController extends Controller
@@ -32,25 +33,20 @@ class JabatanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nip'    => 'nullable|unique:users,nip',
-            'nama'   => 'required',
-            'email'  => 'required|email|unique:users,email',
-            'no_hp'  => 'nullable|unique:users,no_hp',
-            'status' => 'required|in:1,0',
+            'jabatan'    => 'required',
+            'keterangan' => 'nullable',
         ]);
 
         try {
+
+            $jabatan = Str::of($validated['jabatan'])->lower()->replace(' ', '_');
+
             Jabatan::create([
-                'nip'      => $validated['nip'],
-                'nama'     => $validated['nama'],
-                'email'    => $validated['email'],
-                'no_hp'    => $validated['no_hp'],
-                'role'     => 'guru',
-                'password' => bcrypt('password'),
-                'status'   => $validated['status'],
+                'jabatan'    => $jabatan,
+                'keterangan' => $validated['keterangan'],
             ]);
 
-            return $this->successResponse(null, 'Guru berhasil ditambahkan.');
+            return $this->successResponse(null, 'Jabatan berhasil ditambahkan.');
         } catch (\Exception $e) {
             return $this->errorResponse(null, $e->getMessage());
         }
@@ -92,7 +88,7 @@ class JabatanController extends Controller
     {
         try {
             Jabatan::find($id)->delete();
-            return $this->successResponse(null, 'Guru berhasil dihapus.');
+            return $this->successResponse(null, 'Jabatan berhasil dihapus.');
         } catch (\Exception $e) {
             return $this->errorResponse(null, $e->getMessage());
         }

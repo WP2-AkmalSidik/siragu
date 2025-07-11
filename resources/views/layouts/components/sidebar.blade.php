@@ -4,13 +4,14 @@
         class="p-3 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-white/70 dark:from-gray-800/70 to-transparent">
         <div class="flex items-center space-x-4">
             <div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 shadow-lg">
-                <img src="{{ asset('img/logo-yayasan.png') }}" alt="Logo SIRAGU"
-                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                <img src="{{ Str::endsWith(getPengaturan()->logo, ['logo.png', 'logo.jpg', 'logo.jpeg']) ? asset(getPengaturan()->logo) : asset(getPengaturan()->logo) }}"
+                    alt="Logo SIRAGU" class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
                     onerror="this.onerror=null; this.src='/path/fallback-logo.png'; this.alt='Logo tidak tersedia'">
             </div>
             <div>
-                <h2 class="text-xl font-bold text-bangala dark:text-goldspel tracking-tight">SIRAGU</h2>
-                <p class="text-xs text-gray-500 dark:text-gray-400">SDIT Abu Bakar</p>
+                <h2 class="text-xl font-bold text-bangala dark:text-goldspel tracking-tight">
+                    {{ getPengaturan()->nama_aplikasi }}</h2>
+                <p class="text-xs text-gray-500 dark:text-gray-400">{{ getPengaturan()->nama_sekolah }}</p>
             </div>
         </div>
     </div>
@@ -76,8 +77,8 @@
             <span>Template Formulir</span>
         </a>
 
-        <a href="#"
-            class="group relative flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel rounded-xl transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm">
+        <a href="{{ route('admin.pengaturan.index') }}"
+            class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/pengaturan*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
             <i class="fas fa-cog w-5 group-hover:text-bangala dark:group-hover:text-goldspel transition-colors"></i>
             <span>Pengaturan</span>
         </a>
@@ -88,17 +89,19 @@
         <div
             class="flex justify-between items-center bg-white dark:bg-gray-700 rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-gray-600">
 
-            <a href="/profile" class="flex items-center space-x-3 group hover:opacity-80 transition">
+            <a href="{{ route('admin.profile') }}"
+                class="flex items-center space-x-3 group hover:opacity-80 transition">
                 <div
                     class="w-10 h-10 bg-gradient-to-br from-bangala to-goldspel rounded-full flex items-center justify-center shadow-inner group-hover:rotate-6 transition-transform duration-300">
-                    <i class="fas fa-user text-white text-sm group-hover:text-goldspel transition-colors"></i>
+                    <p class="text-white text-sm group-hover:text-goldspel transition-colors">
+                        {{ Str::upper(Str::substr(auth()->user()->nama, 0, 2)) }}</p>
                 </div>
                 <div>
                     <p class="truncate font-medium text-sm text-gray-800 dark:text-gray-100 group-hover:text-bangala dark:group-hover:text-goldspel transition-colors"
                         style="max-width: 14ch;" title="Admin SIRAGU">
-                        Admin SIRAGU
+                        {{ auth()->user()->nama }}
                     </p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">administrator</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ auth()->user()->email }}</p>
                 </div>
             </a>
 

@@ -1,4 +1,5 @@
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
     @foreach ($targets as $target)
         <div
             class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
@@ -50,7 +51,7 @@
                 </div>
 
                 <div class="flex justify-end space-x-2 mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <a href="{{ route('admin.pengisi.edit.nilai', [Str::replace('/', '-', $target->tahun_ajaran), $target->semester, $target->form_id, $target->target_id]) }}"
+                    <a href="{{ route('guru.penilaian.edit.nilai', [Str::replace('/', '-', $target->tahun_ajaran), $target->semester, $target->form_id, $target->target_id]) }}"
                         class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg transition-colors">
                         <i class="fa-solid fa-pen-to-square text-sm"></i>
                     </a>

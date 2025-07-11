@@ -14,27 +14,35 @@
                 flex-direction: column !important;
                 align-items: flex-start !important;
             }
+
             .mobile-text-center {
                 text-align: center !important;
             }
+
             .mobile-full-width {
                 width: 100% !important;
             }
+
             .mobile-mt-2 {
                 margin-top: 0.5rem !important;
             }
+
             .mobile-p-3 {
                 padding: 0.75rem !important;
             }
+
             .mobile-flex-col {
                 flex-direction: column !important;
             }
-            .mobile-space-y-2 > * + * {
+
+            .mobile-space-y-2>*+* {
                 margin-top: 0.5rem !important;
             }
+
             .mobile-items-start {
                 align-items: flex-start !important;
             }
+
             .mobile-text-left {
                 text-align: left !important;
             }
@@ -70,9 +78,17 @@
             color: white;
         }
 
-        .rank-1 { background-color: #FFD700; }
-        .rank-2 { background-color: #C0C0C0; }
-        .rank-3 { background-color: #CD7F32; }
+        .rank-1 {
+            background-color: #FFD700;
+        }
+
+        .rank-2 {
+            background-color: #C0C0C0;
+        }
+
+        .rank-3 {
+            background-color: #CD7F32;
+        }
 
         .progress-ring {
             transform: rotate(-90deg);
@@ -98,7 +114,8 @@
                 <button class="text-gray-500 hover:text-bangala">
                     <i class="far fa-bell"></i>
                 </button>
-                <div class="w-8 h-8 rounded-full bg-bangala/10 flex items-center justify-center text-bangala font-medium text-sm">
+                <div
+                    class="w-8 h-8 rounded-full bg-bangala/10 flex items-center justify-center text-bangala font-medium text-sm">
                     KS
                 </div>
             </div>
@@ -111,15 +128,27 @@
         <div class="flex items-center justify-between mb-6 mobile-stack mobile-space-y-2">
             <div class="mobile-full-width mobile-text-center sm:text-left">
                 <h1 class="text-xl font-semibold">Statistik Penilaian Guru</h1>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Analisis Kinerja Guru SMP • Semester Ganjil 2024/2025</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Analisis Kinerja Guru SMP • Semester Ganjil
+                    2024/2025</p>
             </div>
-            <div class="flex items-center space-x-2 mobile-full-width mobile-justify-center">
-                <select id="semesterSelect" class="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm">
-                    <option value="2024-1">Semester Ganjil 2024/2025</option>
-                    <option value="2023-2">Semester Genap 2023/2024</option>
-                    <option value="2023-1">Semester Ganjil 2023/2024</option>
-                    <option value="2022-2">Semester Genap 2022/2023</option>
-                </select>
+            <div class="flex gap-4 justify-end mb-4">
+                <div class="relative">
+                    <select id="tahun_ajaran"
+                        class="w-48 pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
+                        @foreach (tahunAjaranTerakhir() as $tahun)
+                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                        @endforeach
+                    </select>
+                    {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i> --}}
+                </div>
+
+                <div class="relative">
+                    <select id="semester"
+                        class="w-40 pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
+                        <option value="ganjil" @if (semesterSekarang() == 'ganjil') selected @endif>Ganjil</option>
+                        <option value="genap" @if (semesterSekarang() == 'genap') selected @endif>Genap</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -139,7 +168,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
                 <div class="flex items-center justify-between">
                     <div>
@@ -147,12 +176,13 @@
                         <p class="text-2xl font-bold text-green-600">96.5</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Dr. Andi Setiawan</p>
                     </div>
-                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center">
                         <i class="fas fa-trophy text-green-600"></i>
                     </div>
                 </div>
             </div>
-            
+
             <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
                 <div class="flex items-center justify-between">
                     <div>
@@ -165,7 +195,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
                 <div class="flex items-center justify-between">
                     <div>
@@ -197,7 +227,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <!-- Top 3 Performers -->
             <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
-                <div class="p-4 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10">
+                <div
+                    class="p-4 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10">
                     <h3 class="text-lg font-semibold text-green-800 dark:text-green-300 flex items-center">
                         <i class="fas fa-trophy mr-2"></i>
                         Top 3 Guru Terbaik
@@ -209,7 +240,8 @@
                     <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors relative">
                         <div class="rank-badge rank-1">1</div>
                         <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center relative">
+                            <div
+                                class="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center relative">
                                 <i class="fas fa-user-tie text-green-600 dark:text-green-400"></i>
                             </div>
                             <div class="flex-1">
@@ -239,7 +271,8 @@
                     <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors relative">
                         <div class="rank-badge rank-2">2</div>
                         <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center">
+                            <div
+                                class="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center">
                                 <i class="fas fa-user-tie text-blue-600 dark:text-blue-400"></i>
                             </div>
                             <div class="flex-1">
@@ -269,12 +302,14 @@
                     <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors relative">
                         <div class="rank-badge rank-3">3</div>
                         <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center">
+                            <div
+                                class="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center">
                                 <i class="fas fa-user-tie text-purple-600 dark:text-purple-400"></i>
                             </div>
                             <div class="flex-1">
                                 <p class="font-semibold">Ahmad Fauzi, S.Pd</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Bahasa Indonesia • 10 Tahun Pengalaman</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Bahasa Indonesia • 10 Tahun
+                                    Pengalaman</p>
                                 <div class="flex items-center mt-1">
                                     <div class="flex text-yellow-400 text-sm">
                                         <i class="fas fa-star"></i>
@@ -297,155 +332,13 @@
                 </div>
             </div>
 
-            <!-- Bottom 3 Performers -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
-                <div class="p-4 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/10 dark:to-orange-900/10">
-                    <h3 class="text-lg font-semibold text-red-800 dark:text-red-300 flex items-center">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        Guru Yang Perlu Pembinaan
-                    </h3>
-                    <p class="text-sm text-red-600 dark:text-red-400">Membutuhkan perhatian dan dukungan khusus</p>
-                </div>
-                <div class="divide-y divide-gray-100 dark:divide-gray-700">
-                    <!-- Bottom 1 -->
-                    <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user-tie text-red-600 dark:text-red-400"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold">Budi Santoso, S.Pd</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">IPS • 5 Tahun Pengalaman</p>
-                                <div class="flex items-center mt-1">
-                                    <div class="flex text-yellow-400 text-sm">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <span class="ml-2 text-sm text-red-600 dark:text-red-400">Perlu Pembinaan</span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-2xl font-bold text-red-600">76.2</div>
-                                <div class="text-xs text-red-600 flex items-center">
-                                    <i class="fas fa-arrow-down mr-1"></i> -2.1
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom 2 -->
-                    <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user-tie text-orange-600 dark:text-orange-400"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold">Dewi Sartika, S.Pd</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Seni Budaya • 3 Tahun Pengalaman</p>
-                                <div class="flex items-center mt-1">
-                                    <div class="flex text-yellow-400 text-sm">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <span class="ml-2 text-sm text-orange-600 dark:text-orange-400">Cukup</span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-2xl font-bold text-orange-600">78.5</div>
-                                <div class="text-xs text-green-600 flex items-center">
-                                    <i class="fas fa-arrow-up mr-1"></i> +1.2
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom 3 -->
-                    <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/20 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user-tie text-yellow-600 dark:text-yellow-400"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold">Rina Marlina, S.Pd</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">PJOK • 6 Tahun Pengalaman</p>
-                                <div class="flex items-center mt-1">
-                                    <div class="flex text-yellow-400 text-sm">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <span class="ml-2 text-sm text-yellow-600 dark:text-yellow-400">Cukup</span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-2xl font-bold text-yellow-600">79.8</div>
-                                <div class="text-xs text-yellow-600 flex items-center">
-                                    <i class="fas fa-minus mr-1"></i> 0.0
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- Action Recommendations -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
-            <div class="p-4 border-b border-gray-100 dark:border-gray-700">
-                <h3 class="text-lg font-semibold flex items-center">
-                    <i class="fas fa-lightbulb mr-2 text-goldspel"></i>
-                    Rekomendasi Tindak Lanjut
-                </h3>
-            </div>
-            <div class="p-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-green-50 dark:bg-green-900/10 rounded-lg p-4 border border-green-200 dark:border-green-800">
-                        <h4 class="font-semibold text-green-800 dark:text-green-300 mb-2">
-                            <i class="fas fa-award mr-2"></i>Apresiasi
-                        </h4>
-                        <p class="text-sm text-green-700 dark:text-green-400">
-                            Berikan penghargaan kepada 3 guru terbaik dan jadikan mereka sebagai mentor untuk guru lain.
-                        </p>
-                    </div>
-                    <div class="bg-blue-50 dark:bg-blue-900/10 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
-                        <h4 class="font-semibold text-blue-800 dark:text-blue-300 mb-2">
-                            <i class="fas fa-users mr-2"></i>Program Mentoring
-                        </h4>
-                        <p class="text-sm text-blue-700 dark:text-blue-400">
-                            Pasangkan guru berprestasi dengan guru yang membutuhkan pembinaan untuk program mentoring.
-                        </p>
-                    </div>
-                    <div class="bg-orange-50 dark:bg-orange-900/10 rounded-lg p-4 border border-orange-200 dark:border-orange-800">
-                        <h4 class="font-semibold text-orange-800 dark:text-orange-300 mb-2">
-                            <i class="fas fa-graduation-cap mr-2"></i>Pelatihan
-                        </h4>
-                        <p class="text-sm text-orange-700 dark:text-orange-400">
-                            Selenggarakan workshop dan pelatihan khusus untuk meningkatkan kompetensi guru.
-                        </p>
-                    </div>
-                    <div class="bg-purple-50 dark:bg-purple-900/10 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
-                        <h4 class="font-semibold text-purple-800 dark:text-purple-300 mb-2">
-                            <i class="fas fa-chart-line mr-2"></i>Monitoring
-                        </h4>
-                        <p class="text-sm text-purple-700 dark:text-purple-400">
-                            Lakukan evaluasi rutin dan monitoring progress untuk memastikan peningkatan kinerja.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-2">
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-2">
         <div class="flex justify-around max-w-2xl mx-auto">
             <a href="#" class="flex flex-col items-center text-gray-400 hover:text-bangala">
                 <i class="fas fa-home text-sm sm:text-base"></i>
@@ -469,11 +362,13 @@
     <script>
         // Chart configuration
         const ctx = document.getElementById('trendChart').getContext('2d');
-        
+
         const trendChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Sem Ganjil 22/23', 'Sem Genap 22/23', 'Sem Ganjil 23/24', 'Sem Genap 23/24', 'Sem Ganjil 24/25'],
+                labels: ['Sem Ganjil 22/23', 'Sem Genap 22/23', 'Sem Ganjil 23/24', 'Sem Genap 23/24',
+                    'Sem Ganjil 24/25'
+                ],
                 datasets: [{
                     label: 'Rata-rata Nilai',
                     data: [85.2, 86.8, 87.5, 87.2, 89.3],
@@ -569,7 +464,7 @@
             const selectedSemester = e.target.value;
             // Here you would typically fetch new data based on the selected semester
             console.log('Selected semester:', selectedSemester);
-            
+
             // Simulate data update (in real implementation, this would be an API call)
             updateChartData(selectedSemester);
         });
@@ -600,7 +495,7 @@
             };
 
             const data = semesterData[semester] || semesterData['2024-1'];
-            
+
             trendChart.data.datasets[0].data = data.average;
             trendChart.data.datasets[1].data = data.highest;
             trendChart.data.datasets[2].data = data.lowest;
@@ -623,7 +518,7 @@
                 this.style.transform = 'translateY(-2px)';
                 this.style.transition = 'all 0.2s ease';
             });
-            
+
             card.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0)';
             });

@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md">
+        {{-- <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Penilaian Masuk</p>
@@ -54,11 +54,11 @@
                     <i class="fas fa-file-alt text-purple-600 dark:text-purple-400"></i>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <!-- Guru Terbaik & Chart -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    {{-- <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Guru Terbaik Bulan Ini -->
         <div
             class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
@@ -168,7 +168,7 @@
                 <canvas id="performanceChart"></canvas>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 @push('scripts')
     <script>

@@ -11,6 +11,7 @@ use App\Models\JabatanUser;
 use App\Models\PenilaianOpsi;
 use App\Models\PenilaianTipe;
 use App\Models\User;
+use Database\Seeders\PengaturanSeeder;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -36,6 +37,13 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123123123'),
         ]);
 
+        $user = User::create([
+            'nama'     => 'Ari Zainal Fauziah',
+            'email'    => 'arizainalf@gmail.com',
+            'role'     => 'guru',
+            'password' => bcrypt('123123123'),
+        ]);
+
         foreach ($jabatans as $jabatan) {
             Jabatan::create([
                 'jabatan' => $jabatan,
@@ -45,6 +53,11 @@ class DatabaseSeeder extends Seeder
         JabatanUser::create([
             'user_id'    => 1,
             'jabatan_id' => 1,
+        ]);
+
+        JabatanUser::create([
+            'user_id'    => $user->id,
+            'jabatan_id' => 5,
         ]);
 
         $faker = Faker::create();
@@ -86,7 +99,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         FormPengisi::create([
-            'jabatan_id' => 1,
+            'jabatan_id' => 5,
             'form_id'    => $form->id,
         ]);
 
@@ -121,5 +134,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        $this->call(
+            PengaturanSeeder::class,
+        );
     }
 }

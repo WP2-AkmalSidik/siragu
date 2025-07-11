@@ -10,11 +10,6 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 space-y-4 md:space-y-0">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Jabatan</h3>
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                <div class="relative">
-                    {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" placeholder="Cari nama guru..." id="search"
-                        class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-bangala"> --}}
-                </div>
                 <button id="button-tambah-jabatan"
                     class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                     Tambah
@@ -232,7 +227,7 @@
 
             $(document).on('click', '#button-tambah-jabatan', function(e) {
                 e.preventDefault();
-                console.log('button-tambah-jabatan', 'open tambah jabatan')
+                // console.log('button-tambah-jabatan', 'open tambah jabatan')
                 openModal("modal-data-jabatan");
             })
 
@@ -265,6 +260,35 @@
                 ajaxCall(url, method, formData, successCallback, errorCallback);
             });
 
+            $(document).on('submit', '#modal-form-jabatan', function(e) {
+                e.preventDefault();
+
+                const id = $(this).data('id');
+                let url = '{{ route('admin.jabatan.store') }}';
+                const method = 'POST';
+                const formData = new FormData(this);
+
+                if (id) {
+                    url = `/admin/jabatan/${id}`; // Ganti URL untuk update
+                    formData.append('_method', 'PUT'); // Spoofing method PUT
+                }
+
+                const successCallback = function(response) {
+                    successToast(response);
+                    closeModal('modal-data-jabatan');
+                    $('#modal-form-jabatan').removeAttr('data-id');
+                    loadDataJabatan();
+                };
+
+                const errorCallback = function(error) {
+                    console.log(error);
+                    $('#modal-form-jabatan').removeAttr('data-id');
+                    handleValidationErrors(error, "modal-form-jabatan", ["nama", "keterangan"]);
+                };
+
+                ajaxCall(url, method, formData, successCallback, errorCallback);
+            });
+
             $(document).on('submit', '#form-delete', function(e) {
                 e.preventDefault();
 
@@ -288,6 +312,41 @@
 
                 ajaxCall(url, method, null, successCallback, errorCallback);
             })
+
+
+            $(document).on('click', '.delete-button-jabatan', function(e) {
+                e.preventDefault();
+
+                const url = $(this).data('url');
+
+                const jabatan = formatJabatan($(this).data('jabatan'));
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: `Menghapus Jabatan ${jabatan}. Data yang dihapus tidak dapat dikembalikan!`,
+                    icon: 'warning',
+                    theme: 'dark',
+                    showCancelButton: true,
+                    confirmButtonColor: '#913013',
+                    cancelButtonColor: '#c19e5e',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const successCallback = function(res) {
+                            successToast(res);
+                            loadDataJabatan();
+                        }
+
+                        const errorCallback = function(err) {
+                            errorToast(err);
+                        }
+
+                        ajaxCall(url, 'DELETE', null, successCallback, errorCallback);
+                    }
+                });
+            });
+
 
             loadDataJabatan();
             loadData(currentPage, currentQuery);
