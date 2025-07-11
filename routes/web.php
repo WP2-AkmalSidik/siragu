@@ -76,6 +76,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+        Route::get('/icons/fontawesome', [\App\Http\Controllers\IconController::class, 'index'])->name('icons.index');
+
         Route::resource('/guru', App\Http\Controllers\GuruController::class)->names('guru');
         Route::get('/guru/{id}/jabatan', [App\Http\Controllers\GuruController::class, 'jabatan'])->name('guru.jabatan');
 

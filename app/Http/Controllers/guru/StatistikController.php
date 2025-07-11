@@ -16,25 +16,22 @@ class StatistikController extends Controller
     {
         if ($request->ajax()) {
             try {
-                // Validate input parameters
                 if (! in_array($semester, ['ganjil', 'genap'])) {
                     throw new \Exception('Semester harus ganjil atau genap');
                 }
 
-                // Format tahun ajaran (from '2023-2024' to '2023/2024')
                 $formattedTahunAjaran = str_replace('-', '/', $tahun_ajaran);
 
-                // Get all assessments for the specified teacher, semester, and academic year
-                $query = Nilai::with([
+                // Ambil semua penilaian guru ini (bukan hanya semester yg diklik)
+                $allNilai = Nilai::with([
                     'penilaian.form.tipe',
                     'target.jabatans.jabatan',
                     'pengisi',
                 ])
                     ->where('target_id', auth()->user()->id)
-                    ->where('semester', $semester)
-                    ->where('tahun_ajaran', $formattedTahunAjaran);
-
-                $allNilai = $query->get();
+                    ->orderBy('tahun_ajaran')
+                    ->orderByRaw("FIELD(semester, 'ganjil', 'genap')")
+                    ->get();
 
                 if ($allNilai->isEmpty()) {
                     return $this->successResponse([
@@ -42,16 +39,44 @@ class StatistikController extends Controller
                     ], 'Data tidak ditemukan');
                 }
 
-                // Group by target+form combination
-                $grouped = $allNilai->groupBy(function ($item) {
+                // Hitung tren nilai rata-rata per semester/tahun_ajaran
+                $groupedBySemesterTahun = $allNilai->groupBy(function ($item) {
+                    return $item->semester . '|' . $item->tahun_ajaran;
+                });
+
+                $labels = [];
+                $values = [];
+
+                foreach ($groupedBySemesterTahun as $key => $items) {
+                    [$smt, $ta] = explode('|', $key);
+
+                    $items->each(function ($nilai) {
+                        $this->hitungNilaiTertimbang($nilai, $nilai->penilaian->form->tipe);
+                    });
+
+                    $avg = round($items->avg('nilai_tertimbang'), 2);
+
+                    $labels[] = 'Sem ' . ucfirst($smt) . ' ' . substr($ta, 2, 2) . '/' . substr($ta, 7, 2);
+                    $values[] = $avg;
+                }
+
+                // Ambil data detail untuk semester & tahun ajaran yang dipilih
+                $selected = $allNilai->where('semester', $semester)
+                    ->where('tahun_ajaran', $formattedTahunAjaran);
+
+                if ($selected->isEmpty()) {
+                    return $this->successResponse([
+                        'view' => '<div class="text-center py-4 text-gray-500">Data penilaian tidak ditemukan</div>',
+                    ], 'Data tidak ditemukan');
+                }
+
+                $grouped = $selected->groupBy(function ($item) {
                     return $item->target_id . '-' . $item->penilaian->form_id;
                 });
 
-                // Process each group
-                $result = $grouped->map(function ($items, $key) {
+                $result = $grouped->map(function ($items) {
                     $first = $items->first();
 
-                    // Calculate weighted scores
                     $items->each(function ($nilai) {
                         $this->hitungNilaiTertimbang($nilai, $nilai->penilaian->form->tipe);
                     });
@@ -71,10 +96,8 @@ class StatistikController extends Controller
                     ];
                 })->values();
 
-                // Calculate overall average
                 $overallAverage = $result->avg('rata_nilai');
 
-                // Prepare data for the dashboard view
                 $data = [
                     'overall_average'    => round($overallAverage, 1),
                     'highest_score'      => $result->max('rata_nilai'),
@@ -83,12 +106,17 @@ class StatistikController extends Controller
                     'result'             => $result,
                     'semester'           => ucfirst($semester),
                     'tahun_ajaran'       => $tahun_ajaran,
-                    'guru_nama'          => $allNilai->first()->target->nama ?? 'Unknown',
+                    'guru_nama'          => $selected->first()->target->nama ?? 'Unknown',
                 ];
 
                 return $this->successResponse([
-                'view' => view('pages.guru.statistik.data', $data)->render(),
-                    'data' => $data,
+                    'view'  => view('pages.guru.statistik.data', $data)->render(),
+                    'data'  => $data,
+                    'chart' => [
+                        'labels'          => $labels,
+                        'values'          => $values,
+                        'overall_average' => round(collect($values)->avg(), 2),
+                    ],
                 ], 'Data berhasil ditemukan');
 
             } catch (\Exception $e) {

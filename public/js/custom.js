@@ -37,7 +37,7 @@ function showToast (icon = 'success', message) {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        theme: 'dark',
+        theme: `${isDarkMode ? 'dark' : 'light'}`,
         timer: 3000,
         timerProgressBar: true,
         didOpen: toast => {
@@ -73,7 +73,7 @@ function showSwal (title, icon, message, redirect = null) {
         title: title,
         icon: icon,
         text: message,
-        theme: getSavedTheme(),
+        theme: `${isDarkMode ? 'dark' : 'light'}`,
         timer: 2000,
         buttons: false
     }).then(function () {
@@ -150,7 +150,7 @@ function confirmLogout (url, redirect = null) {
         title: 'Apakah Anda yakin?',
         text: 'Anda akan logout dari aplikasi ini.',
         icon: 'warning',
-        theme: 'dark',
+        theme: `${isDarkMode ? 'dark' : 'light'}`,
         showCancelButton: true,
         confirmButtonColor: '#913013',
         cancelButtonColor: '#c19e5e',
@@ -282,3 +282,5 @@ function formatJabatan (jabatan) {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // kapitalisasi tiap kata
         .join(' ') // gabungkan kembali
 }
+
+const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
