@@ -31,8 +31,8 @@
                     </div>
                     <div class="flex-1 relative">
                         <button id="generate-pdf"
-                            class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
-                            Tambah
+                            class="text-sm bg-bangala text-white px-3 py-1 rounded-lg hover:bg-bangala/90 transition flex items-center">
+                            <i class="fas fa-file-export mr-2"></i> Unduh
                         </button>
                     </div>
                 </div>
