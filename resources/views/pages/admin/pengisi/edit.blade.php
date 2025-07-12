@@ -84,7 +84,7 @@
 
                                             <!-- Input Field -->
                                             <div>
-                                                @if (in_array($tipeInput, ['radio', 'select']))
+                                                @if ($tipeInput === 'select')
                                                     <label
                                                         class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai</label>
                                                     <select name="nilai[{{ $nilai->id }}]"
@@ -96,10 +96,26 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                @elseif($tipeInput === 'number')
+                                                @elseif ($tipeInput === 'radio')
                                                     <label
-                                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai
-                                                        (0-100)</label>
+                                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai</label>
+                                                    <div class="space-y-2">
+                                                        @foreach ($penilaian->form->tipe->opsi as $opsi)
+                                                            <label class="inline-flex items-center">
+                                                                <input type="radio" name="nilai[{{ $nilai->id }}]"
+                                                                    value="{{ $opsi->value }}"
+                                                                    {{ $nilai->nilai == $opsi->value ? 'checked' : '' }}
+                                                                    class="text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 dark:bg-gray-700">
+                                                                <span
+                                                                    class="ml-2 text-gray-700 dark:text-gray-300">{{ $opsi->label }}</span>
+                                                            </label>
+                                                        @endforeach
+                                                    </div>
+                                                @elseif ($tipeInput === 'number')
+                                                    <label
+                                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                        Nilai (0-100)
+                                                    </label>
                                                     <input type="number" name="nilai[{{ $nilai->id }}]" min="0"
                                                         max="100" value="{{ $nilai->nilai }}"
                                                         class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white dark:bg-gray-700">
