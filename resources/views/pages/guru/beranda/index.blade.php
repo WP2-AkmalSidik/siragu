@@ -8,35 +8,40 @@
     <main class="max-w-6xl mx-auto px-4 py-4">
 
         <!-- Teacher Profile Header -->
-        <div class="flex items-center justify-between mb-6">
-            <div>
-                <h1 class="text-xl font-semibold">Halo, {{ auth()->user()->nama }}</h1>
-                <p class="text-sm text-gray-500 dark:text-gray-400">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-y-4 mb-6">
+            <!-- Text Bagian Kiri -->
+            <div class="text-sm md:text-base">
+                <h1 class="text-lg md:text-xl font-semibold">Halo, {{ auth()->user()->nama }}</h1>
+                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400">
                     @foreach (auth()->user()->jabatans as $jabatan)
                         {{ toTitleCase($jabatan->jabatan->jabatan) . ', ' }}
                     @endforeach
                 </p>
             </div>
-            <div class="flex gap-4 justify-end mb-4">
+
+            <!-- Filter Dropdown Bagian Kanan -->
+            <div class="grid mt-2 grid-cols-2 gap-3 md:flex md:gap-4 md:justify-end">
+                <!-- Tahun Ajaran -->
                 <div class="relative">
                     <select id="tahun_ajaran"
-                        class="w-48 pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
+                        class="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-xs md:text-sm">
                         @foreach (tahunAjaranTerakhir() as $tahun)
                             <option value="{{ $tahun }}">{{ $tahun }}</option>
                         @endforeach
                     </select>
-                    {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i> --}}
+                    <i class="fa-solid fa-calendar-days absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs md:text-sm"></i>
                 </div>
 
+                <!-- Semester -->
                 <div class="relative">
                     <select id="semester"
-                        class="w-40 pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
+                        class="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-xs md:text-sm">
                         <option value="ganjil" @if (semesterSekarang() == 'ganjil') selected @endif>Ganjil</option>
                         <option value="genap" @if (semesterSekarang() == 'genap') selected @endif>Genap</option>
                     </select>
+                    <i class="fa-solid fa-calendar-week absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs md:text-sm"></i>
                 </div>
             </div>
-
         </div>
 
         <!-- Quick Actions Grid -->
