@@ -13,7 +13,7 @@
             z-index: 30;
             backdrop-filter: blur(8px);
             /* background-color: rgba(17, 24, 39, 0.8);
-                background-image: linear-gradient(to right, #913013, #f59e0b); */
+                    background-image: linear-gradient(to right, #913013, #f59e0b); */
         }
 
         .sticky-bottom {
@@ -177,28 +177,28 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Pilih
                                 Jabatan</label>
                             <select id="jabatan" name="jabatan_id"
-                                class="block w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala"></select>
+                                class="block w-full px-4 py-3 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala h-12"></select>
                         </div>
 
                         <div>
                             <label for="formulir"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Formulir</label>
                             <select id="formulir" name="form_id" disabled
-                                class="block w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala"></select>
+                                class="block w-full px-4 py-3 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala h-12"></select>
                         </div>
 
                         <div>
                             <label for="guru"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nama Guru</label>
                             <select id="guru" name="user_id" disabled
-                                class="block w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala"></select>
+                                class="block w-full px-4 py-3 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala h-12"></select>
                         </div>
 
                         <div>
                             <label for="tahun_ajaran"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tahun Ajaran</label>
                             <select id="tahun_ajaran" name="tahun_ajaran"
-                                class="block w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala">
+                                class="block w-full px-4 py-3 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala h-12">
                                 @foreach (tahunAjaranTerakhir() as $tahun)
                                     <option value="{{ $tahun }}">{{ $tahun }}</option>
                                 @endforeach
@@ -209,7 +209,7 @@
                             <label for="semester"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Semester</label>
                             <select id="semester" name="semester"
-                                class="block w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala">
+                                class="block w-full px-4 py-3 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-bangala focus:border-bangala h-12">
                                 <option value="genap">Genap</option>
                                 <option value="ganjil">Ganjil</option>
                             </select>
@@ -223,9 +223,7 @@
                                 class="w-6 h-6 rounded-full bg-bangala/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                                 <i class="fas fa-info text-bangala text-xs"></i>
                             </div>
-                            <p id="keterangan-form" class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-
-                            </p>
+                            <p id="keterangan-form" class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed"></p>
                         </div>
                     </div>
                 </div>
