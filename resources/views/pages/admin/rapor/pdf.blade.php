@@ -202,6 +202,10 @@
 
     <div class="signature">
         <p>Rajapolah, .....................</p>
+        @if (auth()->user()->jabatans->contains(fn($j) => $j->jabatan->jabatan == 'kepala_sekolah'))
+            <img src="{{ generateBase64Image(public_path('storage/' . getKepsek()->ttd)) }}"
+                style="width: auto; height: 75px;">
+        @endif
         <p>{{ getKepsek()->nama }}</p>
         <p>Kepala Sekolah</p>
     </div>
