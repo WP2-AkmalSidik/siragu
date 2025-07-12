@@ -14,8 +14,75 @@
             background-color: #1f2937;
         }
 
-        /* Mobile-specific styles */
+        /* Enhanced Signature Canvas Styles - Lebih lebar untuk keleluasaan menandatangani */
+        .signature-canvas-container {
+            max-width: 400px;
+            /* Diperbesar dari 280px */
+            margin: 0 auto;
+        }
+
+        .signature-canvas {
+            width: 400px !important;
+            /* Diperbesar dari 280px */
+            height: 280px !important;
+            /* Tetap proporsional, tidak terlalu tinggi */
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: crosshair;
+            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+        }
+
+        .signature-canvas:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.1);
+        }
+
+        .dark .signature-canvas {
+            border-color: #4b5563;
+            background-color: #ffffff;
+        }
+
+        .dark .signature-canvas:hover {
+            border-color: #6366f1;
+        }
+
+        .signature-preview {
+            max-width: 200px;
+            max-height: 150px;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Mobile-specific styles - Responsive untuk mobile */
+        @media (max-width: 768px) {
+            .signature-canvas-container {
+                max-width: 350px;
+                /* Sedikit lebih kecil di tablet */
+            }
+
+            .signature-canvas {
+                width: 350px !important;
+                height: 250px !important;
+            }
+        }
+
         @media (max-width: 640px) {
+            .signature-canvas-container {
+                max-width: 320px;
+                /* Diperbesar dari 240px untuk mobile */
+            }
+
+            .signature-canvas {
+                width: 320px !important;
+                /* Diperbesar dari 240px */
+                height: 240px !important;
+                /* Proporsional untuk mobile */
+            }
+
             .mobile-stack {
                 flex-direction: column;
             }
@@ -48,6 +115,18 @@
                 margin-bottom: 1rem;
             }
         }
+
+        /* Tambahan untuk perangkat sangat kecil */
+        @media (max-width: 360px) {
+            .signature-canvas-container {
+                max-width: 280px;
+            }
+
+            .signature-canvas {
+                width: 280px !important;
+                height: 220px !important;
+            }
+        }
     </style>
 @endpush
 @section('content')
@@ -67,20 +146,20 @@
             <div class="lg:col-span-2 space-y-6">
                 <!-- Signature Card -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-                    <h2 class="font-semibold text-lg mb-5 text-gray-800 dark:text-white">Tanda Tangan Digital</h2>
+                    <h2 class="font-semibold text-lg mb-6 text-gray-800 dark:text-white">Tanda Tangan Digital</h2>
 
                     <!-- Existing Signature -->
                     <div id="existing-signature" class="mb-6">
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Tanda tangan saat ini:</p>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                            <div class="border-2 border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white">
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Tanda tangan saat ini:</p>
+                        <div class="flex flex-col items-center gap-4">
+                            <div class="border-2 border-gray-200 dark:border-gray-600 rounded-lg p-3 bg-white shadow-sm">
                                 <img id="signature-preview"
                                     src="{{ auth()->user()->ttd ? asset('/storage' . '/' . auth()->user()->ttd) : getUiAvatar(auth()->user()->nama) }}"
-                                    alt="Current Signature" class="max-w-full h-auto object-contain">
+                                    alt="Current Signature" class="signature-preview">
                             </div>
                             <button onclick="showSignaturePad()"
-                                class="text-bangala font-medium flex items-center gap-2 hover:text-bangala/80 transition-colors mt-2 sm:mt-0">
-                                <i class="fas fa-edit"></i>
+                                class="inline-flex items-center gap-2 px-4 py-2 text-bangala hover:text-bangala/80 hover:bg-bangala/5 rounded-lg transition-all duration-200 font-medium">
+                                <i class="fas fa-edit text-sm"></i>
                                 Ubah Tanda Tangan
                             </button>
                         </div>
@@ -88,30 +167,36 @@
 
                     <!-- Signature Pad (Hidden by default) -->
                     <div id="signature-pad-container" class="hidden">
-                        <div class="mb-5">
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Gambar tanda tangan Anda di area
-                                berikut:
-                            </p>
-                            <div class="border-2 border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white">
-                                <canvas id="signature-pad" class="w-full aspect-square bg-white"></canvas>
-                            </div>
+                        <div class="text-center mb-6">
+                            <h3 class="text-lg font-medium text-gray-800 dark:text-white mb-2">Buat Tanda Tangan</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Gambar tanda tangan Anda pada area kotak di
+                                bawah ini</p>
                         </div>
-                        <div class="flex flex-wrap gap-3">
+
+                        <div class="signature-canvas-container mb-6">
+                            <canvas id="signature-pad" class="signature-canvas"></canvas>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
                             <button onclick="clearSignature()"
-                                class="px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-                                <i class="fas fa-eraser mr-2"></i>Hapus
+                                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-eraser text-sm"></i>
+                                Hapus
                             </button>
                             <button onclick="saveSignature()"
-                                class="px-4 py-2.5 bg-bangala hover:bg-bangala/90 text-white rounded-lg flex-1 focus:outline-none focus:ring-2 focus:ring-bangala focus:ring-offset-2 transition-colors">
-                                <i class="fas fa-save mr-2"></i>Simpan Tanda Tangan
+                                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-bangala hover:bg-bangala/90 text-white rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md">
+                                <i class="fas fa-save text-sm"></i>
+                                Simpan Tanda Tangan
                             </button>
                             <button onclick="cancelSignature()"
-                                class="px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-times text-sm"></i>
                                 Batal
                             </button>
                         </div>
                     </div>
                 </div>
+
                 <!-- Personal Information Card -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
@@ -289,6 +374,7 @@
             }
         }
 
+        // Enhanced Signature Pad Functions dengan ukuran canvas yang lebih lebar
         let signaturePad = null;
 
         function showSignaturePad() {
@@ -298,35 +384,71 @@
             if (!signaturePad) {
                 const canvas = document.getElementById('signature-pad');
                 signaturePad = new SignaturePad(canvas, {
-                    backgroundColor: 'rgba(255, 255, 255, 0)',
-                    penColor: 'rgb(0, 0, 0)'
+                    backgroundColor: 'rgba(255, 255, 255, 1)',
+                    penColor: 'rgb(0, 0, 0)',
+                    velocityFilterWeight: 0.7,
+                    minWidth: 1,
+                    maxWidth: 2.5,
+                    throttle: 16,
+                    minPointDistance: 3,
                 });
 
-                // Adjust canvas size
+                // Set canvas size dengan ukuran yang lebih lebar
                 function resizeCanvas() {
                     const ratio = Math.max(window.devicePixelRatio || 1, 1);
-                    canvas.width = canvas.offsetWidth * ratio;
-                    canvas.height = canvas.offsetHeight * ratio;
-                    canvas.getContext("2d").scale(ratio, ratio);
-                    signaturePad.clear(); // otherwise isEmpty() might return incorrect value
+                    let canvasWidth, canvasHeight;
+
+                    // Responsive canvas sizing - lebih lebar untuk keleluasaan
+                    if (window.innerWidth <= 360) {
+                        canvasWidth = 280;
+                        canvasHeight = 220;
+                    } else if (window.innerWidth <= 640) {
+                        canvasWidth = 320; // Diperbesar dari 240px
+                        canvasHeight = 240;
+                    } else if (window.innerWidth <= 768) {
+                        canvasWidth = 350; // Ukuran tablet
+                        canvasHeight = 250;
+                    } else {
+                        canvasWidth = 400; // Ukuran desktop - lebih lebar
+                        canvasHeight = 280;
+                    }
+
+                    canvas.width = canvasWidth * ratio;
+                    canvas.height = canvasHeight * ratio;
+                    canvas.style.width = canvasWidth + 'px';
+                    canvas.style.height = canvasHeight + 'px';
+
+                    const context = canvas.getContext("2d");
+                    context.scale(ratio, ratio);
+
+                    // Clear and set white background
+                    context.fillStyle = 'white';
+                    context.fillRect(0, 0, canvasWidth, canvasHeight);
+
+                    if (signaturePad) {
+                        signaturePad.clear();
+                    }
                 }
 
+                // Event listener untuk responsive
                 window.addEventListener('resize', resizeCanvas);
                 resizeCanvas();
             }
         }
 
         function clearSignature() {
-            signaturePad.clear();
+            if (signaturePad) {
+                signaturePad.clear();
+            }
         }
 
         function saveSignature() {
-            if (signaturePad.isEmpty()) {
+            if (!signaturePad || signaturePad.isEmpty()) {
                 errorToast('Silakan buat tanda tangan terlebih dahulu.');
                 return;
             }
 
-            const dataURL = signaturePad.toDataURL();
+            const dataURL = signaturePad.toDataURL('image/png', 1.0);
             document.getElementById('signature-preview').src = dataURL;
             document.getElementById('existing-signature').classList.remove('hidden');
             document.getElementById('signature-pad-container').classList.add('hidden');
