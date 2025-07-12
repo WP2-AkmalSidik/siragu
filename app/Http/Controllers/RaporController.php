@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 
 class RaporController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('pages.admin.rapor.index');
+    }
+
+    public function kepsek()
+    {
+        return view('pages.guru.rapor.index');
+
     }
 
     public function rapor(Request $request, string $guru_id, string $semester, string $tahun_ajaran)

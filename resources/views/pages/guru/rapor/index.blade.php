@@ -1,20 +1,20 @@
-@extends('layouts.admin')
-@section('title', 'Penilaian Guru')
-@section('description', 'Form Penilaian Kinerja Guru')
+@extends('layouts.guru')
+@section('title', 'Rapor Guru')
+@section('description', 'Rapor Guru')
 @section('content')
-    <div class="max-w-6xl mx-auto space-y-6">
+    <div class="max-w-6xl mx-auto space-y-6 p-4">
 
         <!-- Teacher Search & Info Card -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-            <!-- Compact Search Bar -->
+            <!-- Responsive Search Bar -->
             <div class="relative">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="flex-1 relative">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:gap-3 gap-3 mb-4">
+                    <div class="w-full">
                         <select id="guru"
                             class="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
                         </select>
                     </div>
-                    <div class="flex-1 relative">
+                    <div class="w-full">
                         <select id="tahun_ajaran"
                             class="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
                             @foreach (tahunAjaranTerakhir() as $tahun)
@@ -22,16 +22,16 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="flex-1 relative">
+                    <div class="w-full">
                         <select id="semester"
                             class="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
                             <option value="ganjil" @if (semesterSekarang() == 'ganjil') selected @endif>Ganjil</option>
                             <option value="genap" @if (semesterSekarang() == 'genap') selected @endif>Genap</option>
                         </select>
                     </div>
-                    <div class="flex-1 relative">
+                    <div class="w-full sm:w-auto">
                         <button id="generate-pdf"
-                            class="text-sm bg-bangala text-white px-3 py-1 rounded-lg hover:bg-bangala/90 transition flex items-center">
+                            class="w-full sm:w-auto text-sm bg-bangala text-white px-3 py-2 rounded-lg hover:bg-bangala/90 transition flex items-center justify-center">
                             <i class="fas fa-file-export mr-2"></i> Unduh
                         </button>
                     </div>
@@ -40,11 +40,10 @@
 
             <!-- Minimalist Teacher Info -->
             <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 transition-all duration-300" id="teacher-info">
-                <div class="flex items-start gap-4">
-
+                <div class="flex flex-col sm:flex-row sm:items-start gap-4">
                     <!-- Teacher Details -->
                     <div class="flex-1 min-w-0">
-                        <div class="mt-1.5 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                        <div class="mt-1.5 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm">
                             <div class="truncate">
                                 <span class="text-gray-500 dark:text-gray-400">Nama :</span>
                                 <span class="font-medium text-gray-700 dark:text-gray-300 ml-1 truncate"
@@ -152,7 +151,7 @@
                 const tahunAjar = tahun_ajaran.replace(/\//g, '-');
 
                 $.ajax({
-                    url: `/admin/rapor/${guru}/${semester}/${tahunAjar}`,
+                    url: `/guru/rapor/${guru}/${semester}/${tahunAjar}`,
                     type: 'GET',
                     success: function(res) {
                         $('#data-form').html(res.data.view);
@@ -163,7 +162,7 @@
                 });
             }
 
-            loadSelectOptions('#guru', '{{ route('admin.guru.index') }}');
+            loadSelectOptions('#guru', '{{ route('guru.guru.index') }}');
 
             $(document).on('click', '#generate-pdf', function(e) {
                 e.preventDefault();
@@ -179,7 +178,7 @@
                     return;
                 }
 
-                const url = `/admin/rapor/${semester}/${tahunAjar}/${id}/pdf`;
+                const url = `/guru/rapor/${semester}/${tahunAjar}/${id}/pdf`;
 
                 // Arahkan browser ke URL (download atau tampilkan PDF)
                 window.open(url, '_blank');
