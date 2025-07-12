@@ -47,8 +47,12 @@ class PenilaianController extends Controller
             $allNilai = $query->get();
 
             // Kelompokkan berdasarkan target+form
+// Kelompokkan berdasarkan target+form+semester+tahun ajaran
             $grouped = $allNilai->groupBy(function ($item) {
-                return $item->target_id . '-' . $item->penilaian->form_id;
+                return $item->target_id
+                . '-' . $item->penilaian->form_id
+                . '-' . $item->semester
+                . '-' . $item->tahun_ajaran;
             });
 
             // Bentuk koleksi data siap dipakai

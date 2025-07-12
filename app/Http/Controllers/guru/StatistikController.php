@@ -50,11 +50,23 @@ class StatistikController extends Controller
                 foreach ($groupedBySemesterTahun as $key => $items) {
                     [$smt, $ta] = explode('|', $key);
 
+                    // Hitung nilai tertimbang per item
                     $items->each(function ($nilai) {
                         $this->hitungNilaiTertimbang($nilai, $nilai->penilaian->form->tipe);
                     });
 
-                    $avg = round($items->avg('nilai_tertimbang'), 2);
+                    // Kelompokkan per form
+                    $groupedByForm = $items->groupBy(function ($item) {
+                        return $item->penilaian->form_id;
+                    });
+
+                    // Hitung rata-rata per form
+                    $formAverages = $groupedByForm->map(function ($itemsPerForm) {
+                        return $itemsPerForm->avg('nilai_tertimbang');
+                    });
+
+                    // Hitung rata-rata dari semua form
+                    $avg = round($formAverages->avg(), 2);
 
                     $labels[] = 'Sem ' . ucfirst($smt) . ' ' . substr($ta, 2, 2) . '/' . substr($ta, 7, 2);
                     $values[] = $avg;

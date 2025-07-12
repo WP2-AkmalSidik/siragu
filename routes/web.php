@@ -71,6 +71,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+        Route::get('/dashboard/{semester}/{tahun_ajaran}', [App\Http\Controllers\DashboardController::class, 'statistik'])->name('dashboard.statistik');
+
         Route::get('/icons/fontawesome', [\App\Http\Controllers\IconController::class, 'index'])->name('icons.index');
 
         Route::resource('/guru', App\Http\Controllers\GuruController::class)->names('guru');
@@ -145,6 +147,15 @@ Route::prefix('guru')->name('guru.')->middleware(['auth', 'role:guru'])->group(f
     Route::get('/', [App\Http\Controllers\Guru\DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/rapor/{semester}/{tahun_ajaran}', [App\Http\Controllers\Guru\DashboardController::class, 'rapor'])->name('dashboard.rapor');
     Route::get('/rapor/{semester}/{tahun_ajaran}/pdf', [App\Http\Controllers\Guru\DashboardController::class, 'generateRaporPdf'])->name('dashboard.rapor.pdf');
+    Route::get('/dashboard/{semester}/{tahun_ajaran}', [App\Http\Controllers\DashboardController::class, 'statistik'])->name('dashboard.statistik');
+
+    Route::middleware('jabatan:kepala_sekolah, wakasek')->group(function () {
+        Route::get('/guru', [App\Http\Controllers\GuruController::class, 'index'])->name('guru.index');
+    Route::get('/guru/{id}', [App\Http\Controllers\GuruController::class, 'show'])->name('guru.show');
+        Route::get('/rapor', [App\Http\Controllers\RaporController::class, 'kepsek'])->name('rapor.kepsek');
+        Route::get('/rapor/{guru_id}/{semester}/{tahun_ajaran}', [App\Http\Controllers\RaporController::class, 'rapor'])->name('rapor.guru');
+        Route::get('/rapor/{semester}/{tahun_ajaran}/{id}/pdf', [App\Http\Controllers\RaporController::class, 'generateRaporPdf'])->name('rapor.pdf');
+    });
 
     Route::resource('/penilaian', App\Http\Controllers\Guru\PenilaianController::class)->names('penilaian');
     Route::get('/penilaian/{tahun}/{semester}/{form}/{id}/edit', [App\Http\Controllers\Guru\PenilaianController::class, 'edit'])->name('penilaian.edit.nilai');

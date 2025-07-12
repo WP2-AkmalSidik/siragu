@@ -181,6 +181,157 @@ class DashboardController extends Controller
         }
     }
 
+    public function statistik(Request $request, string $semester, string $tahun_ajaran)
+    {
+        if ($request->ajax()) {
+            try {
+                if (! in_array($semester, ['ganjil', 'genap'])) {
+                    throw new \Exception('Semester harus ganjil atau genap');
+                }
+
+                $formattedTahunAjaran = str_replace('-', '/', $tahun_ajaran);
+
+                // Ambil semua penilaian untuk menghitung tren sekolah
+                $allNilaiSekolah = Nilai::with(['penilaian.form.tipe', 'target'])
+                    ->get()
+                    ->each(function ($nilai) {
+                        $this->hitungNilaiTertimbang($nilai, $nilai->penilaian->form->tipe);
+                    });
+
+                // Hitung total nilai tertimbang dan jumlah penilaian per semester
+                $groupedBySemester = $allNilaiSekolah->groupBy(function ($item) {
+                    return $item->semester . '|' . $item->tahun_ajaran;
+                });
+
+                $labels = [];
+                $values = [];
+
+                foreach ($groupedBySemester as $key => $items) {
+                    [$smt, $ta] = explode('|', $key);
+
+                    // Step 1: Kelompokkan per target dan per form
+                    $groupedByTargetAndForm = $items->groupBy(function ($item) {
+                        return $item->target_id . '|' . $item->penilaian->form_id;
+                    });
+
+                    // Step 2: Hitung rata-rata tiap form
+                    $avgPerFormPerTarget = $groupedByTargetAndForm->map(function ($items) {
+                        return $items->avg('nilai_tertimbang');
+                    });
+
+                    // Step 3: Hitung rata-rata per target (rata-rata semua form)
+                    $groupedByTarget = $avgPerFormPerTarget->groupBy(function ($_, $key) {
+                        return explode('|', $key)[0]; // target_id
+                    });
+
+                    $avgPerTarget = $groupedByTarget->map(function ($formAverages) {
+                        return collect($formAverages)->avg();
+                    });
+
+                    // Step 4: Hitung rata-rata seluruh target
+                    $finalAverage = $avgPerTarget->avg();
+
+                    // dd($finalAverage, $avgPerFormPerTarget, $avgPerTarget);
+                    $labels[] = 'Sem ' . ucfirst($smt) . ' ' . substr($ta, 2, 2) . '/' . substr($ta, 7, 2);
+                    $values[] = round($finalAverage, 2);
+                }
+
+                // Ambil penilaian yang diberikan oleh user yang login
+                $nilaiUser = Nilai::with([
+                    'penilaian.form.tipe',
+                    'target.jabatans.jabatan',
+                    'pengisi',
+                ])
+                    ->where('semester', $semester)
+                    ->where('tahun_ajaran', $formattedTahunAjaran)
+                    ->get()
+                    ->each(function ($nilai) {
+                        $this->hitungNilaiTertimbang($nilai, $nilai->penilaian->form->tipe);
+                    });
+
+                if ($nilaiUser->isEmpty()) {
+                    return $this->successResponse([
+                        'view' => '<div class="text-center py-4 text-gray-500">Data penilaian tidak ditemukan</div>',
+                    ], 'Data tidak ditemukan');
+                }
+
+                // Kelompokkan berdasarkan target (guru yang dinilai)
+                $groupedByTarget = $nilaiUser->groupBy('target_id');
+
+                $targetData = $groupedByTarget->map(function ($items, $targetId) {
+                    // Step 1: Group by form
+                    $groupedByForm = $items->groupBy('penilaian.form_id');
+
+                    // Step 2: For each form, compute average per pengisi
+                    $formAverages = $groupedByForm->map(function ($formItems) {
+                        // Group by pengisi
+                        $groupedByPengisi = $formItems->groupBy('pengisi_id');
+
+                        // Average per pengisi
+                        $avgPerPengisi = $groupedByPengisi->map(function ($pengisiItems) {
+                            return $pengisiItems->avg('nilai_tertimbang');
+                        });
+
+                        // Average of averages per form
+                        return $avgPerPengisi->avg();
+                    });
+
+                    // Step 3: Average all form averages for this target
+                    $finalAverage = $formAverages->avg();
+
+                    return (object) [
+                        'target_id'       => $targetId,
+                        'target_nama'     => $items->first()->target->nama ?? 'Unknown',
+                        'target_jabatan'  => $items->first()->target->jabatans->first()->jabatan->nama ?? '-',
+                        'rata_nilai'      => round($finalAverage, 2),
+                        'total_penilaian' => $items->count(),
+                    ];
+                })->sortByDesc('rata_nilai')->values();
+
+                // Ambil 3 terbaik dan 3 terburuk
+                $top3    = $targetData->take(3);
+                $bottom3 = $targetData->slice(-3)->reverse()->values();
+
+                // Data untuk chart per target
+                $chartTargetLabels = $targetData->pluck('target_nama')->toArray();
+                $chartTargetValues = $targetData->pluck('rata_nilai')->toArray();
+                $rataNilaiArray    = $targetData->pluck('rata_nilai')->toArray();
+                $jumlahTargetData  = count($rataNilaiArray);
+                $total             = array_sum($rataNilaiArray);
+                $overall_average   = $total / $jumlahTargetData;
+
+                $data = [
+                    'overall_average'    => round($overall_average, 2),
+                    'highest_score'      => $targetData->max('rata_nilai'),
+                    'lowest_score'       => $targetData->min('rata_nilai'),
+                    'excellent_teachers' => $targetData->where('rata_nilai', '>=', 85)->count(),
+                    'top3'               => $top3,
+                    'bottom3'            => $bottom3,
+                    'semester'           => ucfirst($semester),
+                    'tahun_ajaran'       => $tahun_ajaran,
+                    'pengisi_nama'       => auth()->user()->nama,
+                    'target_data'        => $targetData,
+                ];
+
+                return $this->successResponse([
+                    'view'         => view('pages.admin.dashboard.data', $data)->render(),
+                    'data'         => $data,
+                    'chart'        => [
+                        'labels' => $labels,
+                        'values' => $values,
+                    ],
+                    'chart_target' => [
+                        'labels' => $chartTargetLabels,
+                        'values' => $chartTargetValues,
+                    ],
+                ], 'Data berhasil ditemukan');
+
+            } catch (\Exception $e) {
+                return $this->errorResponse($e->getMessage(), 400);
+            }
+        }
+    }
+
     protected function hitungNilaiTertimbang($nilai, $tipe)
     {
         if (empty($nilai->nilai)) {
@@ -206,4 +357,5 @@ class DashboardController extends Controller
                 $nilai->nilai_tertimbang_formatted = number_format($nilaiNumerik);
         }
     }
+
 }

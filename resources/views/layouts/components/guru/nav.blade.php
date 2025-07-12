@@ -6,16 +6,25 @@
                 <i class="fas fa-home"></i>
                 <span class="text-xs mt-1">Beranda</span>
             </a>
-            <a href="{{ route('guru.statistik') }}"
-                class="flex flex-col items-center text-gray-400 {{ request()->is('guru/statistik*') ? 'text-bangala' : 'hover:text-bangala' }}">
-                <i class="fas fa-chart-line text-sm sm:text-base"></i>
-                <span class="text-xs mt-1">Statistik</span>
-            </a>
             <a href="{{ route('guru.penilaian.index') }}"
                 class="flex flex-col items-center text-gray-400 {{ request()->is('guru/penilaian*') ? 'text-bangala' : 'hover:text-bangala' }}">
                 <i class="fas fa-chart-line text-sm sm:text-base"></i>
                 <span class="text-xs mt-1">Penilaian</span>
             </a>
+            @if (auth()->user()->jabatans->contains(fn($j) => $j->jabatan->jabatan == 'kepala_sekolah') ||
+                    auth()->user()->jabatans->contains(fn($j) => $j->jabatan->jabatan == 'wakasek'))
+                <a href="{{ route('guru.rapor.kepsek') }}"
+                    class="flex flex-col items-center text-gray-400 {{ request()->is('guru/rapor*') ? 'text-bangala' : 'hover:text-bangala' }}">
+                    <i class="fas fa-file-alt text-sm sm:text-base"></i>
+                    <span class="text-xs mt-1">Rapor</span>
+                </a>
+            @else
+                <a href="{{ route('guru.statistik') }}"
+                    class="flex flex-col items-center text-gray-400 {{ request()->is('guru/statistik*') ? 'text-bangala' : 'hover:text-bangala' }}">
+                    <i class="fas fa-chart-line text-sm sm:text-base"></i>
+                    <span class="text-xs mt-1">Statistik</span>
+                </a>
+            @endif
             <a href="{{ route('guru.profile') }}"
                 class="flex flex-col items-center text-gray-400 {{ request()->is('guru/profil*') ? 'text-bangala' : 'hover:text-bangala' }}">
                 <i class="fas fa-user"></i>

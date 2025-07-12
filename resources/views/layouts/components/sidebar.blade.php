@@ -66,6 +66,7 @@
                 class="fas fa-file-alt w-5 {{ request()->is('admin/rapor*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Rapor</span>
         </a>
+
         <!-- Menu Template Formulir -->
         <a href="{{ route('admin.formulir.index') }}"
             class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/formulir*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">

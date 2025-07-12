@@ -90,16 +90,7 @@
                                 pointRadius: 4,
                                 pointHoverRadius: 6
                             },
-                            {
-                                label: 'Rata-rata Keseluruhan',
-                                data: Array(labels.length).fill(overallAverage),
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                backgroundColor: 'transparent',
-                                borderWidth: 2,
-                                pointRadius: 0,
-                                fill: false,
-                                borderDash: [5, 5]
-                            }
+                            
                         ]
                     },
                     options: {
@@ -141,7 +132,7 @@
                                 }
                             },
                             y: {
-                                min: 70,
+                                min: 0,
                                 max: 100,
                                 grid: {
                                     color: 'rgba(107, 114, 128, 0.1)'
