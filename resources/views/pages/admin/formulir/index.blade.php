@@ -119,8 +119,9 @@
                 // Fill basic form data
                 document.getElementById('formName').value = formData.nama || '';
                 document.getElementById('formDescription').value = formData.keterangan || '';
-                document.getElementById('self').value = formData.self || '';
-                console.log(formData)
+                document.getElementById('self').value = String(formData.self);
+
+                console.log(formData.self)
 
                 // Load tipe penilaian options
                 await loadSelectOptions('#tipe-penilaian', '{{ route('admin.tipe-penilaian.index') }}', formData
