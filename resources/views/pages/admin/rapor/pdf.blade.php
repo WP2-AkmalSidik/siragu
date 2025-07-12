@@ -73,7 +73,7 @@
         }
 
         .signature {
-            margin-left: 60%;
+            margin-left: 80%;
         }
 
         .criteria {
@@ -201,10 +201,9 @@
     </table>
 
     <div class="signature">
-        <p>{{ getKepsek()->nama }}</p>
-        <img src="{{ generateBase64Image(public_path('storage/' . getKepsek()->ttd)) }}"
-            style="width: auto; height: 75px;">
         <p>Rajapolah, .....................</p>
+        <p>{{ getKepsek()->nama }}</p>
+        <p>Kepala Sekolah</p>
     </div>
 
     <div class="predikat-box">
