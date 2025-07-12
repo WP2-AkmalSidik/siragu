@@ -2,10 +2,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 
 class RaporController extends Controller
 {
+    public function index(){
+        return view('pages.admin.rapor.index');
+    }
+
     public function rapor(Request $request, string $guru_id, string $semester, string $tahun_ajaran)
     {
         if ($request->ajax()) {
@@ -105,6 +111,92 @@ class RaporController extends Controller
             default:
                 $nilai->nilai_tertimbang           = $nilaiNumerik;
                 $nilai->nilai_tertimbang_formatted = number_format($nilaiNumerik);
+        }
+    }
+
+    public function generateRaporPdf(string $semester, string $tahun_ajaran, string $id)
+    {
+        try {
+            // Validasi parameter input
+            if (! in_array($semester, ['ganjil', 'genap'])) {
+                throw new \Exception('Semester harus ganjil atau genap');
+            }
+
+            // Format tahun ajaran
+            $formattedTahunAjaran = str_replace('-', '/', $tahun_ajaran);
+
+            // Query data nilai
+            $query = Nilai::with([
+                'penilaian.form.tipe',
+                'target.jabatans.jabatan',
+                'pengisi',
+            ])
+                ->where('target_id', $id)
+                ->where('semester', $semester)
+                ->where('tahun_ajaran', $formattedTahunAjaran);
+
+            $allNilai = $query->get();
+
+            if ($allNilai->isEmpty()) {
+                return response()->json(['error' => 'Data penilaian tidak ditemukan'], 404);
+            }
+
+            // Proses pengelompokan dan perhitungan
+            $grouped = $allNilai->groupBy(function ($item) {
+                return $item->target_id . '-' . $item->penilaian->form_id;
+            });
+
+            $result = $grouped->map(function ($items, $key) {
+                $first = $items->first();
+
+                // Hitung skor tertimbang
+                $items->each(function ($nilai) {
+                    $this->hitungNilaiTertimbang($nilai, $nilai->penilaian->form->tipe);
+                });
+
+                $totalPenilaian    = $items->count();
+                $totalSkorMaksimum = $totalPenilaian * 100;
+
+                return (object) [
+                    'form_id'             => $first->penilaian->form->id,
+                    'form_nama'           => $first->penilaian->form->nama,
+                    'keterangan'          => $first->penilaian->form->keterangan ?? '-',
+                    'rata_nilai'          => round($items->avg('nilai_tertimbang'), 2),
+                    'total_penilaian'     => $totalPenilaian,
+                    'total_skor_maksimum' => $totalSkorMaksimum,
+                    'tahun_ajaran'        => $first->tahun_ajaran ?? '-',
+                    'semester'            => ucfirst($first->semester) ?? '-',
+                ];
+            })->values();
+
+            // Konfigurasi Dompdf
+            $options = new Options();
+            $options->set('isRemoteEnabled', true);
+            $options->set('defaultFont', 'Arial');
+
+            $dompdf = new Dompdf($options);
+
+            // Render view ke HTML
+            $html = view('pages.admin.rapor.pdf', [
+                'result'       => $result,
+                'semester'     => ucfirst($semester),
+                'tahun_ajaran' => $tahun_ajaran,
+                'guru_nama'    => $allNilai->first()->target->nama ?? 'Unknown',
+            ])->render();
+
+            // Load HTML ke Dompdf
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            // Generate nama file
+            $filename = 'rapor_' . auth()->user()->nama . '_' . $semester . '_' . $tahun_ajaran . '.pdf';
+
+            // Stream file ke browser
+            return $dompdf->stream($filename);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
         }
     }
 }

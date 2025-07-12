@@ -11,12 +11,13 @@
         <div
             class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all duration-200">
             <div class="flex items-center space-x-3 mb-4">
-                <div
+                {{-- <div
                     class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl flex items-center justify-center">
                     <i class="fas fa-clock text-lg"></i>
-                </div>
+                </div> --}}
                 <div>
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $form->form_nama }}</h3>
+                    <p class="text-xs text-gray-900 dark:text-white">{{ $form->keterangan }}</p>
                 </div>
             </div>
 
