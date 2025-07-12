@@ -13,18 +13,14 @@ class GuestMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        if (Auth::check()) {
-            $user = Auth::user();
+        $guards = empty($guards) ? [null] : $guards;
 
-            switch ($user->role) {
-                case 'admin':
-                    return redirect('/admin');
-                case 'guru':
-                    return redirect('/guru');
-                default:
-                    return redirect('/guru');
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                $role = auth()->user()->role;
+                return redirect($role);
             }
         }
 

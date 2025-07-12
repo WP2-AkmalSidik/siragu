@@ -13,7 +13,6 @@
                         <select id="guru"
                             class="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-bangala focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm">
                         </select>
-                        {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i> --}}
                     </div>
                     <div class="flex-1 relative">
                         <select id="tahun_ajaran"
@@ -22,7 +21,6 @@
                                 <option value="{{ $tahun }}">{{ $tahun }}</option>
                             @endforeach
                         </select>
-                        {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i> --}}
                     </div>
                     <div class="flex-1 relative">
                         <select id="semester"
@@ -30,7 +28,12 @@
                             <option value="ganjil" @if (semesterSekarang() == 'ganjil') selected @endif>Ganjil</option>
                             <option value="genap" @if (semesterSekarang() == 'genap') selected @endif>Genap</option>
                         </select>
-                        {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i> --}}
+                    </div>
+                    <div class="flex-1 relative">
+                        <button id="generate-pdf"
+                            class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
+                            Tambah
+                        </button>
                     </div>
                 </div>
             </div>
@@ -160,8 +163,28 @@
                 });
             }
 
-
             loadSelectOptions('#guru', '{{ route('admin.guru.index') }}');
+
+            $(document).on('click', '#generate-pdf', function(e) {
+                e.preventDefault();
+
+                const semester = $('#semester').val();
+                const tahun_ajaran = $('#tahun_ajaran').val();
+                const id = $('#guru').val();
+
+                const tahunAjar = tahun_ajaran.replace(/\//g, '-');
+
+                if (!semester || !tahunAjar || !id) {
+                    alert('Semester, Tahun Ajaran, dan Guru harus dipilih.');
+                    return;
+                }
+
+                const url = `/admin/rapor/${semester}/${tahunAjar}/${id}/pdf`;
+
+                // Arahkan browser ke URL (download atau tampilkan PDF)
+                window.open(url, '_blank');
+            });
+
 
             $(document).on('change', '#guru', function(e) {
                 e.preventDefault();

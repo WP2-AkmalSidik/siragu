@@ -6,12 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('pages.admin.dashboard.index');
 });
-// Route::get('/guru', function () {
-//     return view('pages.admin.guru.index');
-// });
-Route::get('/rapor', function () {
-    return view('pages.admin.rapor.index');
-});
+
 Route::get('/penilaian', function () {
     return view('pages.admin.penilaian.index');
 });
@@ -64,7 +59,7 @@ Route::get('/thq', function () {
 });
 
 //untuk yang belum login
-Route::middleware(['guest'])->group(function () {
+Route::middleware(['notLogin'])->group(function () {
     Route::get('/', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
     Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.store');
 });
@@ -133,7 +128,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::put('/profil/password', [App\Http\Controllers\PenggunaController::class, 'updatePassword'])->name('profile.update.password');
         Route::put('/profil/profile', [App\Http\Controllers\PenggunaController::class, 'updateProfile'])->name('profile.update.profile');
 
+        Route::get('/rapor', [App\Http\Controllers\RaporController::class, 'index'])->name('rapor.index');
         Route::get('/rapor/{guru_id}/{semester}/{tahun_ajaran}', [App\Http\Controllers\RaporController::class, 'rapor'])->name('rapor.guru');
+        Route::get('/rapor/{semester}/{tahun_ajaran}/{id}/pdf', [App\Http\Controllers\RaporController::class, 'generateRaporPdf'])->name('dashboard.rapor.pdf');
 
         Route::resource('/tipe-penilaian', App\Http\Controllers\PenilaianTipeController::class)->names('tipe-penilaian');
         Route::resource('/opsi-penilaian', App\Http\Controllers\PenilaianOpsiController::class)->names('opsi-penilaian');
