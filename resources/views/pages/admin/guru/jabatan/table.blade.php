@@ -20,10 +20,10 @@
                             <td class="py-4 px-4 text-gray-500 dark:text-gray-300">{{ $jabatan->keterangan }}</td>
                             <td class="py-4 px-4">
                                 <div class="flex space-x-2">
-                                    {{-- <button onclick="openEditJabatanModal('{{ $jabatan->id }}')"
+                                    <button onclick="openEditJabatanModal('{{ $jabatan->id }}')"
                                         class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900 rounded-lg">
                                         <i class="fas fa-edit text-sm"></i>
-                                    </button> --}}
+                                    </button>
                                     <button
                                         class="delete-button-jabatan p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded-lg"
                                         data-jabatan='{{ $jabatan->jabatan }}'
