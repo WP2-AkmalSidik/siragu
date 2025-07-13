@@ -8,7 +8,7 @@
             </a>
             <a href="{{ route('guru.penilaian.index') }}"
                 class="flex flex-col items-center text-gray-400 {{ request()->is('guru/penilaian*') ? 'text-bangala' : 'hover:text-bangala' }}">
-                <i class="fas fa-chart-line text-sm sm:text-base"></i>
+                <i class="fas fa-clipboard-check text-sm sm:text-base"></i>
                 <span class="text-xs mt-1">Penilaian</span>
             </a>
             @if (auth()->user()->jabatans->contains(fn($j) => $j->jabatan->jabatan == 'kepala_sekolah') ||
