@@ -12,7 +12,7 @@
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                 <div class="relative">
                 </div>
-                <button id="button-tambah-tipe-penilaian" onclick="openModal('modal-data')"
+                <button onclick="openModal('modal-data')"
                     class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                     Tambah
                 </button>
@@ -36,7 +36,7 @@
                     <input type="text" placeholder="Cari data..." id="search"
                         class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-bangala">
                 </div>
-                <button id="button-tambah" onclick="openModalOpsi('modal-data-opsi')"
+                <button onclick="openModalOpsi('modal-data-opsi')"
                     class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                     Tambah
                 </button>
@@ -138,8 +138,8 @@
                 const url = '/admin/opsi-penilaian/' + id;
 
                 const successCallback = function(response) {
-                    const modal = document.getElementById('modal-data');
-                    modalOpened = 'modal-data';
+                    const modal = document.getElementById('modal-data-opti');
+                    modalOpened = 'modal-data-opsi';
                     const data = response.data
                     $('#modal-form-opsi').attr('data-id', id);
 
@@ -149,7 +149,7 @@
                     loadSelectOptions('#penilaian_tipe_id', '{{ route('admin.tipe-penilaian.index') }}', data
                         .penilaian_tipe_id);
 
-                    $('#modal-title').text('Edit Opsi Penilaian');
+                    $('#modal-title-opsi').text('Edit Opsi Penilaian');
                 };
 
                 const errorCallback = function(error) {
@@ -163,7 +163,7 @@
                 $('#value').val('');
 
                 loadSelectOptions('#penilaian_tipe_id', '{{ route('admin.tipe-penilaian.index') }}');
-                $('#modal-title').text('Tambah Tipe Penilaian');
+                $('#modal-title-opsi').text('Tambah Opsi Penilaian');
             }
             modalOpened = modalId;
             modal.classList.remove('hidden');
@@ -275,17 +275,6 @@
 
                 loadData(page, currentQuery);
             });
-
-            $(document).on('click', '#button-tambah', function(e) {
-                e.preventDefault();
-                openModal("modal-data");
-            })
-
-            $(document).on('click', '#button-tambah-jabatan', function(e) {
-                e.preventDefault();
-                console.log('button-tambah-jabatan', 'open tambah jabatan')
-                openModal("modal-data-jabatan");
-            })
 
             $(document).on('submit', '#modal-form', function(e) {
                 e.preventDefault();
