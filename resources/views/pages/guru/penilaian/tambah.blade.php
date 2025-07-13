@@ -10,10 +10,10 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 30;
+            z-index: 20;
             backdrop-filter: blur(8px);
             /* background-color: rgba(17, 24, 39, 0.8);
-                    background-image: linear-gradient(to right, #913013, #f59e0b); */
+                        background-image: linear-gradient(to right, #913013, #f59e0b); */
         }
 
         .sticky-bottom {
@@ -21,7 +21,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            z-index: 30;
+            z-index: 20;
             backdrop-filter: blur(8px);
             background-image: linear-gradient(to right, #913013, #f59e0b);
         }
@@ -236,41 +236,40 @@
 
             <!-- Form Penilaian -->
             <div class="space-y-6" id="form-penilaian"></div>
-
-            <!-- Wizard Navigation -->
+            <!-- Wizard Navigation - Compact Version -->
             <div
-                class="wizard-nav-container bg-gradient-to-br from-bangala via-red-900 to-goldspel rounded-2xl p-6 text-white shadow-xl">
-                <div class="wizard-nav">
+                class="wizard-nav-container bg-gradient-to-br from-bangala via-red-900 to-goldspel rounded-xl p-4 text-white shadow-lg">
+                <div class="wizard-nav flex justify-between items-center">
                     <button type="button" id="prev-btn"
-                        class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors hidden">
-                        <i class="fas fa-arrow-left mr-2"></i> Sebelumnya
+                        class="px-3 py-1.5 text-sm bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors hidden">
+                        <i class="fas fa-arrow-left mr-1"></i> Sebelumnya
                     </button>
                     <button type="button" id="next-btn"
-                        class="px-4 py-2 bg-gradient-to-r from-bangala to-goldspel text-white rounded-lg hover:shadow-lg transition-all">
-                        Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
+                        class="px-3 py-1.5 text-sm bg-gradient-to-r from-bangala to-goldspel text-white rounded-lg hover:shadow-md transition-all">
+                        Selanjutnya <i class="fas fa-arrow-right ml-1"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Summary Card -->
+            <!-- Summary Card - Compact Version -->
             <div id="summary-card"
-                class="bg-gradient-to-br from-bangala via-red-900 to-goldspel rounded-2xl p-6 text-white shadow-xl relative overflow-hidden animate-fade-in-up hidden mt-6 sticky bottom-0 z-20">
-                <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-8 translate-x-8"></div>
-                <div class="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full translate-y-16 -translate-x-16">
+                class="bg-gradient-to-br from-bangala via-red-900 to-goldspel rounded-xl p-4 text-white shadow-lg relative overflow-hidden animate-fade-in-up hidden mt-2 sticky bottom-0 z-20">
+                <div class="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -translate-y-4 translate-x-4"></div>
+                <div class="absolute bottom-0 left-0 w-20 h-20 bg-black/10 rounded-full translate-y-10 -translate-x-10">
                 </div>
                 <div class="relative">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
-                            <div class="flex items-center space-x-2 mb-2">
-                                <i class="fas fa-chart-pie text-goldspel"></i>
-                                <h3 class="text-lg font-bold">Ringkasan Penilaian</h3>
+                            <div class="flex items-center space-x-1 mb-1">
+                                <i class="fas fa-chart-pie text-goldspel text-sm"></i>
+                                <h3 class="text-base font-bold">Ringkasan Penilaian</h3>
                             </div>
-                            <p class="text-sm opacity-90 mb-3"><span id="answered-summary">0</span> dari <span
+                            <p class="text-xs opacity-90 mb-2"><span id="answered-summary">0</span> dari <span
                                     id="total-summary">0</span> aspek telah dinilai</p>
                         </div>
                         <div class="text-center">
-                            <div class="text-3xl font-bold mb-1" id="average-score">0</div>
-                            <div class="text-xs opacity-90 mb-2">Rata-rata skor</div>
+                            <div class="text-2xl font-bold mb-0.5" id="average-score">0</div>
+                            <div class="text-xs opacity-90">Rata-rata skor</div>
                         </div>
                     </div>
                 </div>
