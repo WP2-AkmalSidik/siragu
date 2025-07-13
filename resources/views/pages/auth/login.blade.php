@@ -10,6 +10,15 @@
     <title>SIRAGU - Login</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4">
@@ -19,14 +28,8 @@
             <!-- Logo & Title -->
             <div class="text-center mb-8">
                 <div class="inline-flex items-center justify-center w-20 h-20 mb-4 mx-auto">
-                    {{-- @if (file_exists(public_path('img/logo-yayasan.png'))) --}}
                     <img src="{{ Str::endsWith(getPengaturan()->logo, ['logo.png', 'logo.jpg', 'logo.jpeg']) ? asset(getPengaturan()->logo) : asset(getPengaturan()->logo) }}"
                         alt="SIRAGU Logo" class="w-full h-full object-contain">
-                    {{-- @else
-                        <div class="w-full h-full flex items-center justify-center bg-bangala rounded-full shadow-lg">
-                            <i class="fas fa-graduation-cap text-white text-3xl"></i>
-                        </div>
-                    @endif --}}
                 </div>
                 <h1 class="text-3xl font-bold text-bangala dark:text-goldspel mb-2">{{ getPengaturan()->nama_aplikasi }}
                 </h1>
@@ -82,10 +85,10 @@
                 </div>
 
                 <!-- Login Button -->
-                <button type="submit"
-                    class="w-full bg-bangala hover:bg-goldspel dark:bg-goldspel dark:hover:bg-bangala py-3 px-4 text-white font-semibold rounded-lg flex items-center justify-center space-x-2 transition-all duration-300 hover-shadow-bangala transform hover:-translate-y-1">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Masuk</span>
+                <button type="submit" id="login-button"
+                    class="w-full bg-bangala hover:bg-goldspel dark:bg-goldspel dark:hover:bg-bangala py-3 px-4 text-white font-semibold rounded-lg flex items-center justify-center space-x-2 transition-all duration-300 hover-shadow-bangala transform hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none">
+                    <i class="fas fa-sign-in-alt" id="login-icon"></i>
+                    <span id="login-text">Masuk</span>
                 </button>
             </form>
 
@@ -122,26 +125,42 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
-
             console.log('ready')
 
             $(document).on('submit', '#form-login', function(e) {
                 e.preventDefault();
 
+                // Disable the button and show loading state
+                const loginButton = $('#login-button');
+                const loginIcon = $('#login-icon');
+                const loginText = $('#login-text');
+                
+                loginButton.prop('disabled', true);
+                loginText.text('Memproses...');
+                loginIcon.removeClass('fa-sign-in-alt').addClass('fa-spinner animate-spin');
+
                 console.log('submit')
 
                 const url = '{{ route('login.store') }}';
-
                 const method = 'POST';
-
                 const data = new FormData(this);
 
                 const successCallback = function(response) {
+                    // Reset button state
+                    loginButton.prop('disabled', false);
+                    loginText.text('Masuk');
+                    loginIcon.removeClass('fa-spinner animate-spin').addClass('fa-sign-in-alt');
+                    
                     successToast(response, '/')
                     console.log(response)
                 }
 
                 const errorCallback = function(error) {
+                    // Reset button state
+                    loginButton.prop('disabled', false);
+                    loginText.text('Masuk');
+                    loginIcon.removeClass('fa-spinner animate-spin').addClass('fa-sign-in-alt');
+                    
                     errorToast(error)
                     console.log(error)
                 }
@@ -149,7 +168,6 @@
                 console.log(url, method, data, successCallback, errorCallback)
 
                 ajaxCall(url, method, data, successCallback, errorCallback);
-
             })
         })
     </script>

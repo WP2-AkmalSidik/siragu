@@ -46,11 +46,12 @@
 </div>
 
 <div id="formModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+        <!-- Header -->
         <div class="p-6 border-b border-gray-200 dark:border-gray-700">
             <div class="flex justify-between items-center">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Buat Formulir Penilaian</h3>
-                <button onclick="closeFormModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <button onclick="closeFormModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -187,13 +188,13 @@
         </div>
 
         <div class="p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-            <div class="flex justify-end space-x-3">
+            <div class="flex flex-col sm:flex-row justify-end gap-3">
                 <button type="button" onclick="closeFormModal()"
-                    class="px-6 py-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">
+                    class="px-8 py-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors flex-1 sm:flex-none">
                     Batal
                 </button>
                 <button type="button" onclick="saveForm()"
-                    class="px-6 py-2 bg-bangala hover:bg-bangala/90 text-white rounded-lg">
+                    class="px-8 py-3 bg-bangala hover:bg-bangala/90 text-white rounded-lg transition-colors flex-1 sm:flex-none">
                     Simpan Formulir
                 </button>
             </div>

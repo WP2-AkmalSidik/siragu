@@ -12,11 +12,11 @@
                 class="bg-gray-50 dark:bg-gray-700 rounded-lg p-5 mb-6 shadow-sm border border-gray-200 dark:border-gray-600">
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Informasi Penilaian</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
+                    <div class="min-w-0"> <!-- Added min-w-0 container -->
                         <label for="jabatan" class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Pilih
                             Jabatan</label>
                         <select id="jabatan" name="jabatan_id"
-                            class="block w-full px-4 py-2.5 text-base border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-2 focus:ring-bangala focus:border-bangala transition-all">
+                            class="block w-full px-4 py-2.5 text-base border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm focus:ring-2 focus:ring-bangala focus:border-bangala transition-all min-w-0">
                         </select>
                     </div>
 
@@ -72,7 +72,6 @@
         </form>
     </div>
 @endsection
-
 @push('scripts')
     <script>
         $(document).ready(function() {
@@ -245,11 +244,11 @@
                     return `
                         <div class="flex flex-wrap gap-3">
                             ${opsi.map(opt => `
-                                        <label class="flex items-center space-x-2 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 cursor-pointer transition-colors duration-200">
-                                            <input type="radio" name="penilaian[${id}]" value="${opt.value}" class="w-4 h-4 text-bangala bg-gray-100 border-gray-300 focus:ring-bangala dark:focus:ring-bangala dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">${opt.label}</span>
-                                        </label>
-                                    `).join('')}
+                                            <label class="flex items-center space-x-2 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 cursor-pointer transition-colors duration-200">
+                                                <input type="radio" name="penilaian[${id}]" value="${opt.value}" class="w-4 h-4 text-bangala bg-gray-100 border-gray-300 focus:ring-bangala dark:focus:ring-bangala dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">${opt.label}</span>
+                                            </label>
+                                        `).join('')}
                         </div>`;
 
                 case 'number':

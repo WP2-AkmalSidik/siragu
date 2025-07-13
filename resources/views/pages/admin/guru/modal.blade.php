@@ -39,10 +39,10 @@
                         <div>
                             <label for="jabatan_id"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Jabatan</label>
-                            <select type="jabatan_id" name="jabatan_id[]" id="jabatan_id"
+                            <select type="jabatan_id" name="jabatan_id[]" id="jabatan_id" multiple="multiple"
                                 class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                             </select>
-                            <small class="text-xs text-red-500 dark:text-red-400" id="erroremail"></small>
+                            <small class="text-xs text-red-500 dark:text-red-400" id="errorjabatan"></small>
                         </div>
                         <div>
                             <label

@@ -4,21 +4,22 @@
 @section('content')
     <!-- Search & Filter -->
     <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md">
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 space-y-4 md:space-y-0">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Pengisian</h3>
-            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                <div class="relative">
+            <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <div class="relative flex-1 min-w-[200px]">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     <input type="text" placeholder="Cari nama guru..." id="search"
-                        class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-bangala">
+                        class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-bangala">
                 </div>
-                <div class="relative">
-                    {{-- <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i> --}}
+                <div class="relative flex-1 min-w-[200px]">
                     <select id="search-form"
-                        class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-bangala"></select>
+                        class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-bangala">
+                        <option value="">Pilih Formulir</option>
+                    </select>
                 </div>
                 <a href="{{ route('admin.pengisi.create') }}"
-                    class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
+                    class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala whitespace-nowrap text-center">
                     Tambah
                 </a>
             </div>

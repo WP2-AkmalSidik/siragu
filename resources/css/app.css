@@ -530,13 +530,11 @@ html.dark .select2-results__option--loading {
     align-items: center !important;
     justify-content: center !important;
 }
-
-.select2-container--default
-    .select2-selection--multiple
-    .select2-selection__choice__remove:hover {
-    color: white !important;
-    background-color: rgba(239, 68, 68, 0.8) !important;
-    transform: scale(1.1) !important;
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: #dc2626 !important;
+    opacity: 1 !important;
+    transform: translateY(-50%) scale(2) !important; /* Increased from 1.1 to 1.3 */
+    text-shadow: 0 0 4px rgba(220, 38, 38, 0.3) !important; /* Subtle glow effect */
 }
 
 /* Multiple selection rendered area */
@@ -646,4 +644,58 @@ html.dark
     .select2-results__option {
         padding: 0.5rem 0.75rem !important;
     }
+}
+/* Improved Select2 Multiple Selection */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: rgb(59 130 246 / 0.1) !important;
+    color: rgb(59 130 246) !important;
+    border-radius: 0.375rem !important;
+    padding: 0.25rem 3rem 0.25rem 1rem !important; /* More left padding */
+    font-size: 0.875rem !important;
+    margin-right: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+    border: 1px solid rgb(59 130 246 / 0.2) !important;
+    line-height: 1.25 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    position: relative !important;
+    min-height: 1.75rem !important;
+}
+
+.dark .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: rgb(59 130 246 / 0.2) !important;
+    color: rgb(147 197 253) !important;
+    border-color: rgb(59 130 246 / 0.3) !important;
+}
+
+/* Red X button */
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #ef4444 !important; /* Red color */
+    position: absolute !important;
+    right: 0.5rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) scale(1) !important; /* Added base scale */
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+    background: none !important;
+    font-size: 0.875rem !important;
+    opacity: 0.8 !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important; /* Smoother transition */
+}
+
+/* Content alignment */
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+    padding-right: 0.5rem !important; /* Added right padding */
+    padding-left: 0.25rem !important; /* Added left padding */
+    max-width: calc(100% - 1.5rem) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: inline-block !important;
 }
