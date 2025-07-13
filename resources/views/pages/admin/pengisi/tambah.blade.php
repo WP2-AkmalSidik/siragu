@@ -72,23 +72,6 @@
         </form>
     </div>
 @endsection
-@push('styles')
-    <style>
-        /* Fix for Select2 dropdown positioning */
-        .select2-container {
-            width: 100% !important;
-            min-width: 0 !important;
-        }
-        .select2-dropdown {
-            min-width: 0 !important;
-            width: auto !important;
-        }
-        /* Prevent horizontal scrollbar */
-        html, body {
-            overflow-x: hidden;
-        }
-    </style>
-@endpush
 @push('scripts')
     <script>
         $(document).ready(function() {
