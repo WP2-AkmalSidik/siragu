@@ -77,7 +77,8 @@
                 class="fas fa-clipboard-list w-5 {{ request()->is('admin/form*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Template Formulir</span>
         </a>
-        <a href="{{ route('admin.icons.index') }}"
+
+        {{-- <a href="{{ route('admin.icons.index') }}"
             class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/icons*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">
             <div
                 class="absolute inset-0 bg-gradient-to-r from-goldspel/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
@@ -85,7 +86,7 @@
             <i
                 class="fas fa-icons w-5 {{ request()->is('admin/icons*') ? 'text-goldspel group-hover:text-white' : 'group-hover:text-bangala dark:group-hover:text-goldspel' }} transition-colors"></i>
             <span>Icons</span>
-        </a>
+        </a> --}}
 
         <a href="{{ route('admin.pengaturan.index') }}"
             class="group relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ request()->is('admin/pengaturan*') ? 'text-white bg-gradient-to-r from-bangala to-bangala/90 shadow-lg hover:shadow-bangala/30' : 'text-gray-700 dark:text-gray-300 hover:text-bangala dark:hover:text-goldspel hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:shadow-sm' }}">

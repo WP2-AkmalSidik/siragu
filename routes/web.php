@@ -1,62 +1,63 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-/* Admin */
-Route::get('/', function () {
-    return view('pages.admin.dashboard.index');
-});
+// /* Admin */
+// Route::get('/', function () {
+//     return view('pages.admin.dashboard.index');
+// });
 
-Route::get('/penilaian', function () {
-    return view('pages.admin.penilaian.index');
-});
-Route::get('/form', function () {
-    return view('pages.admin.formulir.index');
-});
-/* Guru */
-Route::get('/beranda', function () {
-    return view('pages.guru.beranda.index');
-});
-Route::get('/kesolehan', function () {
-    return view('pages.guru.formulir.kesolehan');
-});
-Route::get('/super-visi', function () {
-    return view('pages.guru.formulir.super-visi');
-});
-Route::get('/profile', function () {
-    return view('pages.guru.profil.index');
-});
+// Route::get('/penilaian', function () {
+//     return view('pages.admin.penilaian.index');
+// });
+// Route::get('/form', function () {
+//     return view('pages.admin.formulir.index');
+// });
+// /* Guru */
+// Route::get('/beranda', function () {
+//     return view('pages.guru.beranda.index');
+// });
+// Route::get('/kesolehan', function () {
+//     return view('pages.guru.formulir.kesolehan');
+// });
+// Route::get('/super-visi', function () {
+//     return view('pages.guru.formulir.super-visi');
+// });
+// Route::get('/profile', function () {
+//     return view('pages.guru.profil.index');
+// });
 
-/* wakasek */
-Route::get('/wakasek', function () {
-    return view('pages.wakasek.beranda.index');
-});
-Route::get('/wakasek-p1', function () {
-    return view('pages.wakasek.formulir.prestasi1');
-});
-Route::get('/wakasek-p2', function () {
-    return view('pages.wakasek.formulir.prestasi2');
-});
+// /* wakasek */
+// Route::get('/wakasek', function () {
+//     return view('pages.wakasek.beranda.index');
+// });
+// Route::get('/wakasek-p1', function () {
+//     return view('pages.wakasek.formulir.prestasi1');
+// });
+// Route::get('/wakasek-p2', function () {
+//     return view('pages.wakasek.formulir.prestasi2');
+// });
 
-Route::get('/kepsek', function () {
-    return view('pages.kepsek.beranda.index');
-});
-Route::get('/kepsek-pengisian', function () {
-    return view('pages.kepsek.formulir.index');
-});
-Route::get('/list-guru', function () {
-    return view('pages.kepsek.list-guru.index');
-});
+// Route::get('/kepsek', function () {
+//     return view('pages.kepsek.beranda.index');
+// });
+// Route::get('/kepsek-pengisian', function () {
+//     return view('pages.kepsek.formulir.index');
+// });
+// Route::get('/list-guru', function () {
+//     return view('pages.kepsek.list-guru.index');
+// });
 
-/* Statistik untuk selain admin*/
-Route::get('/statistik', function () {
-    return view('pages.statistik.index');
-});
+// /* Statistik untuk selain admin*/
+// Route::get('/statistik', function () {
+//     return view('pages.statistik.index');
+// });
 
-/* THQ */
-Route::get('/thq', function () {
-    return view('pages.thq.index');
-});
+// /* THQ */
+// Route::get('/thq', function () {
+//     return view('pages.thq.index');
+// });
 
 //untuk yang belum login
 Route::middleware(['notLogin'])->group(function () {
@@ -69,7 +70,7 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 //untuk yang sudah login
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/dashboard/{semester}/{tahun_ajaran}', [App\Http\Controllers\DashboardController::class, 'statistik'])->name('dashboard.statistik');
 
@@ -151,7 +152,7 @@ Route::prefix('guru')->name('guru.')->middleware(['auth', 'role:guru'])->group(f
 
     Route::middleware('jabatan:kepala_sekolah, wakasek')->group(function () {
         Route::get('/guru', [App\Http\Controllers\GuruController::class, 'index'])->name('guru.index');
-    Route::get('/guru/{id}', [App\Http\Controllers\GuruController::class, 'show'])->name('guru.show');
+        Route::get('/guru/{id}', [App\Http\Controllers\GuruController::class, 'show'])->name('guru.show');
         Route::get('/rapor', [App\Http\Controllers\RaporController::class, 'kepsek'])->name('rapor.kepsek');
         Route::get('/rapor/{guru_id}/{semester}/{tahun_ajaran}', [App\Http\Controllers\RaporController::class, 'rapor'])->name('rapor.guru');
         Route::get('/rapor/{semester}/{tahun_ajaran}/{id}/pdf', [App\Http\Controllers\RaporController::class, 'generateRaporPdf'])->name('rapor.pdf');
@@ -177,5 +178,3 @@ Route::prefix('guru')->name('guru.')->middleware(['auth', 'role:guru'])->group(f
     Route::get('/statistik', [App\Http\Controllers\Guru\StatistikController::class, 'index'])->name('statistik');
     Route::get('/statistik/{semester}/{tahun_ajaran}', [App\Http\Controllers\Guru\StatistikController::class, 'statistik'])->name('statistik.data');
 });
-
-/* Kepsek */

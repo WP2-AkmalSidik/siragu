@@ -57,6 +57,47 @@
         let isEdit = false;
 
         // Fungsi untuk menampilkan modal edit
+        function openEditJabatanModal(id) {
+            const url = '/admin/jabatan/' + id + '/edit';
+
+            const successCallback = function(response) {
+                const modal = document.getElementById('modal-data-jabatan');
+                modalOpened = 'modal-data-jabatan';
+                const data = response.data
+
+                console.log(response, data)
+
+                isEdit = true
+                $('#modal-form-jabatan').attr('data-id', id);
+
+                $('#jabatan').val(formatJabatan(data.jabatan));
+                $('#keterangan').val(data.keterangan);
+
+                console.log(data)
+
+                modal.classList.remove('hidden');
+                $('#modal-title-jabatan').text('Edit Jabatan');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const errorCallback = function(error) {
+                errorToast(error);
+                modalOpened = 'modal-data-jabatan';
+            };
+
+            ajaxCall(url, "GET", null, successCallback, errorCallback);
+        }
+
+        // Fungsi untuk menyembunyikan modal edit
+        function closeEditJabatanModal() {
+            const modal = document.getElementById('modal-data-jabatan');
+            isEdit = false
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            modalOpened = '';
+        }
+
+        // Fungsi untuk menampilkan modal edit
         function openEditModal(id) {
             const url = '/admin/guru/' + id + '/edit';
 
