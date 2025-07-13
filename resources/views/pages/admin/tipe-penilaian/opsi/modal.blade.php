@@ -6,7 +6,7 @@
         <div
             class="relative z-10 bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-lg transform transition-all">
             <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white" id="modal-title-opsi">Edit Data Guru</h3>
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white" id="modal-title-opsi">Tambah Opsi Penilaian</h3>
             </div>
             <div class="px-6 py-4">
                 <form id="modal-form-opsi">
@@ -22,14 +22,14 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama
                                 Label</label>
-                            <input type="text" name="label" placeholder="Nama Tipe Penilaian" id="label"
+                            <input type="text" name="label" placeholder="Label penilaian" id="label"
                                 class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                             <small class="text-xs text-red-500 dark:text-red-400" id="errorlabel"></small>
                         </div>
                         <div>
                             <label for="value"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai</label>
-                            <input type="text" name="value" placeholder="Nama Tipe Penilaian" id="value"
+                            <input type="text" name="value" placeholder="Nilai" id="value"
                                 class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-bangala">
                             <small class="text-xs text-red-500 dark:text-red-400" id="errorvalue"></small>
                         </div>

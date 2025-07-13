@@ -5,7 +5,6 @@ use App\Models\Jabatan;
 use App\Models\JabatanUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class JabatanController extends Controller
 {
@@ -63,23 +62,20 @@ class JabatanController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'nama'   => 'required',
-            'status' => 'required|in:1,0',
-            'nip'    => ['nullable', Rule::unique('users', 'nip')->ignore($id)],
-            'email'  => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
-            'no_hp'  => ['nullable', Rule::unique('users', 'no_hp')->ignore($id)],
+            'jabatan'    => 'required',
+            'keterangan' => 'nullable',
         ]);
 
         try {
+
+            $jabatan = Str::of($validated['jabatan'])->lower()->replace(' ', '_');
+
             Jabatan::find($id)->update([
-                'nip'    => $validated['nip'],
-                'nama'   => $validated['nama'],
-                'email'  => $validated['email'],
-                'no_hp'  => $validated['no_hp'],
-                'status' => $validated['status'],
+                'jabatan'    => $jabatan,
+                'keterangan' => $validated['keterangan'],
             ]);
 
-            return $this->successResponse(null, 'Guru berhasil diupdate.');
+            return $this->successResponse(null, 'Jabatan berhasil diupdate.');
         } catch (\Exception $e) {
             return $this->errorResponse(null, $e->getMessage());
         }
