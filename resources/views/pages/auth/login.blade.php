@@ -12,9 +12,15 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.1/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
+
         .animate-spin {
             animation: spin 1s linear infinite;
         }
@@ -48,7 +54,8 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="fas fa-envelope text-gray-400 dark:text-gray-500"></i>
                         </div>
-                        <input type="email" id="email" name="email" placeholder="guru@siragu.com"
+                        <input type="email" id="email" name="email"
+                            placeholder="{{ 'guru@' . Str::lower(getPengaturan()->nama_aplikasi) . '.com' }}"
                             class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-bangala dark:focus:ring-goldspel focus:border-bangala dark:focus:border-goldspel transition-all duration-300"
                             required>
                     </div>
@@ -134,7 +141,7 @@
                 const loginButton = $('#login-button');
                 const loginIcon = $('#login-icon');
                 const loginText = $('#login-text');
-                
+
                 loginButton.prop('disabled', true);
                 loginText.text('Memproses...');
                 loginIcon.removeClass('fa-sign-in-alt').addClass('fa-spinner animate-spin');
@@ -150,7 +157,7 @@
                     loginButton.prop('disabled', false);
                     loginText.text('Masuk');
                     loginIcon.removeClass('fa-spinner animate-spin').addClass('fa-sign-in-alt');
-                    
+
                     successToast(response, '/')
                     console.log(response)
                 }
@@ -160,7 +167,7 @@
                     loginButton.prop('disabled', false);
                     loginText.text('Masuk');
                     loginIcon.removeClass('fa-spinner animate-spin').addClass('fa-sign-in-alt');
-                    
+
                     errorToast(error)
                     console.log(error)
                 }
